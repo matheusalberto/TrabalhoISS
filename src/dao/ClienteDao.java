@@ -13,7 +13,7 @@ public class ClienteDao {
     public String salvar(Cliente cliente) {
         String retorno = null;
         try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
+            session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
 
             session.save(cliente);

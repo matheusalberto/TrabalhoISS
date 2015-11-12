@@ -36,7 +36,7 @@ public class FuncionarioDao {
 
             //Funcionario f = new Funcionario();
             //f.setLogin(funcionario.getLogin());
-            //f.setSenha(senha);
+            funcionario.setSenha(senha);
             //f.setNome(senha);
             session.save(funcionario);
             transaction.commit();

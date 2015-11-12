@@ -1,11 +1,14 @@
 package view;
 
 import controller.ClienteController;
+import dao.ClienteDao;
+import javax.swing.JOptionPane;
+import model.Cliente;
 
 public class CadastrarCliente extends javax.swing.JFrame {
 
     ClienteController controller = new ClienteController();
-    
+
     public CadastrarCliente() {
         initComponents();
         controller.desabilitarErros(txtNaoDigitouCpf, txtNaoDigitouNome, txtNaoDigitouEmail, txtItensObrigatorios);
@@ -211,15 +214,36 @@ public class CadastrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFemiActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        if(txtNome.getText().trim().isEmpty()){
+        if (txtNome.getText().trim().isEmpty()) {
             controller.habilitarErro(txtNaoDigitouNome, txtItensObrigatorios);
         }
-        if(txtCpf.getText().equals("   .   .   -  ")){
+        if (txtCpf.getText().equals("   .   .   -  ")) {
             controller.habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
         }
-        if(txtEmail.getText().trim().isEmpty()){
+        if (txtEmail.getText().trim().isEmpty()) {
             controller.habilitarErro(txtNaoDigitouEmail, txtItensObrigatorios);
         }
+
+        Cliente cliente = new Cliente();
+        cliente.setNome(txtNome.getText());
+        cliente.setEmail(txtEmail.getText());
+        cliente.setEndereco(txtEndereco.getText());
+        cliente.setTelefone(txtTelefone.getText());
+        if (btnMasc.isSelected()) {
+            cliente.setSexo('M');
+        } else {
+            cliente.setSexo('F');
+        }
+
+        ClienteDao clienteDao = new ClienteDao();
+        if (clienteDao.salvar(cliente).equals("SUCESSO")) {
+
+            JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+        }
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
