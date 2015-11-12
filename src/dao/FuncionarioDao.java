@@ -34,11 +34,11 @@ public class FuncionarioDao {
 
             String senha = GerarCriptografiaSenha.criptografaSenha(funcionario.getSenha());
 
-            Funcionario f = new Funcionario();
-            f.setLogin(funcionario.getLogin());
-            f.setSenha(senha);
-
-            session.save(f);
+            //Funcionario f = new Funcionario();
+            //f.setLogin(funcionario.getLogin());
+            //f.setSenha(senha);
+            //f.setNome(senha);
+            session.save(funcionario);
             transaction.commit();
             retorno = "SUCESSO";
         } catch (ConstraintViolationException e) {

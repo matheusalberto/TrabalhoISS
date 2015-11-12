@@ -103,7 +103,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroFuncionarioActionPerformed
-       
+        CadastrarFuncionario cadastrarFuncionario = new CadastrarFuncionario();
+        cadastrarFuncionario.setVisible(true);
     }//GEN-LAST:event_menuCadastroFuncionarioActionPerformed
 
     private void menuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroActionPerformed

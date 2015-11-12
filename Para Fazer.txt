@@ -5,7 +5,10 @@ Matheus:
 
 Thiago Moraes:
 - Dar a opção pro usuário apertar enter ao invés de ele ter que ser a obrigado a dar OK na tela de login
-
+- Criar o tipo de funcionario no model
+- Colocar as funções no controller e não na view(cadastrar funcionario)
+- Colocar uma data la na hora do cadastro ou tranformar o que está la em tipo Calendar
+- Pensar no nivel de acesso
 Thiago Lavezzo:
 
 João Pedro:
