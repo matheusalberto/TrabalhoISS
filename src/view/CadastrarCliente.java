@@ -214,10 +214,10 @@ public class CadastrarCliente extends javax.swing.JFrame {
         if(txtNome.getText().trim().isEmpty()){
             controller.habilitarErro(txtNaoDigitouNome, txtItensObrigatorios);
         }
-        if(txtCpf.equals("   .   .   -  ")){
+        if(txtCpf.getText().equals("   .   .   -  ")){
             controller.habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
         }
-        if(txtEmail.equals("(  )    -    ")){
+        if(txtEmail.getText().trim().isEmpty()){
             controller.habilitarErro(txtNaoDigitouEmail, txtItensObrigatorios);
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
