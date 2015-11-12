@@ -1,9 +1,14 @@
 package view;
 
+import controller.ClienteController;
+
 public class CadastrarCliente extends javax.swing.JFrame {
 
+    ClienteController controller = new ClienteController();
+    
     public CadastrarCliente() {
         initComponents();
+        controller.desabilitarErros(txtNaoDigitouCpf, txtNaoDigitouNome, txtNaoDigitouEmail, txtItensObrigatorios);
     }
 
     @SuppressWarnings("unchecked")
@@ -24,12 +29,12 @@ public class CadastrarCliente extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         btnMasc = new javax.swing.JRadioButton();
         btnFemi = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        txtItensObrigatorios = new javax.swing.JLabel();
+        txtNaoDigitouNome = new javax.swing.JLabel();
+        txtNaoDigitouCpf = new javax.swing.JLabel();
+        txtNaoDigitouEmail = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -61,10 +66,25 @@ public class CadastrarCliente extends javax.swing.JFrame {
         }
 
         btnMasc.setText("Masculino");
+        btnMasc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMascActionPerformed(evt);
+            }
+        });
 
         btnFemi.setText("Feminino");
+        btnFemi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFemiActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("OK");
+        btnCadastrar.setText("OK");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -73,26 +93,22 @@ public class CadastrarCliente extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel8.setText("* Itens Obrigatórios");
+        txtItensObrigatorios.setForeground(new java.awt.Color(255, 0, 0));
+        txtItensObrigatorios.setText("* Itens Obrigatórios");
 
-        jLabel9.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel9.setText("*");
+        txtNaoDigitouNome.setForeground(new java.awt.Color(255, 0, 0));
+        txtNaoDigitouNome.setText("*");
 
-        jLabel10.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel10.setText("*");
+        txtNaoDigitouCpf.setForeground(new java.awt.Color(255, 0, 0));
+        txtNaoDigitouCpf.setText("*");
 
-        jLabel11.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel11.setText("*");
+        txtNaoDigitouEmail.setForeground(new java.awt.Color(255, 0, 0));
+        txtNaoDigitouEmail.setText("*");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(43, 43, 43))
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -111,23 +127,30 @@ public class CadastrarCliente extends javax.swing.JFrame {
                             .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                             .addComponent(txtTelefone)
                             .addComponent(txtEmail)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel8)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnMasc)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnFemi)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnMasc)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFemi))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                    .addComponent(txtNaoDigitouNome)
+                    .addComponent(txtNaoDigitouCpf)
+                    .addComponent(txtNaoDigitouEmail))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(43, 43, 43))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtItensObrigatorios)
+                        .addGap(130, 130, 130))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +161,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(txtNaoDigitouNome))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -147,12 +170,12 @@ public class CadastrarCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(txtNaoDigitouCpf))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
+                    .addComponent(txtNaoDigitouEmail))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -162,12 +185,12 @@ public class CadastrarCliente extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(btnMasc)
                     .addComponent(btnFemi))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(txtItensObrigatorios)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(jButton1))
+                    .addComponent(btnCadastrar))
                 .addContainerGap())
         );
 
@@ -179,25 +202,45 @@ public class CadastrarCliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnMascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMascActionPerformed
+        controller.verificarSexo(btnMasc, btnFemi);
+    }//GEN-LAST:event_btnMascActionPerformed
+
+    private void btnFemiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFemiActionPerformed
+        controller.verificarSexo(btnFemi, btnMasc);
+    }//GEN-LAST:event_btnFemiActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        if(txtNome.getText().trim().isEmpty()){
+            controller.habilitarErro(txtNaoDigitouNome, txtItensObrigatorios);
+        }
+        if(txtCpf.equals("   .   .   -  ")){
+            controller.habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
+        }
+        if(txtEmail.equals("(  )    -    ")){
+            controller.habilitarErro(txtNaoDigitouEmail, txtItensObrigatorios);
+        }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JRadioButton btnFemi;
     private javax.swing.JRadioButton btnMasc;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
+    private javax.swing.JLabel txtItensObrigatorios;
+    private javax.swing.JLabel txtNaoDigitouCpf;
+    private javax.swing.JLabel txtNaoDigitouEmail;
+    private javax.swing.JLabel txtNaoDigitouNome;
     private javax.swing.JTextField txtNome;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
