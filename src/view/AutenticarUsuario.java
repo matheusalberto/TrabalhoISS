@@ -110,8 +110,11 @@ public class AutenticarUsuario extends javax.swing.JFrame {
         func.setSenha(String.valueOf(txtSenha.getPassword()));        
         
        if(new FuncionarioDao().consultar(func)){
-            this.dispose();
-            JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "D E U  C E R T O !", JOptionPane.DEFAULT_OPTION);
+           TelaPrincipal telaPrincipal = new TelaPrincipal();
+           telaPrincipal.setVisible(true);
+           this.dispose();
+            //this.dispose();
+            //JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "D E U  C E R T O !", JOptionPane.DEFAULT_OPTION);
         } else {
             JOptionPane.showMessageDialog(this, "VISH, DEU BOM NAUM!", "S E   F U D E U !", JOptionPane.ERROR_MESSAGE);
         }
