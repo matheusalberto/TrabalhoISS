@@ -214,18 +214,27 @@ public class CadastrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFemiActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        Cliente cliente = new Cliente();
+
         if (txtNome.getText().trim().isEmpty()) {
             controller.habilitarErro(txtNaoDigitouNome, txtItensObrigatorios);
+        } else {
+            controller.desabilitarErro(txtNaoDigitouNome);
+            cliente.setNome(txtNome.getText());
         }
         if (txtCpf.getText().equals("   .   .   -  ")) {
             controller.habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
+        } else {
+            controller.desabilitarErro(txtNaoDigitouCpf);
+            cliente.setCpf(txtCpf.getText());
         }
         if (txtEmail.getText().trim().isEmpty()) {
             controller.habilitarErro(txtNaoDigitouEmail, txtItensObrigatorios);
+        } else {
+            controller.desabilitarErro(txtNaoDigitouEmail);
+            cliente.setEmail(txtEmail.getText());
         }
 
-        Cliente cliente = new Cliente();
-        cliente.setNome(txtNome.getText());
         cliente.setEmail(txtEmail.getText());
         cliente.setEndereco(txtEndereco.getText());
         cliente.setTelefone(txtTelefone.getText());
@@ -236,12 +245,13 @@ public class CadastrarCliente extends javax.swing.JFrame {
         }
 
         ClienteDao clienteDao = new ClienteDao();
-        if (clienteDao.salvar(cliente).equals("SUCESSO")) {
-
-            JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+        if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouEmail.isVisible() && !txtNaoDigitouNome.isVisible()) {
+            if (clienteDao.salvar(cliente).equals("SUCESSO")) {
+                JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+            }
         }
 
     }//GEN-LAST:event_btnCadastrarActionPerformed

@@ -23,4 +23,8 @@ public class ClienteController {
         labelPrincipal.setVisible(true);
     }
     
+    public void desabilitarErro(JLabel labelA){
+        labelA.setVisible(false);
+    }
+    
 }

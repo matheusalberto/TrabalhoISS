@@ -82,7 +82,7 @@ public class Cliente implements Serializable {
         this.sexo = sexo;
     }
     
-    
-    
-    
+    public Object[] toArray(){
+        return  new Object[]{id, nome, email, telefone};
+    }    
 }

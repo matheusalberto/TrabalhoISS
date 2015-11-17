@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.List;
 import model.Cliente;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -26,4 +27,18 @@ public class ClienteDao {
             return retorno;
         }
     }
+    
+    public List<Cliente> listar(String nome){
+        
+        String hql = "from Cliente p where p.nome like :nome";
+        
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        transaction = session.beginTransaction();
+        List lista = session.createQuery(hql)
+                .setParameter("nome", "%"+nome+"%")
+                .list();
+        transaction.commit();
+        return lista;
+    }
+    
 }
