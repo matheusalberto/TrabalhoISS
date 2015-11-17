@@ -1,11 +1,12 @@
 package view;
 
 import dao.FuncionarioDao;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import model.Funcionario;
 
 public class AutenticarUsuario extends javax.swing.JFrame {
-    
+
     private final String loginPadrao = "admin";
     private final String senhaPadrao = "123456";
 
@@ -42,11 +43,22 @@ public class AutenticarUsuario extends javax.swing.JFrame {
                 btnOkActionPerformed(evt);
             }
         });
+        btnOk.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnOkKeyPressed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
+            }
+        });
+
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
             }
         });
 
@@ -107,12 +119,12 @@ public class AutenticarUsuario extends javax.swing.JFrame {
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         Funcionario func = new Funcionario();
         func.setLogin(txtLogin.getText());
-        func.setSenha(String.valueOf(txtSenha.getPassword()));        
-        
-       if(new FuncionarioDao().consultar(func)){
-           TelaPrincipal telaPrincipal = new TelaPrincipal();
-           telaPrincipal.setVisible(true);
-           this.dispose();
+        func.setSenha(String.valueOf(txtSenha.getPassword()));
+
+        if (new FuncionarioDao().consultar(func)) {
+            TelaPrincipal telaPrincipal = new TelaPrincipal();
+            telaPrincipal.setVisible(true);
+            this.dispose();
             //this.dispose();
             //JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "D E U  C E R T O !", JOptionPane.DEFAULT_OPTION);
         } else {
@@ -120,7 +132,29 @@ public class AutenticarUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnOkActionPerformed
 
-    public static void main(String args[]) {     
+    private void btnOkKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnOkKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOkKeyPressed
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Funcionario func = new Funcionario();
+            func.setLogin(txtLogin.getText());
+            func.setSenha(String.valueOf(txtSenha.getPassword()));
+
+            if (new FuncionarioDao().consultar(func)) {
+                TelaPrincipal telaPrincipal = new TelaPrincipal();
+                telaPrincipal.setVisible(true);
+                this.dispose();
+            //this.dispose();
+                //JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "D E U  C E R T O !", JOptionPane.DEFAULT_OPTION);
+            } else {
+                JOptionPane.showMessageDialog(this, "VISH, DEU BOM NAUM!", "S E   F U D E U !", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_txtSenhaKeyPressed
+
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AutenticarUsuario().setVisible(true);

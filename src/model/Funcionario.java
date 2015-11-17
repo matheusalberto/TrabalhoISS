@@ -101,6 +101,22 @@ public class Funcionario implements Serializable{
         return sexo;
     }
 
+    public Integer getNivelAcesso() {
+        return nivelAcesso;
+    }
+
+    public void setNivelAcesso(Integer nivelAcesso) {
+        this.nivelAcesso = nivelAcesso;
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
+
     public void setSexo(char sexo) {
         this.sexo = sexo;
     }

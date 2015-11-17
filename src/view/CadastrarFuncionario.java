@@ -90,12 +90,37 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         jLabel10.setText("Senha:");
 
         btnM.setText("M");
+        btnM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMMouseClicked(evt);
+            }
+        });
 
         btnF.setText("F");
+        btnF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFMouseClicked(evt);
+            }
+        });
 
         btnFarmaceutico.setText("Farmacêutico");
+        btnFarmaceutico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFarmaceuticoMouseClicked(evt);
+            }
+        });
+        btnFarmaceutico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFarmaceuticoActionPerformed(evt);
+            }
+        });
 
         btnComum.setText("Comum");
+        btnComum.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnComumMouseClicked(evt);
+            }
+        });
         btnComum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComumActionPerformed(evt);
@@ -250,19 +275,52 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         funcionario.setCpf(txtCpf.getText());
         funcionario.setLogin(txtLogin.getText());
         funcionario.setSenha(txtSenha.getText());
-        if(btnM.isSelected()){
+        if (btnM.isSelected()) {
             funcionario.setSexo('m');
-        } else funcionario.setSexo('f');
+        } else {
+            funcionario.setSexo('f');
+        }
         funcionario.setTelefone(txtTelefone.getText());
-        
+        if (btnFarmaceutico.isSelected()) {
+            funcionario.setTipo(1);
+        } else if (btnComum.isSelected()) {
+            funcionario.setTipo(2);
+        }
+
         FuncionarioDao funcDao = new FuncionarioDao();
         funcDao.salvar(funcionario);
-        
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnComumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComumActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnComumActionPerformed
+
+    private void btnFarmaceuticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFarmaceuticoActionPerformed
+
+    }//GEN-LAST:event_btnFarmaceuticoActionPerformed
+
+    private void btnFarmaceuticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFarmaceuticoMouseClicked
+        if (btnComum.isSelected()) {
+            btnComum.setSelected(false);
+        }
+    }//GEN-LAST:event_btnFarmaceuticoMouseClicked
+
+    private void btnComumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComumMouseClicked
+        if (btnFarmaceutico.isSelected()) {
+            btnFarmaceutico.setSelected(false);}    }//GEN-LAST:event_btnComumMouseClicked
+
+    private void btnMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMMouseClicked
+        if(btnF.isSelected()){
+            btnF.setSelected(false);
+        }
+    }//GEN-LAST:event_btnMMouseClicked
+
+    private void btnFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFMouseClicked
+        if(btnM.isSelected()){
+            btnM.setSelected(false);
+        }
+    }//GEN-LAST:event_btnFMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

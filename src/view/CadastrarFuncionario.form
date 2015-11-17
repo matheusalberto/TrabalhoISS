@@ -273,22 +273,33 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="M"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnMMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="btnF">
       <Properties>
         <Property name="text" type="java.lang.String" value="F"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnFMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="btnFarmaceutico">
       <Properties>
         <Property name="text" type="java.lang.String" value="Farmac&#xea;utico"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnFarmaceuticoMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFarmaceuticoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="btnComum">
       <Properties>
         <Property name="text" type="java.lang.String" value="Comum"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnComumMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnComumActionPerformed"/>
       </Events>
     </Component>
