@@ -2,6 +2,7 @@ To Do:
 
 Matheus:
 - Após implementar a classe de pedidos, deve-se colocar um atributo do tipo lista pra guardar o histórico de pedidos. Tipo do relacionamento: OneToMany
+- Atualizar Lista ao excluir um cliente
 
 Thiago Moraes:
 - Dar a opção pro usuário apertar enter ao invés de ele ter que ser a obrigado a dar OK na tela de login
