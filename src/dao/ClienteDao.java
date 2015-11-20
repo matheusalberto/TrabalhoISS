@@ -58,20 +58,22 @@ public class ClienteDao {
             return retorno;
         }
     }
-    
-    public String remover(int id) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+    public String remover(Cliente cliente) {
+        String retorno;
+        session = HibernateUtil.getSessionFactory().openSession();
         transaction = session.beginTransaction();
         try {
-            session.delete(localizar(id));
+            session.delete(cliente);
             transaction.commit();
-            return "SUCESSO";
-        } catch (Exception e) {            
+            retorno = "SUCESSO";
+        } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            return "FALHA";
+            retorno = "FALHA";
         }
+        return retorno;
     }
 
     public Cliente localizar(int id) {
