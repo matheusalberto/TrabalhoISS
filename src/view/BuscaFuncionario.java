@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import controller.FuncionarioController;
@@ -145,7 +140,7 @@ public class BuscaFuncionario extends javax.swing.JFrame {
         FuncionarioDao dao = new FuncionarioDao();
         listaCliente = dao.listar(funcionarios);
 
-        controller.preencherTabela(listaCliente, tableModelCliente, tabelaFuncionarios);
+        //controller.preencherTabela(listaCliente, tableModelCliente, tabelaFuncionarios);
         //Criar editarFuncionario
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -156,7 +151,7 @@ public class BuscaFuncionario extends javax.swing.JFrame {
             int id = (int) tabelaFuncionarios.getValueAt(linhaSelecionada, 0);
             Funcionario funcionario = new FuncionarioDao().localizar(id);
             this.dispose();
-            new EditarFuncionario(funcionario).setVisible(true);
+            //new EditarFuncionario(funcionario).setVisible(true);
             //Criar editarFuncionario
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -173,7 +168,7 @@ public class BuscaFuncionario extends javax.swing.JFrame {
             int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente remover este cliente?", "Confirmação", JOptionPane.YES_OPTION);
             if (JOptionPane.YES_OPTION == opcao) {
                 if (dao.remover(cliente).equals("SUCESSO")) {
-                    controller.preencherTabela(dao.listar(funcionarios), tableModelCliente, tabelaFuncionarios);
+                    //controller.preencherTabela(dao.listar(funcionarios), tableModelCliente, tabelaFuncionarios);
                     //criar preencherTabela no funcionarioController
                     JOptionPane.showMessageDialog(this, "Cliente removido com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
                 } else {
@@ -182,41 +177,7 @@ public class BuscaFuncionario extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnRemoverActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new BuscaFuncionario().setVisible(true);
-            }
-        });
-    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;

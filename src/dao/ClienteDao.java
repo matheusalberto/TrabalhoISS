@@ -85,5 +85,15 @@ public class ClienteDao {
         session.close();
         return cliente;
     }
+    
+    public String localizarCPF(String cpf) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        Criteria criteria = session.createCriteria(Cliente.class);
+        criteria.add(Restrictions.eq("cpf", cpf));
+        criteria.setMaxResults(1);
+        Cliente cliente = (Cliente) criteria.uniqueResult();
+        session.close();
+        return cliente.getCpf();
+    }
 
 }

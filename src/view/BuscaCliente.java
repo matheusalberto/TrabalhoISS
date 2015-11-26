@@ -121,8 +121,7 @@ public class BuscaCliente extends javax.swing.JFrame {
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         clientes = txtBusca.getText().trim();
         ClienteDao dao = new ClienteDao();
-        listaCliente = dao.listar(clientes);
-        
+        listaCliente = dao.listar(clientes);        
         controller.preencherTabela(listaCliente, tableModelCliente, tabelaClientes);
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -138,7 +137,6 @@ public class BuscaCliente extends javax.swing.JFrame {
         if (linhaSelecionada >= 0) {
             int id = (int) tabelaClientes.getValueAt(linhaSelecionada, 0);
             Cliente cliente = new ClienteDao().localizar(id);
-            this.dispose();
             new EditarCliente(cliente).setVisible(true);
         }
 

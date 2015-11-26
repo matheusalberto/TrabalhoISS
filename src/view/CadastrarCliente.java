@@ -4,6 +4,7 @@ import controller.ClienteController;
 import dao.ClienteDao;
 import javax.swing.JOptionPane;
 import model.Cliente;
+import util.ValidarCpf;
 
 public class CadastrarCliente extends javax.swing.JFrame {
 
@@ -11,7 +12,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
 
     public CadastrarCliente() {
         initComponents();
-        controller.desabilitarErros(txtNaoDigitouCpf, txtNaoDigitouNome, txtNaoDigitouEmail, txtItensObrigatorios);
+        controller.desabilitarErros(txtNaoDigitouCpf, txtNaoDigitouNome, txtNaoDigitouEmail, txtItensObrigatorios, txtNaoInformouSexo);
     }
 
     @SuppressWarnings("unchecked")
@@ -38,6 +39,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
         txtNaoDigitouNome = new javax.swing.JLabel();
         txtNaoDigitouCpf = new javax.swing.JLabel();
         txtNaoDigitouEmail = new javax.swing.JLabel();
+        txtNaoInformouSexo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -57,7 +59,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
         jLabel7.setText("Sexo:");
 
         try {
-            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -108,6 +110,9 @@ public class CadastrarCliente extends javax.swing.JFrame {
         txtNaoDigitouEmail.setForeground(new java.awt.Color(255, 0, 0));
         txtNaoDigitouEmail.setText("*");
 
+        txtNaoInformouSexo.setForeground(new java.awt.Color(255, 0, 0));
+        txtNaoInformouSexo.setText("*");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,10 +145,11 @@ public class CadastrarCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNaoDigitouNome)
-                    .addComponent(txtNaoDigitouCpf)
-                    .addComponent(txtNaoDigitouEmail))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNaoDigitouNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNaoDigitouCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNaoDigitouEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNaoInformouSexo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(36, Short.MAX_VALUE)
@@ -187,7 +193,8 @@ public class CadastrarCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(btnMasc)
-                    .addComponent(btnFemi))
+                    .addComponent(btnFemi)
+                    .addComponent(txtNaoInformouSexo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(txtItensObrigatorios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -214,19 +221,22 @@ public class CadastrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFemiActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        Cliente cliente = new Cliente();
-
+        Cliente cliente = new Cliente();               
+        
         if (txtNome.getText().trim().isEmpty()) {
             controller.habilitarErro(txtNaoDigitouNome, txtItensObrigatorios);
         } else {
             controller.desabilitarErro(txtNaoDigitouNome);
             cliente.setNome(txtNome.getText());
         }
-        if (txtCpf.getText().equals("   .   .   -  ")) {
+        if (txtCpf.getText().trim().isEmpty()) {
             controller.habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
-        } else {
+        } else if (ValidarCpf.isCPF(txtCpf.getText())) {
             controller.desabilitarErro(txtNaoDigitouCpf);
             cliente.setCpf(txtCpf.getText());
+        } else {
+            controller.habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
+            JOptionPane.showMessageDialog(this, "CPF inválido", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
         }
         if (txtEmail.getText().trim().isEmpty()) {
             controller.habilitarErro(txtNaoDigitouEmail, txtItensObrigatorios);
@@ -234,18 +244,22 @@ public class CadastrarCliente extends javax.swing.JFrame {
             controller.desabilitarErro(txtNaoDigitouEmail);
             cliente.setEmail(txtEmail.getText());
         }
-
-        cliente.setEmail(txtEmail.getText());
-        cliente.setEndereco(txtEndereco.getText());
-        cliente.setTelefone(txtTelefone.getText());
-        if (btnMasc.isSelected()) {
-            cliente.setSexo('M');
+        if (!btnMasc.isSelected() && !btnFemi.isSelected()) {
+            controller.habilitarErro(txtNaoInformouSexo, txtItensObrigatorios);
         } else {
-            cliente.setSexo('F');
+            controller.desabilitarErro(txtNaoInformouSexo);
+            if (btnMasc.isSelected()) {
+                cliente.setSexo('M');
+            } else {
+                cliente.setSexo('F');
+            }
         }
 
+        cliente.setEndereco(txtEndereco.getText());
+        cliente.setTelefone(txtTelefone.getText());
         ClienteDao clienteDao = new ClienteDao();
-        if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouEmail.isVisible() && !txtNaoDigitouNome.isVisible()) {
+        
+        if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouEmail.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()) {
             if (clienteDao.salvar(cliente).equals("SUCESSO")) {
                 JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
                 this.dispose();
@@ -275,6 +289,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel txtNaoDigitouCpf;
     private javax.swing.JLabel txtNaoDigitouEmail;
     private javax.swing.JLabel txtNaoDigitouNome;
+    private javax.swing.JLabel txtNaoInformouSexo;
     private javax.swing.JTextField txtNome;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables

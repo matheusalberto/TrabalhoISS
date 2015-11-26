@@ -17,11 +17,12 @@ public class ClienteController {
         }
     }
 
-    public void desabilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelD) {
+    public void desabilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelD, JLabel labelE) {
         labelA.setVisible(false);
         labelB.setVisible(false);
         labelC.setVisible(false);
         labelD.setVisible(false);
+        labelE.setVisible(false);
     }
 
     public void habilitarErro(JLabel labelA, JLabel labelPrincipal) {
