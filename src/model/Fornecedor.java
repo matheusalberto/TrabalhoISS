@@ -73,5 +73,9 @@ public class Fornecedor implements Serializable{
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Object[] toArray() {
+        return  new Object[]{id, nome, email, telefone};
+    }
     
 }

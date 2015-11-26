@@ -1,9 +1,12 @@
 package dao;
 
+import java.util.List;
 import model.Cliente;
 import model.Fornecedor;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
 
 public class FornecedorDao {
@@ -26,6 +29,63 @@ public class FornecedorDao {
             session.close();
             return retorno;
         }
+    }
+    
+     public List<Fornecedor> listar(String nome) {
+
+        String hql = "from Fornecedor p where p.nome like :nome";
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        transaction = session.beginTransaction();
+        List lista = session.createQuery(hql)
+                .setParameter("nome", "%" + nome + "%")
+                .list();
+        transaction.commit();
+        return lista;
+    }
+    
+    public String atualizar(Fornecedor fornecedor) {
+        String retorno = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        transaction = session.beginTransaction();
+        try {
+            session.update(fornecedor);
+            transaction.commit();
+            retorno = "SUCESSO";
+        } catch (Exception e) {
+            e.printStackTrace();
+            retorno = "FALHA";
+        } finally {
+            session.close();
+            return retorno;
+        }
+    }
+    
+     public String remover(Fornecedor fornecedor) {
+        String retorno;
+        session = HibernateUtil.getSessionFactory().openSession();
+        transaction = session.beginTransaction();
+        try {
+            session.delete(fornecedor);
+            transaction.commit();
+            retorno = "SUCESSO";
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            retorno = "FALHA";
+        }
+        return retorno;
+    }
+     
+      public Fornecedor localizar(int id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        Criteria criteria = session.createCriteria(Cliente.class);
+        criteria.add(Restrictions.eq("id", id));
+        criteria.setMaxResults(1);
+        Fornecedor fornecedor = (Fornecedor) criteria.uniqueResult();
+        session.close();
+        return fornecedor;
     }
 
 }
