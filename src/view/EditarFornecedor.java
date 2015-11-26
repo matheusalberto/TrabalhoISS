@@ -36,7 +36,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
         txtCnpj = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel6.setText("E-mail:");
 
@@ -148,6 +148,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed

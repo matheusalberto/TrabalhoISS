@@ -80,7 +80,7 @@ public class FornecedorDao {
      
       public Fornecedor localizar(int id) {
         session = HibernateUtil.getSessionFactory().openSession();
-        Criteria criteria = session.createCriteria(Cliente.class);
+        Criteria criteria = session.createCriteria(Fornecedor.class);
         criteria.add(Restrictions.eq("id", id));
         criteria.setMaxResults(1);
         Fornecedor fornecedor = (Fornecedor) criteria.uniqueResult();
