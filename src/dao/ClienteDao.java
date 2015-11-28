@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.ConstraintViolationException;
 import util.HibernateUtil;
 
 public class ClienteDao {
@@ -21,9 +22,11 @@ public class ClienteDao {
             session.save(cliente);
             transaction.commit();
             retorno = "SUCESSO";
-        } catch (Exception e) {
+        } catch (ConstraintViolationException e) {
+            retorno = "FALHA_CPF";
+        } catch(Exception e){
             retorno = "FALHA";
-        } finally {
+        }finally {
             session.close();
             return retorno;
         }
@@ -85,7 +88,7 @@ public class ClienteDao {
         session.close();
         return cliente;
     }
-    
+
     public String localizarCPF(String cpf) {
         session = HibernateUtil.getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Cliente.class);

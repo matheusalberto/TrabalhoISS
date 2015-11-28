@@ -169,7 +169,6 @@ public class EditarCliente extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
-        new BuscaCliente().setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -178,7 +177,6 @@ public class EditarCliente extends javax.swing.JFrame {
         if (new ClienteDao().atualizar(cliente).equals("SUCESSO")) {
             JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
             this.dispose();
-            new BuscaCliente().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
         }

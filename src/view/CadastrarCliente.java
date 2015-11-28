@@ -59,7 +59,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
         jLabel7.setText("Sexo:");
 
         try {
-            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -260,11 +260,18 @@ public class CadastrarCliente extends javax.swing.JFrame {
         ClienteDao clienteDao = new ClienteDao();
         
         if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouEmail.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()) {
-            if (clienteDao.salvar(cliente).equals("SUCESSO")) {
-                JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+            String salvar = clienteDao.salvar(cliente);
+            switch (salvar) {
+                case "SUCESSO":
+                    JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
+                    this.dispose();
+                    break;
+                case "FALHA_CPF":
+                    JOptionPane.showMessageDialog(this, "CPF já existente.", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+                    break;
             }
         }
 

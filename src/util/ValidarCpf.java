@@ -4,7 +4,13 @@ import java.util.InputMismatchException;
 
 public class ValidarCpf {
 
-    public static boolean isCPF(String CPF) {
+    public static boolean isCPF(String cpf) {
+        String CPF = null;
+        CPF = cpf.substring(0, 3);
+        CPF = CPF + cpf.substring(4, 7);
+        CPF = CPF + cpf.substring(8, 11);
+        CPF = CPF + cpf.substring(12, 14);
+        
         if (CPF.equals("00000000000") || CPF.equals("11111111111")
                 || CPF.equals("22222222222") || CPF.equals("33333333333")
                 || CPF.equals("44444444444") || CPF.equals("55555555555")
