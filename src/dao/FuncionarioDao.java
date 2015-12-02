@@ -45,7 +45,7 @@ public class FuncionarioDao {
             retorno = "SUCESSO";
         } catch (ConstraintViolationException e) {
             retorno = "FALHA";
-            throw new RuntimeException("Usuário já cadastrado, tente com outro!");
+            throw new RuntimeException("Funcionário já cadastrado, tente com outro!");
         } catch (Exception e) {
             e.printStackTrace();
             retorno = "FALHA";
@@ -57,7 +57,7 @@ public class FuncionarioDao {
 
     public List<Funcionario> listar(String nome) {
 
-        String hql = "from Cliente p where p.nome like :nome";
+        String hql = "from Funcionario p where p.nome like :nome";
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         transaction = session.beginTransaction();

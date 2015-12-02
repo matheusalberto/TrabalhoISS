@@ -6,8 +6,12 @@
 package view;
 
 import controller.FuncionarioController;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
-
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Thiago
@@ -43,8 +47,6 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtEndereco = new javax.swing.JTextField();
-        txtTelefone = new javax.swing.JTextField();
-        txtDataContratacao = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtCpf = new javax.swing.JTextField();
         txtNivelAcesso = new javax.swing.JTextField();
@@ -59,6 +61,8 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         btnComum = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
+        txtData = new javax.swing.JFormattedTextField();
+        txtTel = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -135,6 +139,18 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
 
         btnCancelar.setText("Cancelar");
 
+        try {
+            txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtTel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,25 +174,11 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtEndereco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
-                                    .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtNome)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDataContratacao, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(65, 65, 65)
-                                        .addComponent(btnM)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnF)))
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -191,7 +193,23 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(txtNivelAcesso)
                                     .addComponent(txtCpf)
-                                    .addComponent(txtEmail))))
+                                    .addComponent(txtEmail)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(65, 65, 65)
+                                        .addComponent(btnM)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnF))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(93, 93, 93)
+                                        .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(28, 28, 28))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 89, Short.MAX_VALUE)
@@ -221,7 +239,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -230,7 +248,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtDataContratacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -267,30 +285,36 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        char sexo;
-        int tipo = -1, nivelAcesso = -1;
-        String nome, endereco, telefone, login, senha, email, cpf;
-        //Calendar dataContratacao = 00/00/0000;
-        nome = txtNome.getText();
-        email = txtEmail.getText();
-        endereco = txtEndereco.getText();
-        cpf = txtCpf.getText();
-        login = txtLogin.getText();
-        senha = txtSenha.getText();
-        if (btnM.isSelected()) {
-            //funcionario.setSexo('m');
-            sexo = 'm';
-        } else {
-            //funcionario.setSexo('f');
-            sexo = 'f';
+        try {
+            char sexo;
+            int tipo = -1, nivelAcesso = -1;
+            String nome, endereco, telefone, login, senha, email, cpf, data;
+            Calendar d =  Calendar.getInstance();
+            DateFormat f = DateFormat.getDateInstance();
+            //Calendar dataContratacao = 00/00/0000;
+            data = txtData.getText();
+            Date dataCorreta = f.parse(data);
+            nome = txtNome.getText();
+            email = txtEmail.getText();
+            endereco = txtEndereco.getText();
+            cpf = txtCpf.getText();
+            login = txtLogin.getText();
+            senha = txtSenha.getText();
+            if (btnM.isSelected()) {
+                //funcionario.setSexo('m');
+                sexo = 'm';
+            } else {
+                //funcionario.setSexo('f');
+                sexo = 'f';
+            }   telefone = txtTel.getText();
+            if (btnFarmaceutico.isSelected()) {
+                tipo = 1;
+            } else if (btnComum.isSelected()) {
+                tipo = 2;
+        }   funcionario.CadastrarFuncionario(nome, endereco, telefone, login, senha, sexo, email, cpf, nivelAcesso, tipo, dataCorreta);
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        telefone = txtTelefone.getText();
-        if (btnFarmaceutico.isSelected()) {
-            tipo = 1;
-        } else if (btnComum.isSelected()) {
-            tipo = 2;
-        }
-        funcionario.CadastrarFuncionario(nome, endereco, telefone, login, senha, sexo, email, cpf, nivelAcesso, tipo);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnComumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComumActionPerformed
@@ -344,13 +368,13 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtDataContratacao;
+    private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNivelAcesso;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSenha;
-    private javax.swing.JTextField txtTelefone;
+    private javax.swing.JFormattedTextField txtTel;
     // End of variables declaration//GEN-END:variables
 }

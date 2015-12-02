@@ -1,7 +1,7 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +24,7 @@ public class Funcionario implements Serializable{
     private String endereco;
     private String telefone;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Calendar dataContratacao;
+    private Date dataContratacao;
     private char sexo;
     @Column(unique = true)
     private String email;
@@ -89,11 +89,11 @@ public class Funcionario implements Serializable{
         this.telefone = telefone;
     }
 
-    public Calendar getDataContratacao() {
+    public Date getDataContratacao() {
         return dataContratacao;
     }
 
-    public void setDataContratacao(Calendar dataContratacao) {
+    public void setDataContratacao(Date dataContratacao) {
         this.dataContratacao = dataContratacao;
     }
 

@@ -6,7 +6,7 @@
 package controller;
 
 import dao.FuncionarioDao;
-import java.util.Calendar;
+import java.util.Date;
 import model.Funcionario;
 
 //terminar de cadastrar aqui no controller, ver quais atributos falta paassar certo
@@ -14,7 +14,7 @@ import model.Funcionario;
 public class FuncionarioController {
     //Cadastra um funcionario no banco da dados
     public void CadastrarFuncionario(String nome, String endereco, String telefone, String login, String senha,
-            char sexo, String email, String cpf, int nivelAcesso, int tipo) {
+            char sexo, String email, String cpf, int nivelAcesso, int tipo, Date data) {
         Funcionario funcionario = new Funcionario();
         funcionario.setNome(nome);
         funcionario.setEmail(email);
@@ -25,6 +25,7 @@ public class FuncionarioController {
         funcionario.setSexo(sexo);
         funcionario.setTelefone(telefone);
         funcionario.setTipo(tipo);
+        funcionario.setDataContratacao(data);
 
         FuncionarioDao funcDao = new FuncionarioDao();
         funcDao.salvar(funcionario);
