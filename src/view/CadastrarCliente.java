@@ -1,10 +1,7 @@
 package view;
 
 import controller.ClienteController;
-import dao.ClienteDao;
-import javax.swing.JOptionPane;
 import model.Cliente;
-import util.ValidarCpf;
 
 public class CadastrarCliente extends javax.swing.JFrame {
 
@@ -117,49 +114,49 @@ public class CadastrarCliente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(58, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(43, 43, 43))
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNome)
+                                    .addComponent(txtEndereco)
+                                    .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                                    .addComponent(txtTelefone)
+                                    .addComponent(txtEmail)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnMasc)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnFemi))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(btnCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNome)
-                            .addComponent(txtEndereco)
-                            .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                            .addComponent(txtTelefone)
-                            .addComponent(txtEmail)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnMasc)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnFemi))))
+                            .addComponent(txtNaoDigitouNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNaoDigitouCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNaoDigitouEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNaoInformouSexo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNaoDigitouNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNaoDigitouCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNaoDigitouEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNaoInformouSexo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(142, 142, 142)
+                        .addComponent(txtItensObrigatorios)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(43, 43, 43))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtItensObrigatorios)
-                        .addGap(130, 130, 130))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,9 +192,9 @@ public class CadastrarCliente extends javax.swing.JFrame {
                     .addComponent(btnMasc)
                     .addComponent(btnFemi)
                     .addComponent(txtNaoInformouSexo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(txtItensObrigatorios)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnCadastrar))
@@ -221,60 +218,17 @@ public class CadastrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFemiActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        Cliente cliente = new Cliente();               
+        Cliente cliente = new Cliente();
         
-        if (txtNome.getText().trim().isEmpty()) {
-            controller.habilitarErro(txtNaoDigitouNome, txtItensObrigatorios);
-        } else {
-            controller.desabilitarErro(txtNaoDigitouNome);
-            cliente.setNome(txtNome.getText());
-        }
-        if (txtCpf.getText().trim().isEmpty()) {
-            controller.habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
-        } else if (ValidarCpf.isCPF(txtCpf.getText())) {
-            controller.desabilitarErro(txtNaoDigitouCpf);
-            cliente.setCpf(txtCpf.getText());
-        } else {
-            controller.habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
-            JOptionPane.showMessageDialog(this, "CPF inválido", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
-        }
-        if (txtEmail.getText().trim().isEmpty()) {
-            controller.habilitarErro(txtNaoDigitouEmail, txtItensObrigatorios);
-        } else {
-            controller.desabilitarErro(txtNaoDigitouEmail);
-            cliente.setEmail(txtEmail.getText());
-        }
-        if (!btnMasc.isSelected() && !btnFemi.isSelected()) {
-            controller.habilitarErro(txtNaoInformouSexo, txtItensObrigatorios);
-        } else {
-            controller.desabilitarErro(txtNaoInformouSexo);
-            if (btnMasc.isSelected()) {
-                cliente.setSexo('M');
-            } else {
-                cliente.setSexo('F');
-            }
-        }
+        controller.validarNome(this, cliente, txtNome, txtNaoDigitouNome, txtItensObrigatorios);
+        controller.validarCpf(this, cliente, txtCpf, txtNaoDigitouCpf, txtItensObrigatorios);
+        controller.validarEmail(this, cliente, txtEmail, txtNaoDigitouEmail, txtItensObrigatorios);
+        controller.validarSexo(this, cliente, btnMasc, btnFemi, txtNaoInformouSexo, txtItensObrigatorios);       
 
         cliente.setEndereco(txtEndereco.getText());
         cliente.setTelefone(txtTelefone.getText());
-        ClienteDao clienteDao = new ClienteDao();
-        
-        if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouEmail.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()) {
-            String salvar = clienteDao.salvar(cliente);
-            switch (salvar) {
-                case "SUCESSO":
-                    JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
-                    this.dispose();
-                    break;
-                case "FALHA_CPF":
-                    JOptionPane.showMessageDialog(this, "CPF já existente.", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
-                    break;
-            }
-        }
 
+        controller.cadastrarCliente(this, cliente, txtNaoDigitouCpf, txtNaoDigitouEmail, txtNaoDigitouNome, txtNaoInformouSexo);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

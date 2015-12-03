@@ -1,13 +1,17 @@
 package controller;
 
+import dao.ClienteDao;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import model.Cliente;
+import util.ValidarCpf;
 
 public class ClienteController {
 
@@ -74,6 +78,68 @@ public class ClienteController {
         Object[] colunas = new Object[]{"Código", "Nome", "E-mail", "Telefone"};
         tableModelCliente = new DefaultTableModel(dados, colunas);
         tabelaClientes.setModel(tableModelCliente);
+    }
+
+    public void cadastrarCliente(JFrame tela, Cliente cliente, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouEmail, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo) {
+        ClienteDao clienteDao = new ClienteDao();
+        if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouEmail.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()) {
+            String salvar = clienteDao.salvar(cliente);
+            switch (salvar) {
+                case "SUCESSO":
+                    JOptionPane.showMessageDialog(tela, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
+                    tela.dispose();
+                    break;
+                case "FALHA_CPF":
+                    JOptionPane.showMessageDialog(tela, "CPF já existente.", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(tela, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+                    break;
+            }
+        }
+    }
+
+    public void validarNome(JFrame tela, Cliente cliente, JTextField txtNome, JLabel txtNaoDigitouNome, JLabel txtItensObrigatorios) {
+        if (txtNome.getText().trim().isEmpty()) { //Verifica se o campo nome não está vazio
+            habilitarErro(txtNaoDigitouNome, txtItensObrigatorios);
+        } else {
+            desabilitarErro(txtNaoDigitouNome);
+            cliente.setNome(txtNome.getText());
+        }
+    }
+
+    public void validarCpf(JFrame tela, Cliente cliente, JTextField txtCpf, JLabel txtNaoDigitouCpf, JLabel txtItensObrigatorios) {
+        if (txtCpf.getText().equals("   .   .   -  ")) { //Verifica se o campo de CPF não está vazio
+            habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
+        } else if (ValidarCpf.isCPF(txtCpf.getText())) {
+            desabilitarErro(txtNaoDigitouCpf);
+            cliente.setCpf(txtCpf.getText());
+        } else {
+            habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
+            JOptionPane.showMessageDialog(tela, "CPF inválido", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+        }
+    }
+    
+    public void validarEmail(JFrame tela, Cliente cliente, JTextField txtEmail, JLabel txtNaoDigitouEmail, JLabel txtItensObrigatorios) {
+        if (txtEmail.getText().trim().isEmpty()) { //Verifica se o email está vazio
+            habilitarErro(txtNaoDigitouEmail, txtItensObrigatorios);
+        } else {
+            desabilitarErro(txtNaoDigitouEmail);
+            cliente.setEmail(txtEmail.getText());
+        }
+    }
+    
+    public void validarSexo(JFrame tela, Cliente cliente, JRadioButton btnMasc, JRadioButton btnFemi, JLabel txtNaoInformouSexo, JLabel txtItensObrigatorios) {
+        if (!btnMasc.isSelected() && !btnFemi.isSelected()) { //Verifica se o sexo esta selecionado
+            habilitarErro(txtNaoInformouSexo, txtItensObrigatorios);
+        } else {
+            desabilitarErro(txtNaoInformouSexo);
+            if (btnMasc.isSelected()) {
+                cliente.setSexo('M');
+            } else {
+                cliente.setSexo('F');
+            }
+        }
     }
 
 }
