@@ -33,7 +33,7 @@ public class FornecedorDao {
     
      public List<Fornecedor> listar(String nome) {
 
-        String hql = "from Fornecedor p where p.nome like :nome";
+        String hql = "from Fornecedor f where f.nome like :nome";
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         transaction = session.beginTransaction();
@@ -42,7 +42,7 @@ public class FornecedorDao {
                 .list();
         transaction.commit();
         return lista;
-    }
+    }    
     
     public String atualizar(Fornecedor fornecedor) {
         String retorno = null;
