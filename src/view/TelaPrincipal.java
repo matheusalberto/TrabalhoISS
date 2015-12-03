@@ -44,6 +44,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuItemCliente = new javax.swing.JMenuItem();
         menuItemFornecedor = new javax.swing.JMenuItem();
         menuItemFuncionario = new javax.swing.JMenuItem();
+        menuItemProduto = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
         menuVenda = new javax.swing.JMenu();
 
@@ -85,6 +86,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuCadastro.add(menuCadastroFornecedor);
 
         menuCadastroProduto.setText("Produto");
+        menuCadastroProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCadastroProdutoActionPerformed(evt);
+            }
+        });
         menuCadastro.add(menuCadastroProduto);
 
         jMenuBar1.add(menuCadastro);
@@ -114,6 +120,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         menuConsulta.add(menuItemFuncionario);
+
+        menuItemProduto.setText("Produto");
+        menuItemProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemProdutoActionPerformed(evt);
+            }
+        });
+        menuConsulta.add(menuItemProduto);
 
         jMenuBar1.add(menuConsulta);
 
@@ -180,6 +194,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         buscaFuncionario.setVisible(true);
     }//GEN-LAST:event_menuItemFuncionarioActionPerformed
 
+    private void menuCadastroProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroProdutoActionPerformed
+         CadastrarProduto cadastrarProduto = new CadastrarProduto();
+        cadastrarProduto.setVisible(true);
+    }//GEN-LAST:event_menuCadastroProdutoActionPerformed
+
+    private void menuItemProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProdutoActionPerformed
+        BuscaProduto buscaProduto = new BuscaProduto();
+        buscaProduto.setVisible(true);
+    }//GEN-LAST:event_menuItemProdutoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
@@ -195,6 +219,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemCliente;
     private javax.swing.JMenuItem menuItemFornecedor;
     private javax.swing.JMenuItem menuItemFuncionario;
+    private javax.swing.JMenuItem menuItemProduto;
     private javax.swing.JMenu menuRelatorio;
     private javax.swing.JMenu menuVenda;
     // End of variables declaration//GEN-END:variables

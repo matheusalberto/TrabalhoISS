@@ -2,11 +2,13 @@ package model;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "produto")
@@ -18,11 +20,14 @@ public class Produto implements Serializable {
 
     private Integer id;
     private String descricao;
-    private Calendar dataValidade;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataCompra;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataValidade;
     //private Fornecedor idFornecedor; necessario ligar a variavel aos fornecedores cadastrados
     private double precoCompra;
     private double precoVenda;
-    private double quantidadeEstoque;
+    private Integer quantidadeEstoque;
 
     public Integer getId() {
         return id;
@@ -40,11 +45,11 @@ public class Produto implements Serializable {
         this.descricao = descricao;
     }
 
-    public Calendar getDataValidade() {
+    public Date getDataValidade() {
         return dataValidade;
     }
 
-    public void setDataValidade(Calendar dataValidade) {
+    public void setDataValidade(Date dataValidade) {
         this.dataValidade = dataValidade;
     }
 
@@ -68,8 +73,20 @@ public class Produto implements Serializable {
         return quantidadeEstoque;
     }
 
-    public void setQuantidadeEstoque(double quantidadeEstoque) {
+    public void setQuantidadeEstoque( Integer quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
+    public Date getDataCompra() {
+        return dataCompra;
+    }
+
+    public void setDataCompra(Date dataCompra) {
+        this.dataCompra = dataCompra;
+    }
+
+    public Object[] toArray() {
+        return  new Object[]{id, descricao, quantidadeEstoque, precoVenda};
+    }
+    
 }
