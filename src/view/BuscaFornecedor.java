@@ -138,7 +138,6 @@ public class BuscaFornecedor extends javax.swing.JFrame {
         if (linhaSelecionada >= 0) {
             int id = (int) tabelaFornecedores.getValueAt(linhaSelecionada, 0);
             Fornecedor fornecedor = new FornecedorDao().localizar(id);
-            this.dispose();
             new EditarFornecedor(fornecedor).setVisible(true);
         }
     }//GEN-LAST:event_btnEditarActionPerformed

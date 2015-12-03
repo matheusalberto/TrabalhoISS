@@ -28,7 +28,6 @@ public class EditarFornecedor extends javax.swing.JFrame {
         labelnome = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         txtNome = new javax.swing.JTextField();
-        txtErro = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JFormattedTextField();
         txtEndereco = new javax.swing.JTextField();
@@ -51,6 +50,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
         });
 
         labelnome.setText("Nome:");
+        labelnome.setEnabled(false);
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -59,8 +59,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
             }
         });
 
-        txtErro.setForeground(new java.awt.Color(255, 0, 0));
-        txtErro.setText("Todos os itens são obrigatórios");
+        txtNome.setEnabled(false);
 
         jLabel3.setText("Endereço:");
 
@@ -72,6 +71,8 @@ public class EditarFornecedor extends javax.swing.JFrame {
 
         jLabel4.setText("CNPJ:");
 
+        txtCnpj.setEnabled(false);
+
         jLabel5.setText("Telefone:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -82,8 +83,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtErro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCancelar)
                         .addGap(18, 18, 18)
                         .addComponent(btnOk)
@@ -142,8 +142,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOk)
-                    .addComponent(btnCancelar)
-                    .addComponent(txtErro))
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -182,7 +181,6 @@ public class EditarFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField txtCnpj;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
-    private javax.swing.JLabel txtErro;
     private javax.swing.JTextField txtNome;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables

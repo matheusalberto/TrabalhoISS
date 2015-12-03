@@ -1,14 +1,18 @@
 
 package controller;
 
+import dao.FornecedorDao;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import model.Fornecedor;
 import model.Funcionario;
+import util.ValidarCNPJ;
 
 public class FornecedorController {
     
@@ -52,4 +56,34 @@ public class FornecedorController {
         tableModelFornecedor = new DefaultTableModel(dados, colunas);
         tabelaFornecedores.setModel(tableModelFornecedor);
     }
+     
+     public void cadastrarFornecedor(JFrame tela,JTextField txtNome, JTextField txtCnpj, JTextField txtEndereco, JTextField txtEmail, JTextField txtTelefone,JLabel txtErro){
+         if (txtNome.getText().trim().isEmpty() || txtCnpj.getText().equals("  .   .   /    -  ") || txtEndereco.getText().trim().isEmpty() || txtEmail.getText().trim().isEmpty() || txtTelefone.getText().trim().isEmpty()){
+            mostrarErro(txtErro);
+        }
+        else{
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setNome(txtNome.getText());
+            fornecedor.setEndereco(txtEndereco.getText());
+            if(ValidarCNPJ.isCNPJ(txtCnpj.getText())){
+                fornecedor.setCnpj(txtCnpj.getText());
+            }
+            else{
+                JOptionPane.showMessageDialog(tela, "CNPJ Inválido","Algo deu errado",JOptionPane.DEFAULT_OPTION);
+                return;
+            }
+            fornecedor.setTelefone(txtTelefone.getText());
+            fornecedor.setEmail(txtEmail.getText());
+            
+            FornecedorDao FornecedorDao = new FornecedorDao();
+            if(FornecedorDao.salvar(fornecedor).equals("SUCESSO")){
+                
+                JOptionPane.showMessageDialog(tela, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
+                tela.dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(tela, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+            }
+        }
+     }
 }

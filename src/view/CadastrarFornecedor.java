@@ -6,6 +6,7 @@ import dao.ClienteDao;
 import dao.FornecedorDao;
 import javax.swing.JOptionPane;
 import model.Fornecedor;
+import util.ValidarCNPJ;
 
 
 public class CadastrarFornecedor extends javax.swing.JFrame {
@@ -28,7 +29,6 @@ public class CadastrarFornecedor extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtCnpj = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
@@ -36,8 +36,9 @@ public class CadastrarFornecedor extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         txtErro = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JFormattedTextField();
+        txtCnpj = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("CADASTRO DE FORNECEDOR");
@@ -75,6 +76,12 @@ public class CadastrarFornecedor extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        try {
+            txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,10 +101,6 @@ public class CadastrarFornecedor extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
                                     .addComponent(labelnome)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -108,11 +111,13 @@ public class CadastrarFornecedor extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel6)
-                                        .addComponent(jLabel5))
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel4))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtTelefone)
-                                        .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))))
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                                        .addComponent(txtCnpj)))))
                         .addContainerGap(68, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -157,29 +162,8 @@ public class CadastrarFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        if (txtNome.getText().trim().isEmpty() || txtCnpj.getText().trim().isEmpty() || txtEndereco.getText().trim().isEmpty() || txtEmail.getText().trim().isEmpty() || txtTelefone.getText().trim().isEmpty()){
-            controller.mostrarErro(txtErro);
-        }
-        else{
-            Fornecedor fornecedor = new Fornecedor();
-            fornecedor.setNome(txtNome.getText());
-            fornecedor.setEndereco(txtEndereco.getText());
-            fornecedor.setCnpj(txtCnpj.getText());
-            fornecedor.setTelefone(txtTelefone.getText());
-            fornecedor.setEmail(txtEmail.getText());
-            
-            FornecedorDao FornecedorDao = new FornecedorDao();
-            if(FornecedorDao.salvar(fornecedor).equals("SUCESSO")){
-                
-                JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
-                this.dispose();
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
-            }
-        }
+        controller.cadastrarFornecedor(this, txtNome, txtCnpj, txtEndereco, txtEmail, txtTelefone, txtErro);
     }//GEN-LAST:event_btnOkActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -190,7 +174,7 @@ public class CadastrarFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel labelnome;
-    private javax.swing.JTextField txtCnpj;
+    private javax.swing.JFormattedTextField txtCnpj;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JLabel txtErro;
