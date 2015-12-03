@@ -12,8 +12,8 @@ import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "funcionario")
-public class Funcionario implements Serializable{
-    
+public class Funcionario implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -29,17 +29,16 @@ public class Funcionario implements Serializable{
     @Column(unique = true)
     private String email;
     private String cpf;
-    private Integer nivelAcesso;
     private Integer tipo; //1-FARMACEUTICO e 2-FUNCIONARIO
 
-    public Funcionario(){
-        
+    public Funcionario() {
+
     }
-    
+
     public Funcionario(String login, String senha) {
         this.login = login;
         this.senha = senha;
-    }    
+    }
 
     public Integer getId() {
         return id;
@@ -101,14 +100,6 @@ public class Funcionario implements Serializable{
         return sexo;
     }
 
-    public Integer getNivelAcesso() {
-        return nivelAcesso;
-    }
-
-    public void setNivelAcesso(Integer nivelAcesso) {
-        this.nivelAcesso = nivelAcesso;
-    }
-
     public Integer getTipo() {
         return tipo;
     }
@@ -136,9 +127,9 @@ public class Funcionario implements Serializable{
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    
-    
-    
-    
-    
+
+    public Object[] toArray() {
+        return new Object[]{id, nome, email, telefone};
+    }
+
 }

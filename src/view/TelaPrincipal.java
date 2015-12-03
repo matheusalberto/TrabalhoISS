@@ -13,11 +13,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaPrincipal
+     * @param nome
      */
-    public TelaPrincipal() {
+  
+    
+    public TelaPrincipal(String nome) {
         initComponents();
+        labelUsuario.setText("jose");
+        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,6 +33,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        labelUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         menuCadastroFuncionario = new javax.swing.JMenuItem();
@@ -38,6 +43,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuConsulta = new javax.swing.JMenu();
         menuItemCliente = new javax.swing.JMenuItem();
         menuItemFornecedor = new javax.swing.JMenuItem();
+        menuItemFuncionario = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
         menuVenda = new javax.swing.JMenu();
 
@@ -101,6 +107,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuConsulta.add(menuItemFornecedor);
 
+        menuItemFuncionario.setText("Funcionário");
+        menuItemFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemFuncionarioActionPerformed(evt);
+            }
+        });
+        menuConsulta.add(menuItemFuncionario);
+
         jMenuBar1.add(menuConsulta);
 
         menuRelatorio.setText("Relatorios");
@@ -115,11 +129,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(246, Short.MAX_VALUE)
+                .addComponent(labelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         setSize(new java.awt.Dimension(416, 339));
@@ -155,11 +175,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         buscaFornecedor.setVisible(true);
     }//GEN-LAST:event_menuItemFornecedorActionPerformed
 
+    private void menuItemFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemFuncionarioActionPerformed
+        BuscaFuncionario buscaFuncionario = new BuscaFuncionario();
+        buscaFuncionario.setVisible(true);
+    }//GEN-LAST:event_menuItemFuncionarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    public javax.swing.JLabel labelUsuario;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuCadastroCliente;
     private javax.swing.JMenuItem menuCadastroFornecedor;
@@ -168,6 +194,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuConsulta;
     private javax.swing.JMenuItem menuItemCliente;
     private javax.swing.JMenuItem menuItemFornecedor;
+    private javax.swing.JMenuItem menuItemFuncionario;
     private javax.swing.JMenu menuRelatorio;
     private javax.swing.JMenu menuVenda;
     // End of variables declaration//GEN-END:variables

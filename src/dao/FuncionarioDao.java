@@ -27,7 +27,8 @@ public class FuncionarioDao {
         transaction.commit();
         return !(lista.isEmpty());
     }
-
+    
+   
     public String salvar(Funcionario funcionario) {
         String retorno = null;
         try {
@@ -106,6 +107,16 @@ public class FuncionarioDao {
         session = HibernateUtil.getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Funcionario.class);
         criteria.add(Restrictions.eq("id", id));
+        criteria.setMaxResults(1);
+        Funcionario funcionario = (Funcionario) criteria.uniqueResult();
+        session.close();
+        return funcionario;
+    }
+    
+    public Funcionario localizar(String login){
+        session = HibernateUtil.getSessionFactory().openSession();
+        Criteria criteria = session.createCriteria(Funcionario.class);
+        criteria.add(Restrictions.eq("login", login));
         criteria.setMaxResults(1);
         Funcionario funcionario = (Funcionario) criteria.uniqueResult();
         session.close();

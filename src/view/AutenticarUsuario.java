@@ -120,12 +120,12 @@ public class AutenticarUsuario extends javax.swing.JFrame {
         Funcionario func = new Funcionario();
         func.setLogin(txtLogin.getText());
         func.setSenha(String.valueOf(txtSenha.getPassword()));
-
+        FuncionarioDao funcionario = new FuncionarioDao();
+        String nome = funcionario.localizar(txtLogin.getText()).getNome();
         if (new FuncionarioDao().consultar(func)) {
-            TelaPrincipal telaPrincipal = new TelaPrincipal();
+            TelaPrincipal telaPrincipal = new TelaPrincipal(nome);
             telaPrincipal.setVisible(true);
             this.dispose();
-            //this.dispose();
             //JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "D E U  C E R T O !", JOptionPane.DEFAULT_OPTION);
         } else {
             JOptionPane.showMessageDialog(this, "VISH, DEU BOM NAUM!", "S E   F U D E U !", JOptionPane.ERROR_MESSAGE);
@@ -141,12 +141,14 @@ public class AutenticarUsuario extends javax.swing.JFrame {
             Funcionario func = new Funcionario();
             func.setLogin(txtLogin.getText());
             func.setSenha(String.valueOf(txtSenha.getPassword()));
+            FuncionarioDao funcionario = new FuncionarioDao();
+            String nome = funcionario.localizar(txtLogin.getText()).getNome();
 
             if (new FuncionarioDao().consultar(func)) {
-                TelaPrincipal telaPrincipal = new TelaPrincipal();
+                TelaPrincipal telaPrincipal = new TelaPrincipal(nome);
                 telaPrincipal.setVisible(true);
                 this.dispose();
-            //this.dispose();
+                //this.dispose();
                 //JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "D E U  C E R T O !", JOptionPane.DEFAULT_OPTION);
             } else {
                 JOptionPane.showMessageDialog(this, "VISH, DEU BOM NAUM!", "S E   F U D E U !", JOptionPane.ERROR_MESSAGE);
