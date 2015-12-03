@@ -1,4 +1,3 @@
-
 package view;
 
 import controller.ProdutoController;
@@ -15,16 +14,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import model.Produto;
 
-
 public class CadastrarProduto extends javax.swing.JFrame {
-    
+
     ProdutoController controller = new ProdutoController();
- 
+
     public CadastrarProduto() {
         initComponents();
         controller.desabilitarErros(txtErro, txtSemDescricao, txtSemDataCompra, txtSemDataValida, txtSemQuantidade, txtSemPrecoCompra, txtSemPrecoVenda);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -53,7 +50,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
         txtDataCompra = new javax.swing.JFormattedTextField();
         txtDataValidade = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("CADASTRO DE PRODUTO");
@@ -105,9 +102,17 @@ public class CadastrarProduto extends javax.swing.JFrame {
         txtSemPrecoVenda.setForeground(new java.awt.Color(255, 0, 0));
         txtSemPrecoVenda.setText("*");
 
-        txtDataCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        try {
+            txtDataCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        txtDataValidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        try {
+            txtDataValidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,25 +210,26 @@ public class CadastrarProduto extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        
+
         Produto produto = new Produto();
-        
-        try{
+
+        try {
             if (txtDescricao.getText().trim().isEmpty()) {
                 controller.habilitarErro(txtSemDescricao, txtErro);
             } else {
                 controller.desabilitarErro(txtSemDescricao);
                 produto.setDescricao(txtDescricao.getText());
             }
-        
+
             if (txtDataCompra.getText().equals("  /  /    ")) {
                 controller.habilitarErro(txtSemDataCompra, txtErro);
             } else {
                 controller.desabilitarErro(txtSemDataCompra);
-                Calendar d =  Calendar.getInstance();
+                Calendar d = Calendar.getInstance();
                 DateFormat f = DateFormat.getDateInstance();
                 String data;
                 data = txtDataCompra.getText();
@@ -231,12 +237,12 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 dataCorreta = f.parse(data);
                 produto.setDataCompra(dataCorreta);
             }
-        
+
             if (txtDataValidade.getText().equals("  /  /    ")) {
                 controller.habilitarErro(txtSemDataValida, txtErro);
             } else {
                 controller.desabilitarErro(txtSemDataValida);
-                Calendar d =  Calendar.getInstance();
+                Calendar d = Calendar.getInstance();
                 DateFormat f = DateFormat.getDateInstance();
                 String data;
                 data = txtDataValidade.getText();
@@ -244,34 +250,31 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 dataCorreta = f.parse(data);
                 produto.setDataValidade(dataCorreta);
             }
-        
+
             if (txtQuantidade.getText().trim().isEmpty()) {
                 controller.habilitarErro(txtSemQuantidade, txtErro);
             } else {
                 controller.desabilitarErro(txtSemQuantidade);
                 produto.setQuantidadeEstoque(Integer.parseInt(txtQuantidade.getText()));
             }
-        
+
             if (txtPrecoCompra.getText().trim().isEmpty()) {
                 controller.habilitarErro(txtSemPrecoCompra, txtErro);
             } else {
                 controller.desabilitarErro(txtSemPrecoCompra);
                 produto.setPrecoCompra(Double.parseDouble(txtPrecoCompra.getText()));
             }
-        
+
             if (txtPrecoVenda.getText().trim().isEmpty()) {
                 controller.habilitarErro(txtSemPrecoVenda, txtErro);
             } else {
                 controller.desabilitarErro(txtSemPrecoVenda);
                 produto.setPrecoVenda(Double.parseDouble(txtPrecoVenda.getText()));
             }
-        
-        }
-        
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         ProdutoDao produtoDao = new ProdutoDao();
         if (!txtSemDescricao.isVisible() && !txtSemDataCompra.isVisible() && !txtSemDataValida.isVisible() && !txtSemQuantidade.isVisible() && !txtSemPrecoCompra.isVisible() && !txtSemPrecoVenda.isVisible()) {
             if (produtoDao.salvar(produto).equals("SUCESSO")) {
@@ -281,14 +284,13 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
             }
         }
-        
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;

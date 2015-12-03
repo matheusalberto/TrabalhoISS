@@ -35,7 +35,7 @@ public class BuscaProduto extends javax.swing.JFrame {
         btnRemover = new javax.swing.JButton();
         txtBusca = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Digite a descrição do produto:");
 
@@ -113,6 +113,7 @@ public class BuscaProduto extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
@@ -129,8 +130,11 @@ public class BuscaProduto extends javax.swing.JFrame {
         if (linhaSelecionada >= 0) {
             int id = (int) tabelaProdutos.getValueAt(linhaSelecionada, 0);
             Produto produto = new ProdutoDao().localizar(id);
-            this.dispose();
-            new EditarProduto(produto).setVisible(true);
+            try {
+                new EditarProduto(produto).setVisible(true);
+            } catch (ParseException ex) {
+                Logger.getLogger(BuscaProduto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,19 +38,32 @@ public class ProdutoController {
 
     public void desabilitarErro(JLabel labelA) {
         labelA.setVisible(false);
-    }
+    }   
     
     public void preencheCampos(JTextField txtDescricao, JTextField txtDataCompra, JTextField txtDataValidade, JTextField txtQuantidade, JTextField txtPrecoCompra,JTextField txtPrecoVenda, Produto produto) throws ParseException {
         txtDescricao.setText(produto.getDescricao());
         
-        String data1 = txtDataCompra.getText();
-        String data2 = txtDataValidade.getText();
-        DateFormat f = DateFormat.getInstance();
-        Date dataCorreta1 = f.parse(data1);
-        Date dataCorreta2 = f.parse(data2);
+//        String data1 = txtDataCompra.getText();
+//        String data2 = txtDataValidade.getText();
+//        DateFormat f = DateFormat.getInstance();
+//        Date dataCorreta1 = f.parse(data1);
+//        Date dataCorreta2 = f.parse(data2);
         
-        txtDataCompra.setText(produto.getDataCompra().toString());
-        txtDataValidade.setText(produto.getDataValidade().toString());
+        //MEXI AQUI LAVEZZO, TA MEIO PORCO. DA UMA ARRUMADA, CRIA UMA FUNÇÃO PRA FAZER O QUE EU ESTOU FAZENDO AQUI
+        //QUANDO O NÚMERO É DE 1 ATÉ 9, NÃO APARECE O 0 ANTES, P.E 09. TENTA ARRUMAR ISSO
+        String dia, mes, ano;
+        GregorianCalendar calendarCompra = new GregorianCalendar();
+        calendarCompra.setTime(produto.getDataCompra());
+        dia = String.valueOf(calendarCompra.get(GregorianCalendar.DAY_OF_MONTH));
+        mes = String.valueOf(calendarCompra.get(GregorianCalendar.MONTH));
+        ano = String.valueOf(calendarCompra.get(GregorianCalendar.YEAR));
+        txtDataCompra.setText(dia + "/" + mes + "/" + ano);
+        
+        calendarCompra.setTime(produto.getDataValidade());
+        dia = String.valueOf(calendarCompra.get(GregorianCalendar.DAY_OF_MONTH));
+        mes = String.valueOf(calendarCompra.get(GregorianCalendar.MONTH));
+        ano = String.valueOf(calendarCompra.get(GregorianCalendar.YEAR));        
+        txtDataValidade.setText(dia + "/" + mes + "/" + ano);
         
         txtQuantidade.setText(String.valueOf( produto.getQuantidadeEstoque()));
         txtPrecoCompra.setText(String.valueOf( produto.getPrecoCompra()));
