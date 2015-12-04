@@ -24,7 +24,7 @@ public class Produto implements Serializable {
     private Date dataCompra;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataValidade;
-    //private Fornecedor idFornecedor; necessario ligar a variavel aos fornecedores cadastrados
+    private String fornecedor; //necessario ligar a variavel aos fornecedores cadastrados
     private double precoCompra;
     private double precoVenda;
     private Integer quantidadeEstoque;
@@ -43,6 +43,14 @@ public class Produto implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+    
+    public String getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(String fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     public Date getDataValidade() {
@@ -84,6 +92,7 @@ public class Produto implements Serializable {
     public void setDataCompra(Date dataCompra) {
         this.dataCompra = dataCompra;
     }
+    
 
     public Object[] toArray() {
         return  new Object[]{id, descricao, quantidadeEstoque, precoVenda};

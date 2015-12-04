@@ -1,8 +1,10 @@
 
 package controller;
 
+import dao.FornecedorDao;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -10,17 +12,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.chart.PieChart;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import model.Fornecedor;
 import model.Produto;
 import view.CadastrarProduto;
 
 public class ProdutoController {
     
-    public void desabilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelD, JLabel labelE, JLabel labelF,  JLabel labelG) {
+    public void desabilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelD, JLabel labelE, JLabel labelF,  JLabel labelG,JLabel labelH) {
         labelA.setVisible(false);
         labelB.setVisible(false);
         labelC.setVisible(false);
@@ -28,6 +32,7 @@ public class ProdutoController {
         labelE.setVisible(false);
         labelF.setVisible(false);
         labelG.setVisible(false);
+        labelH.setVisible(false);
         
     }
     
@@ -118,4 +123,16 @@ public class ProdutoController {
         tabelaProdutos.setModel(tableModelProduto);
     }
     
+    public void preencherComboBoFornecedor(JComboBox cbFornecedor) {
+     //LISTANDO NO COMBO BOX
+        List<Fornecedor> list = new FornecedorDao().listar(""); //PEGO TODOS OS FORNECEDORES CADASTRADOS
+        List<String> nomes = new ArrayList<>(); 
+        for (Fornecedor list1 : list) { 
+            nomes.add(list1.getNome()); //PEGO APENAS OS NOMES DOS FORNECEDORES
+        }
+        for (String nome : nomes) {
+            cbFornecedor.addItem(nome); //ADICIONO ELES NO COMBO BOX
+        }
+        //PRA PEGAR O QUE ESTA DENTRO DO COMBO BOX FAZ cbFornecedor.getSelectedItem()
+    }
 }
