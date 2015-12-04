@@ -6,8 +6,11 @@
 package controller;
 
 import dao.FuncionarioDao;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -16,37 +19,127 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import model.Funcionario;
-
+import util.ValidarCpf;
 
 public class FuncionarioController {
-    public void CadastrarFuncionario(String nome, String endereco, String telefone, String login, String senha,
-            char sexo, String email, String cpf, int nivelAcesso, int tipo, Date data) {
-        Funcionario funcionario = new Funcionario();
-        funcionario.setNome(nome);
-        funcionario.setEmail(email);
-        funcionario.setEndereco(endereco);
-        funcionario.setCpf(cpf);
-        funcionario.setLogin(login);
-        funcionario.setSenha(senha);
-        funcionario.setSexo(sexo);
-        funcionario.setTelefone(telefone);
-        funcionario.setTipo(tipo);
-        funcionario.setDataContratacao(data);
 
-        FuncionarioDao funcDao = new FuncionarioDao();
-        String salvar = funcDao.salvar(funcionario);
-        switch(salvar) {
-            case "SUCESSO":
-                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso", "", JOptionPane.DEFAULT_OPTION);
+    public void cadastrarCliente(JFrame tela, Funcionario cliente, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouEmail, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo,
+            JLabel txtNaoDigitouData, JLabel txtNaoDigitouEnd, JLabel txtNaoDigitouLogin, JLabel txtNaoDigitouSenha, JLabel txtNaoInformouTipo) {
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
+        if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouEmail.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()
+                && !txtNaoDigitouData.isVisible() && !txtNaoDigitouEnd.isVisible() && !txtNaoDigitouLogin.isVisible() && !txtNaoDigitouSenha.isVisible()
+                && !txtNaoInformouTipo.isVisible()) {
+            String salvar = funcionarioDao.salvar(cliente);
+            switch (salvar) {
+                case "SUCESSO":
+                    JOptionPane.showMessageDialog(tela, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
+                    tela.dispose();
+                    break;
+                case "FALHA_CPF":
+                    JOptionPane.showMessageDialog(tela, "CPF já existente.", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+                    JOptionPane.showMessageDialog(tela, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
                     break;
-        
-        
+            }
         }
     }
-    
+
+    public void validarData(JFrame tela, Funcionario funcionario, JTextField txtData, JLabel txtNaoDigitouData, JLabel txtItensObrigatorios) throws ParseException {
+        if (txtData.getText().trim().isEmpty()) {
+            habilitarErro(txtNaoDigitouData, txtItensObrigatorios);
+        } else {
+            DateFormat f = DateFormat.getDateInstance();
+            String data = txtData.getText();
+            Date dataCorreta = f.parse(data);
+            desabilitarErro(txtNaoDigitouData);
+            funcionario.setDataContratacao(dataCorreta);
+        }
+    }
+
+    public void validarLogin(JFrame tela, Funcionario funcionario, JTextField txtLogin, JLabel txtNaoDigitouLogin, JLabel txtItensObrigatorios) {
+        if (txtLogin.getText().trim().isEmpty()) { //Verifica se o campo nome não está vazio
+            habilitarErro(txtNaoDigitouLogin, txtItensObrigatorios);
+        } else {
+            desabilitarErro(txtNaoDigitouLogin);
+            funcionario.setNome(txtLogin.getText());
+        }
+    }
+
+    public void validarNome(JFrame tela, Funcionario funcionario, JTextField txtNome, JLabel txtNaoDigitouNome, JLabel txtItensObrigatorios) {
+        if (txtNome.getText().trim().isEmpty()) { //Verifica se o campo nome não está vazio
+            habilitarErro(txtNaoDigitouNome, txtItensObrigatorios);
+        } else {
+            desabilitarErro(txtNaoDigitouNome);
+            funcionario.setNome(txtNome.getText());
+        }
+    }
+
+    public void validarCpf(JFrame tela, Funcionario cliente, JTextField txtCpf, JLabel txtNaoDigitouCpf, JLabel txtItensObrigatorios) {
+        if (txtCpf.getText().equals("   .   .   -  ")) { //Verifica se o campo de CPF não está vazio
+            habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
+        } else if (ValidarCpf.isCPF(txtCpf.getText())) {
+            desabilitarErro(txtNaoDigitouCpf);
+            cliente.setCpf(txtCpf.getText());
+        } else {
+            habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
+            JOptionPane.showMessageDialog(tela, "CPF inválido", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+        }
+    }
+
+    public void validarEmail(JFrame tela, Funcionario funcionario, JTextField txtEmail, JLabel txtNaoDigitouEmail, JLabel txtItensObrigatorios) {
+        if (txtEmail.getText().trim().isEmpty()) { //Verifica se o email está vazio
+            habilitarErro(txtNaoDigitouEmail, txtItensObrigatorios);
+        } else {
+            desabilitarErro(txtNaoDigitouEmail);
+            funcionario.setEmail(txtEmail.getText());
+        }
+    }
+
+    public void validarSenha(JFrame tela, Funcionario funcionario, JTextField txtSenha, JLabel txtNaoDigitouSenha, JLabel txtItensObrigatorios) {
+        if (txtSenha.getText().trim().isEmpty()) { //Verifica se o email está vazio
+            habilitarErro(txtNaoDigitouSenha, txtItensObrigatorios);
+        } else {
+            desabilitarErro(txtNaoDigitouSenha);
+            funcionario.setEmail(txtSenha.getText());
+        }
+    }
+
+    public void validarEndereco(JFrame tela, Funcionario funcionario, JTextField txtEnd, JLabel txtNaoDigitouEnd, JLabel txtItensObrigatorios) {
+        if (txtEnd.getText().trim().isEmpty()) { //Verifica se o email está vazio
+            habilitarErro(txtNaoDigitouEnd, txtItensObrigatorios);
+        } else {
+            desabilitarErro(txtNaoDigitouEnd);
+            funcionario.setEmail(txtEnd.getText());
+        }
+    }
+
+    public void validarSexo(JFrame tela, Funcionario funcionario, JRadioButton btnMasc, JRadioButton btnFemi, JLabel txtNaoInformouSexo, JLabel txtItensObrigatorios) {
+        if (!btnMasc.isSelected() && !btnFemi.isSelected()) { //Verifica se o sexo esta selecionado
+            habilitarErro(txtNaoInformouSexo, txtItensObrigatorios);
+        } else {
+            desabilitarErro(txtNaoInformouSexo);
+            if (btnMasc.isSelected()) {
+                funcionario.setSexo('M');
+            } else {
+                funcionario.setSexo('F');
+            }
+        }
+    }
+
+    public void validarTipo(JFrame tela, Funcionario funcionario, JRadioButton btnComum, JRadioButton btnFarmaceutico, JLabel txtNaoInformouTipo, JLabel txtItensObrigatorios) {
+        if (!btnComum.isSelected() && !btnFarmaceutico.isSelected()) { //Verifica se o sexo esta selecionado
+            habilitarErro(txtNaoInformouTipo, txtItensObrigatorios);
+        } else {
+            desabilitarErro(txtNaoInformouTipo);
+            if (btnFarmaceutico.isSelected()) {
+                funcionario.setSexo('1');
+            } else {
+                funcionario.setSexo('2');
+            }
+        }
+    }
+
     public void preencherTabela(List<Funcionario> lista, TableModel tableModelFuncionario, JTable tabelaFuncionarios) {
         Object[][] dados = new Object[lista.size()][4];
         int i = 0;
@@ -59,13 +152,20 @@ public class FuncionarioController {
         tableModelFuncionario = new DefaultTableModel(dados, colunas);
         tabelaFuncionarios.setModel(tableModelFuncionario);
     }
-    
-     public void desabilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelD, JLabel labelE) {
+
+    public void desabilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelD, JLabel labelE,
+            JLabel labelF, JLabel labelG, JLabel labelH, JLabel labelI, JLabel labelJ, JLabel labelK) {
         labelA.setVisible(false);
         labelB.setVisible(false);
         labelC.setVisible(false);
         labelD.setVisible(false);
         labelE.setVisible(false);
+        labelF.setVisible(false);
+        labelG.setVisible(false);
+        labelH.setVisible(false);
+        labelI.setVisible(false);
+        labelJ.setVisible(false);
+        labelK.setVisible(false);
     }
 
     public void habilitarErro(JLabel labelA, JLabel labelPrincipal) {
@@ -76,8 +176,8 @@ public class FuncionarioController {
     public void desabilitarErro(JLabel labelA) {
         labelA.setVisible(false);
     }
-    
-        public void preencheCampos(JTextField txtNome, JTextField txtEndereco, JTextField txtCpf, JTextField txtEmail, JTextField txtTelefone, JRadioButton btnMasc, JRadioButton btnFemi, Funcionario funcionario) {
+
+    public void preencheCampos(JTextField txtNome, JTextField txtEndereco, JTextField txtCpf, JTextField txtEmail, JTextField txtTelefone, JRadioButton btnMasc, JRadioButton btnFemi, Funcionario funcionario) {
         txtNome.setText(funcionario.getNome());
         txtEndereco.setText(funcionario.getEndereco());
         txtCpf.setText(funcionario.getCpf());
@@ -89,8 +189,8 @@ public class FuncionarioController {
             btnFemi.setSelected(true);
         }
     }
-        
-        public Funcionario preencheFuncionario(int id, String nome, String endereco, String cpf, String email, String telefone, JRadioButton btnMasc, JRadioButton btnFemi) {
+
+    public Funcionario preencheFuncionario(int id, String nome, String endereco, String cpf, String email, String telefone, JRadioButton btnMasc, JRadioButton btnFemi) {
         Funcionario funcionario = new Funcionario();
         funcionario.setId(id);
         funcionario.setNome(nome);

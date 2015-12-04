@@ -6,14 +6,10 @@
 package view;
 
 import controller.FuncionarioController;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import util.ValidarCpf;
+import model.Funcionario;
 
 /**
  *
@@ -28,6 +24,9 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
      */
     public CadastrarFuncionario() {
         initComponents();
+        controller.desabilitarErros(txtItensObrigatorios, txtNaoDigitouCpf, txtNaoDigitouData, txtNaoDigitouEmail,
+                txtNaoDigitouEnd, txtNaoDigitouLogin, txtNaoDigitouNome, txtNaoDigitouSenha, txtNaoDigitouTel, txtNaoInformouSexo,
+                txtNaoInformouTipo);
     }
 
     /**
@@ -68,13 +67,13 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         txtNaoDigitouNome = new javax.swing.JLabel();
         txtNaoDigitouEnd = new javax.swing.JLabel();
         txtNaoDigitouTel = new javax.swing.JLabel();
-        txtNaoDigitouSexo = new javax.swing.JLabel();
+        txtNaoInformouSexo = new javax.swing.JLabel();
         txtNaoDigitouData = new javax.swing.JLabel();
         txtNaoDigitouEmail = new javax.swing.JLabel();
         txtNaoDigitouCpf = new javax.swing.JLabel();
-        txt = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        txtNaoInformouTipo = new javax.swing.JLabel();
+        txtNaoDigitouLogin = new javax.swing.JLabel();
+        txtNaoDigitouSenha = new javax.swing.JLabel();
         txtItensObrigatorios = new javax.swing.JLabel();
 
         jLabel23.setForeground(new java.awt.Color(255, 0, 0));
@@ -113,6 +112,11 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         btnM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMMouseClicked(evt);
+            }
+        });
+        btnM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMActionPerformed(evt);
             }
         });
 
@@ -179,8 +183,8 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         txtNaoDigitouTel.setForeground(new java.awt.Color(255, 0, 0));
         txtNaoDigitouTel.setText("*");
 
-        txtNaoDigitouSexo.setForeground(new java.awt.Color(255, 0, 0));
-        txtNaoDigitouSexo.setText("*");
+        txtNaoInformouSexo.setForeground(new java.awt.Color(255, 0, 0));
+        txtNaoInformouSexo.setText("*");
 
         txtNaoDigitouData.setForeground(new java.awt.Color(255, 0, 0));
         txtNaoDigitouData.setText("*");
@@ -191,14 +195,14 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         txtNaoDigitouCpf.setForeground(new java.awt.Color(255, 0, 0));
         txtNaoDigitouCpf.setText("*");
 
-        txt.setForeground(new java.awt.Color(255, 0, 0));
-        txt.setText("*");
+        txtNaoInformouTipo.setForeground(new java.awt.Color(255, 0, 0));
+        txtNaoInformouTipo.setText("*");
 
-        jLabel21.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel21.setText("*");
+        txtNaoDigitouLogin.setForeground(new java.awt.Color(255, 0, 0));
+        txtNaoDigitouLogin.setText("*");
 
-        jLabel22.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel22.setText("*");
+        txtNaoDigitouSenha.setForeground(new java.awt.Color(255, 0, 0));
+        txtNaoDigitouSenha.setText("*");
 
         txtItensObrigatorios.setForeground(new java.awt.Color(255, 0, 0));
         txtItensObrigatorios.setText("* Itens Obrigatórios");
@@ -207,122 +211,106 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCpf)
-                            .addComponent(txtEmail)))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel1))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEndereco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
-                            .addComponent(txtNome)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnM)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnF)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNaoDigitouSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNaoDigitouData, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNaoDigitouTel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNaoDigitouNome, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNaoDigitouEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNaoDigitouEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNaoDigitouCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(74, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(94, 94, 94))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnFarmaceutico)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnFarmaceutico)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnComum)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtItensObrigatorios)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnComum)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtNaoInformouTipo)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtLogin)
+                                            .addComponent(txtSenha))
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtNaoDigitouLogin)
+                                            .addComponent(txtNaoDigitouSenha)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(btnM)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnF)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtNaoInformouSexo))
+                                            .addComponent(txtData, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCpf)
+                                            .addComponent(txtTel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txtNaoDigitouEmail)
+                                                .addComponent(txtNaoDigitouCpf)
+                                                .addComponent(txtNaoDigitouData))
+                                            .addComponent(txtNaoDigitouTel, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtNaoDigitouEnd)
+                                        .addGap(0, 2, Short.MAX_VALUE))))))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addGap(103, 103, 103)
-                        .addComponent(btnCadastrar)
-                        .addGap(85, 85, 85))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtItensObrigatorios)
-                        .addGap(168, 168, 168))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addComponent(btnCancelar)
+                                .addGap(103, 103, 103)
+                                .addComponent(btnCadastrar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(124, 124, 124)
+                                .addComponent(jLabel11)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNaoDigitouNome)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNaoDigitouNome))
+                    .addComponent(txtNaoDigitouNome)
+                    .addComponent(jLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
                     .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNaoDigitouEnd))
+                    .addComponent(txtNaoDigitouEnd)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNaoDigitouTel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(btnM)
-                    .addComponent(btnF)
-                    .addComponent(txtNaoDigitouSexo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -338,77 +326,62 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNaoDigitouCpf))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(btnFarmaceutico)
-                    .addComponent(btnComum)
-                    .addComponent(txt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
+                    .addComponent(txtNaoDigitouLogin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22))
+                    .addComponent(txtNaoDigitouSenha))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnM)
+                    .addComponent(btnF)
+                    .addComponent(txtNaoInformouSexo)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(btnFarmaceutico)
+                    .addComponent(btnComum)
+                    .addComponent(txtNaoInformouTipo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtItensObrigatorios)
-                .addGap(1, 1, 1)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnCadastrar))
-                .addGap(33, 33, 33))
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        try {
-            char sexo;
-            int tipo = -1, nivelAcesso = -1;
-            String nome, endereco, telefone, login, senha, email, cpf, data;
-            Calendar d = Calendar.getInstance();
-            DateFormat f = DateFormat.getDateInstance();
-            data = txtData.getText();
-            Date dataCorreta = f.parse(data);
+        Funcionario funcionario = new Funcionario();
 
-            if (txtNome.getText().trim().isEmpty()) {
-            controller.habilitarErro(txtNaoDigitouNome, txtItensObrigatorios);
-        } else {
-            controller.desabilitarErro(txtNaoDigitouNome);
-            nome = txtNome.getText();
-        }
-        if (txtCpf.getText().trim().isEmpty()) {
-            controller.habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
-        } else if (ValidarCpf.isCPF(txtCpf.getText())) {
-            controller.desabilitarErro(txtNaoDigitouCpf);
-        } else {
-            controller.habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
-            JOptionPane.showMessageDialog(this, "CPF inválido", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
-        }
-        if (txtEmail.getText().trim().isEmpty()) {
-            controller.habilitarErro(txtNaoDigitouEmail, txtItensObrigatorios);
-        } else {
-            controller.desabilitarErro(txtNaoDigitouEmail);
-        }
-       // if (!btnMasc.isSelected() && !btnFemi.isSelected()) {
-         //   controller.habilitarErro(txtNaoInformouSexo, txtItensObrigatorios);
-        //} else {
-          //  controller.desabilitarErro(txtNaoInformouSexo);
-           // if (btnMasc.isSelected()) {
-             //   cliente.setSexo('M');
-            //} else {
-              //  cliente.setSexo('F');
-       
-       
-            //controller.CadastrarFuncionario(nome, endereco, telefone, login, senha, sexo, email, cpf, nivelAcesso, tipo, dataCorreta);
+        controller.validarNome(this, funcionario, txtNome, txtNaoDigitouNome, txtItensObrigatorios);
+        controller.validarCpf(this, funcionario, txtCpf, txtNaoDigitouCpf, txtItensObrigatorios);
+        controller.validarEmail(this, funcionario, txtEmail, txtNaoDigitouEmail, txtItensObrigatorios);
+        controller.validarSexo(this, funcionario, btnM, btnF, txtNaoInformouSexo, txtItensObrigatorios);
+        controller.validarLogin(this, funcionario, txtLogin, txtNaoDigitouLogin, txtItensObrigatorios);
+        controller.validarSenha(this, funcionario, txtSenha, txtNaoDigitouSenha, txtItensObrigatorios);
+        try {
+            controller.validarData(this, funcionario, txtData, txtNaoDigitouData, txtItensObrigatorios);
         } catch (ParseException ex) {
             Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
+        controller.validarEndereco(this, funcionario, txtEndereco, txtNaoDigitouEnd, txtItensObrigatorios);
+        controller.validarTipo(this, funcionario, btnComum, btnFarmaceutico, txtNaoInformouTipo, txtItensObrigatorios);
+
+        funcionario.setTelefone(txtTel.getText());
+
+        controller.cadastrarCliente(this, funcionario, txtNaoDigitouCpf, txtNaoDigitouEmail, txtNaoDigitouNome, txtNaoInformouSexo,
+                txtNaoDigitouData, txtNaoDigitouEnd, txtNaoDigitouLogin, txtNaoDigitouSenha, txtNaoInformouTipo);
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnComumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComumActionPerformed
@@ -445,6 +418,10 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMActionPerformed
+
+    }//GEN-LAST:event_btnMActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
@@ -458,8 +435,6 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -467,7 +442,6 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel txt;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtEmail;
@@ -478,9 +452,12 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel txtNaoDigitouData;
     private javax.swing.JLabel txtNaoDigitouEmail;
     private javax.swing.JLabel txtNaoDigitouEnd;
+    private javax.swing.JLabel txtNaoDigitouLogin;
     private javax.swing.JLabel txtNaoDigitouNome;
-    private javax.swing.JLabel txtNaoDigitouSexo;
+    private javax.swing.JLabel txtNaoDigitouSenha;
     private javax.swing.JLabel txtNaoDigitouTel;
+    private javax.swing.JLabel txtNaoInformouSexo;
+    private javax.swing.JLabel txtNaoInformouTipo;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSenha;
     private javax.swing.JFormattedTextField txtTel;

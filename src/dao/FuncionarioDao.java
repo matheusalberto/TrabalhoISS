@@ -27,8 +27,7 @@ public class FuncionarioDao {
         transaction.commit();
         return !(lista.isEmpty());
     }
-    
-   
+
     public String salvar(Funcionario funcionario) {
         String retorno = null;
         try {
@@ -44,12 +43,11 @@ public class FuncionarioDao {
             session.save(funcionario);
             transaction.commit();
             retorno = "SUCESSO";
-        } catch (ConstraintViolationException e) {
+        } catch (Exception e) {
             retorno = "FALHA";
             throw new RuntimeException("Funcionário já cadastrado, tente com outro!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            retorno = "FALHA";
+        //} catch (ConstraintViolationException f) {
+          //  return "FALHA_CPF";             PRECISO ARRUMAR ISSO AQUI
         } finally {
             session.close();
             return retorno;
@@ -112,8 +110,8 @@ public class FuncionarioDao {
         session.close();
         return funcionario;
     }
-    
-    public Funcionario localizar(String login){
+
+    public Funcionario localizar(String login) {
         session = HibernateUtil.getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Funcionario.class);
         criteria.add(Restrictions.eq("login", login));
