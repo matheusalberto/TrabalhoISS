@@ -48,14 +48,6 @@ public class ProdutoController {
     public void preencheCampos(JTextField txtDescricao, JTextField txtDataCompra, JTextField txtDataValidade, JTextField txtQuantidade, JTextField txtPrecoCompra,JTextField txtPrecoVenda, Produto produto) throws ParseException {
         txtDescricao.setText(produto.getDescricao());
         
-//        String data1 = txtDataCompra.getText();
-//        String data2 = txtDataValidade.getText();
-//        DateFormat f = DateFormat.getInstance();
-//        Date dataCorreta1 = f.parse(data1);
-//        Date dataCorreta2 = f.parse(data2);
-        
-        //MEXI AQUI LAVEZZO, TA MEIO PORCO. DA UMA ARRUMADA, CRIA UMA FUNÇÃO PRA FAZER O QUE EU ESTOU FAZENDO AQUI
-        //QUANDO O NÚMERO É DE 1 ATÉ 9, NÃO APARECE O 0 ANTES, P.E 09. TENTA ARRUMAR ISSO
         String dia, mes, ano;
         GregorianCalendar calendarCompra = new GregorianCalendar();
         calendarCompra.setTime(produto.getDataCompra());
@@ -70,13 +62,13 @@ public class ProdutoController {
         ano = String.valueOf(calendarCompra.get(GregorianCalendar.YEAR));        
         txtDataValidade.setText(dia + "/" + mes + "/" + ano);
         
-        txtQuantidade.setText(String.valueOf( produto.getQuantidadeEstoque()));
+        txtQuantidade.setText(String.valueOf(produto.getQuantidadeEstoque()));
         txtPrecoCompra.setText(String.valueOf( produto.getPrecoCompra()));
         txtPrecoVenda.setText(String.valueOf( produto.getPrecoVenda()));
    
     }
     
-    public Produto preencheProduto(int id, String descricao, String dataCompra, String dataValidade, String quantidade, String precoCompra, String precoVenda) {
+    public Produto preencheProduto(int id, String descricao, String fornecedor, String dataCompra, String dataValidade, String quantidade, String precoCompra, String precoVenda) {
         
         Date dataCorreta1 = null;
         Date dataCorreta2 = null;
@@ -99,6 +91,7 @@ public class ProdutoController {
         Produto produto = new Produto();
         produto.setId(id);
         produto.setDescricao(descricao);
+        produto.setFornecedor(fornecedor);
         produto.setDataCompra(dataCorreta1);
         produto.setDataValidade(dataCorreta2);
         produto.setQuantidadeEstoque(Integer.parseInt(quantidade));
@@ -125,14 +118,30 @@ public class ProdutoController {
     
     public void preencherComboBoFornecedor(JComboBox cbFornecedor) {
      //LISTANDO NO COMBO BOX
+        
         List<Fornecedor> list = new FornecedorDao().listar(""); //PEGO TODOS OS FORNECEDORES CADASTRADOS
         List<String> nomes = new ArrayList<>(); 
         for (Fornecedor list1 : list) { 
             nomes.add(list1.getNome()); //PEGO APENAS OS NOMES DOS FORNECEDORES
         }
         for (String nome : nomes) {
-            cbFornecedor.addItem(nome); //ADICIONO ELES NO COMBO BOX
+            cbFornecedor.addItem(nome.toString()); //ADICIONO ELES NO COMBO BOX
+            
         }
-        //PRA PEGAR O QUE ESTA DENTRO DO COMBO BOX FAZ cbFornecedor.getSelectedItem()
+    }
+    
+    public void preencherComboBoFornecedorEditar(JComboBox cbFornecedor, Produto produto) {
+     //LISTANDO NO COMBO BOX
+        
+        List<Fornecedor> list = new FornecedorDao().listar(""); //PEGO TODOS OS FORNECEDORES CADASTRADOS
+        List<String> nomes = new ArrayList<>(); 
+        for (Fornecedor list1 : list) { 
+            nomes.add(list1.getNome()); //PEGO APENAS OS NOMES DOS FORNECEDORES
+        }
+        for (String nome : nomes) {
+            cbFornecedor.addItem(nome.toString()); //ADICIONO ELES NO COMBO BOX
+            
+        }
+        cbFornecedor.setSelectedItem(produto.getFornecedor());
     }
 }

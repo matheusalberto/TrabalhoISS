@@ -145,11 +145,11 @@ public class BuscaProduto extends javax.swing.JFrame {
             int id = (int) tabelaProdutos.getValueAt(linhaSelecionada, 0);
 
             ProdutoDao dao = new ProdutoDao();
-            Produto cliente = dao.localizar(id);
+            Produto produto = dao.localizar(id);
 
             int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente remover este produto?", "Confirmação", JOptionPane.YES_OPTION);
             if (JOptionPane.YES_OPTION == opcao) {
-                if (dao.remover(cliente).equals("SUCESSO")) {
+                if (dao.remover(produto).equals("SUCESSO")) {
                     controller.preencherTabela(dao.listar(produtos), tableModelProduto, tabelaProdutos);
                     JOptionPane.showMessageDialog(this, "Produto removido com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
                 } else {

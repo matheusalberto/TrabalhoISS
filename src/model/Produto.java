@@ -77,7 +77,7 @@ public class Produto implements Serializable {
         this.precoVenda = precoVenda;
     }
 
-    public double getQuantidadeEstoque() {
+    public Integer getQuantidadeEstoque() {
         return quantidadeEstoque;
     }
 

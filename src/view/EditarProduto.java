@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.html.parser.DTDConstants;
 import model.Produto;
 
 public class EditarProduto extends javax.swing.JFrame {
@@ -21,7 +22,7 @@ public class EditarProduto extends javax.swing.JFrame {
         initComponents();
         id = produto.getId();
         controller.preencheCampos(txtDescricao, txtDataCompra, txtDataValidade, txtQuantidade, txtPrecoCompra, txtPrecoVenda, produto);
-        controller.preencherComboBoFornecedor(cbFornecedor);
+        controller.preencherComboBoFornecedorEditar(cbFornecedor, produto);
     }
 
 
@@ -104,7 +105,7 @@ public class EditarProduto extends javax.swing.JFrame {
                             .addComponent(btnCancelar))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addGap(147, 147, 147))
                             .addGroup(layout.createSequentialGroup()
@@ -179,7 +180,7 @@ public class EditarProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        Produto produto = controller.preencheProduto(id, txtDescricao.getText(),txtDataCompra.getText(), txtDataValidade.getText(), txtQuantidade.getText(), txtPrecoCompra.getText(), txtPrecoVenda.getText());
+        Produto produto = controller.preencheProduto(id, txtDescricao.getText(), cbFornecedor.getSelectedItem().toString(),txtDataCompra.getText(), txtDataValidade.getText(), txtQuantidade.getText(), txtPrecoCompra.getText(), txtPrecoVenda.getText());
          
         if (new ProdutoDao().atualizar(produto).equals("SUCESSO")) {
             JOptionPane.showMessageDialog(this, "Produto atualizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
