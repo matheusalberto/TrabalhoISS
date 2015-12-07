@@ -36,18 +36,14 @@ public class FuncionarioDao {
 
             String senha = GerarCriptografiaSenha.criptografaSenha(funcionario.getSenha());
 
-            //Funcionario f = new Funcionario();
-            //f.setLogin(funcionario.getLogin());
             funcionario.setSenha(senha);
-            //f.setNome(senha);
+
             session.save(funcionario);
             transaction.commit();
             retorno = "SUCESSO";
         } catch (Exception e) {
             retorno = "FALHA";
             throw new RuntimeException("Funcionário já cadastrado, tente com outro!");
-        //} catch (ConstraintViolationException f) {
-          //  return "FALHA_CPF";             PRECISO ARRUMAR ISSO AQUI
         } finally {
             session.close();
             return retorno;

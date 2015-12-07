@@ -29,7 +29,7 @@ public class Funcionario implements Serializable {
     @Column(unique = true)
     private String email;
     private String cpf;
-    private Integer tipo; //1-FARMACEUTICO e 2-FUNCIONARIO
+    private String tipo; //1-FARMACEUTICO e 2-FUNCIONARIO
 
     public Funcionario() {
 
@@ -100,11 +100,11 @@ public class Funcionario implements Serializable {
         return sexo;
     }
 
-    public Integer getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(Integer tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 

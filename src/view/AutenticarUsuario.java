@@ -128,7 +128,7 @@ public class AutenticarUsuario extends javax.swing.JFrame {
             this.dispose();
             //JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "D E U  C E R T O !", JOptionPane.DEFAULT_OPTION);
         } else {
-            JOptionPane.showMessageDialog(this, "VISH, DEU BOM NAUM!", "S E   F U D E U !", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "VISH, DEU BOM NAUM!", "T E N T E  D E  N O V O !", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -148,10 +148,9 @@ public class AutenticarUsuario extends javax.swing.JFrame {
                 TelaPrincipal telaPrincipal = new TelaPrincipal(nome);
                 telaPrincipal.setVisible(true);
                 this.dispose();
-                //this.dispose();
                 //JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "D E U  C E R T O !", JOptionPane.DEFAULT_OPTION);
             } else {
-                JOptionPane.showMessageDialog(this, "VISH, DEU BOM NAUM!", "S E   F U D E U !", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "VISH, DEU BOM NAUM!", "T E N T E  D E  N O V O !", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_txtSenhaKeyPressed

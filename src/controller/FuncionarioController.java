@@ -23,13 +23,13 @@ import util.ValidarCpf;
 
 public class FuncionarioController {
 
-    public void cadastrarCliente(JFrame tela, Funcionario cliente, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouEmail, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo,
+    public void cadastrarCliente(JFrame tela, Funcionario funcionario, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouEmail, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo,
             JLabel txtNaoDigitouData, JLabel txtNaoDigitouEnd, JLabel txtNaoDigitouLogin, JLabel txtNaoDigitouSenha, JLabel txtNaoInformouTipo) {
         FuncionarioDao funcionarioDao = new FuncionarioDao();
         if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouEmail.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()
                 && !txtNaoDigitouData.isVisible() && !txtNaoDigitouEnd.isVisible() && !txtNaoDigitouLogin.isVisible() && !txtNaoDigitouSenha.isVisible()
                 && !txtNaoInformouTipo.isVisible()) {
-            String salvar = funcionarioDao.salvar(cliente);
+            String salvar = funcionarioDao.salvar(funcionario);
             switch (salvar) {
                 case "SUCESSO":
                     JOptionPane.showMessageDialog(tela, "Cadastro realizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
@@ -46,7 +46,7 @@ public class FuncionarioController {
     }
 
     public void validarData(JFrame tela, Funcionario funcionario, JTextField txtData, JLabel txtNaoDigitouData, JLabel txtItensObrigatorios) throws ParseException {
-        if (txtData.getText().trim().isEmpty()) {
+        if (txtData.getText().equals("  /  /    ")) {
             habilitarErro(txtNaoDigitouData, txtItensObrigatorios);
         } else {
             DateFormat f = DateFormat.getDateInstance();
@@ -75,12 +75,12 @@ public class FuncionarioController {
         }
     }
 
-    public void validarCpf(JFrame tela, Funcionario cliente, JTextField txtCpf, JLabel txtNaoDigitouCpf, JLabel txtItensObrigatorios) {
+    public void validarCpf(JFrame tela, Funcionario funcionario, JTextField txtCpf, JLabel txtNaoDigitouCpf, JLabel txtItensObrigatorios) {
         if (txtCpf.getText().equals("   .   .   -  ")) { //Verifica se o campo de CPF não está vazio
             habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
         } else if (ValidarCpf.isCPF(txtCpf.getText())) {
             desabilitarErro(txtNaoDigitouCpf);
-            cliente.setCpf(txtCpf.getText());
+            funcionario.setCpf(txtCpf.getText());
         } else {
             habilitarErro(txtNaoDigitouCpf, txtItensObrigatorios);
             JOptionPane.showMessageDialog(tela, "CPF inválido", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
