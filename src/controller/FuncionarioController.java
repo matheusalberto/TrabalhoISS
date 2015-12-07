@@ -22,7 +22,7 @@ import model.Funcionario;
 import util.ValidarCpf;
 
 public class FuncionarioController {
-
+    //verifica se as labels que representam a falta de um dos dados não está visivel, se não estiver então tenta salvar o funcionario
     public void cadastrarFuncionario(JFrame tela, Funcionario funcionario, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouEmail, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo,
             JLabel txtNaoDigitouData, JLabel txtNaoDigitouEnd, JLabel txtNaoDigitouLogin, JLabel txtNaoDigitouSenha, JLabel txtNaoInformouTipo) {
         FuncionarioDao funcionarioDao = new FuncionarioDao();
@@ -97,7 +97,7 @@ public class FuncionarioController {
     }
 
     public void validarSenha(JFrame tela, Funcionario funcionario, JTextField txtSenha, JLabel txtNaoDigitouSenha, JLabel txtItensObrigatorios) {
-        if (txtSenha.getText().trim().isEmpty()) { //Verifica se o email está vazio
+        if (txtSenha.getText().trim().isEmpty()) { //Verifica se a senha está vazio
             habilitarErro(txtNaoDigitouSenha, txtItensObrigatorios);
         } else {
             desabilitarErro(txtNaoDigitouSenha);
@@ -106,7 +106,7 @@ public class FuncionarioController {
     }
 
     public void validarEndereco(JFrame tela, Funcionario funcionario, JTextField txtEnd, JLabel txtNaoDigitouEnd, JLabel txtItensObrigatorios) {
-        if (txtEnd.getText().trim().isEmpty()) { //Verifica se o email está vazio
+        if (txtEnd.getText().trim().isEmpty()) { //Verifica se o campo endereço está vazio
             habilitarErro(txtNaoDigitouEnd, txtItensObrigatorios);
         } else {
             desabilitarErro(txtNaoDigitouEnd);
@@ -128,7 +128,7 @@ public class FuncionarioController {
     }
 
     public void validarTipo(JFrame tela, Funcionario funcionario, JRadioButton btnComum, JRadioButton btnFarmaceutico, JLabel txtNaoInformouTipo, JLabel txtItensObrigatorios) {
-        if (!btnComum.isSelected() && !btnFarmaceutico.isSelected()) { //Verifica se o sexo esta selecionado
+        if (!btnComum.isSelected() && !btnFarmaceutico.isSelected()) { //Verifica se o tipo esta selecionado
             habilitarErro(txtNaoInformouTipo, txtItensObrigatorios);
         } else {
             desabilitarErro(txtNaoInformouTipo);
@@ -140,6 +140,7 @@ public class FuncionarioController {
         }
     }
 
+    //preencer a tabela com os dados listados a baixo
     public void preencherTabela(List<Funcionario> lista, TableModel tableModelFuncionario, JTable tabelaFuncionarios) {
         Object[][] dados = new Object[lista.size()][5];
         int i = 0;
@@ -153,6 +154,7 @@ public class FuncionarioController {
         tabelaFuncionarios.setModel(tableModelFuncionario);
     }
 
+    //desabilita as labels que mostram que um dado está faltando
     public void desabilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelD, JLabel labelE,
             JLabel labelF, JLabel labelG, JLabel labelH, JLabel labelI, JLabel labelJ, JLabel labelK) {
         labelA.setVisible(false);
@@ -168,11 +170,13 @@ public class FuncionarioController {
         labelK.setVisible(false);
     }
 
+    //habilita a label que diz que o dado está faltando
     public void habilitarErro(JLabel labelA, JLabel labelPrincipal) {
         labelA.setVisible(true);
         labelPrincipal.setVisible(true);
     }
 
+    //desabilita a label que diz que o dado está faltando
     public void desabilitarErro(JLabel labelA) {
         labelA.setVisible(false);
     }

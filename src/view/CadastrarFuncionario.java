@@ -361,6 +361,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //função que verifica se os dados estão todos nos conformes e tenta chama controller para cadastro
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         Funcionario funcionario = new Funcionario();
 
@@ -393,6 +394,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnFarmaceuticoActionPerformed
 
+    //faz com que apenas um botao de tipo esteja selecionado
     private void btnFarmaceuticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFarmaceuticoMouseClicked
         if (btnComum.isSelected()) {
             btnComum.setSelected(false);

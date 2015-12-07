@@ -129,6 +129,8 @@ public class BuscaFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtBuscaKeyPressed
 
+    //lista todos os funcionario cadastrados se não houver nada no campo de texto de busca ou faz a busca
+    //com os dados no campo de texto referente ao nome do funcionario.
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         funcionarios = txtBusca.getText().trim();
         FuncionarioDao dao = new FuncionarioDao();
@@ -137,6 +139,7 @@ public class BuscaFuncionario extends javax.swing.JFrame {
         controller.preencherTabela(listaFuncionario, tableModelFuncionario, tabelaFuncionarios);
     }//GEN-LAST:event_btnOkActionPerformed
 
+    //pega o funcionario da linha selecionada para ser editado em outra tela
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int linhaSelecionada = tabelaFuncionarios.getSelectedRow();
 
@@ -148,6 +151,7 @@ public class BuscaFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    //tenta remover o funcionario correspondente a linha selecionada
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         int linhaSelecionada = tabelaFuncionarios.getSelectedRow();
 
