@@ -19,7 +19,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public TelaPrincipal(String nome) {
         initComponents();
-        labelUsuario.setText("jose");
         
     }
     /**

@@ -154,13 +154,13 @@ public class BuscaFuncionario extends javax.swing.JFrame {
             int id = (int) tabelaFuncionarios.getValueAt(linhaSelecionada, 0);
 
             FuncionarioDao dao = new FuncionarioDao();
-            Funcionario cliente = dao.localizar(id);
+            Funcionario funcionario = dao.localizar(id);
 
-            int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente remover este cliente?", "Confirmação", JOptionPane.YES_OPTION);
+            int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente remover este funcionário?", "Confirmação", JOptionPane.YES_OPTION);
             if (JOptionPane.YES_OPTION == opcao) {
-                if (dao.remover(cliente).equals("SUCESSO")) {
+                if (dao.remover(funcionario).equals("SUCESSO")) {
                     controller.preencherTabela(dao.listar(funcionarios), tableModelFuncionario, tabelaFuncionarios);
-                    JOptionPane.showMessageDialog(this, "Cliente removido com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
+                    JOptionPane.showMessageDialog(this, "Funcionário removido com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
                 } else {
                     JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
                 }

@@ -23,7 +23,7 @@ import util.ValidarCpf;
 
 public class FuncionarioController {
 
-    public void cadastrarCliente(JFrame tela, Funcionario funcionario, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouEmail, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo,
+    public void cadastrarFuncionario(JFrame tela, Funcionario funcionario, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouEmail, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo,
             JLabel txtNaoDigitouData, JLabel txtNaoDigitouEnd, JLabel txtNaoDigitouLogin, JLabel txtNaoDigitouSenha, JLabel txtNaoInformouTipo) {
         FuncionarioDao funcionarioDao = new FuncionarioDao();
         if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouEmail.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()
@@ -62,7 +62,7 @@ public class FuncionarioController {
             habilitarErro(txtNaoDigitouLogin, txtItensObrigatorios);
         } else {
             desabilitarErro(txtNaoDigitouLogin);
-            funcionario.setNome(txtLogin.getText());
+            funcionario.setLogin(txtLogin.getText());
         }
     }
 
@@ -101,7 +101,7 @@ public class FuncionarioController {
             habilitarErro(txtNaoDigitouSenha, txtItensObrigatorios);
         } else {
             desabilitarErro(txtNaoDigitouSenha);
-            funcionario.setEmail(txtSenha.getText());
+            funcionario.setSenha(txtSenha.getText());
         }
     }
 
@@ -110,7 +110,7 @@ public class FuncionarioController {
             habilitarErro(txtNaoDigitouEnd, txtItensObrigatorios);
         } else {
             desabilitarErro(txtNaoDigitouEnd);
-            funcionario.setEmail(txtEnd.getText());
+            funcionario.setEndereco(txtEnd.getText());
         }
     }
 
@@ -133,22 +133,22 @@ public class FuncionarioController {
         } else {
             desabilitarErro(txtNaoInformouTipo);
             if (btnFarmaceutico.isSelected()) {
-                funcionario.setSexo('1');
+                funcionario.setTipo("1");
             } else {
-                funcionario.setSexo('2');
+                funcionario.setTipo("2");
             }
         }
     }
 
     public void preencherTabela(List<Funcionario> lista, TableModel tableModelFuncionario, JTable tabelaFuncionarios) {
-        Object[][] dados = new Object[lista.size()][4];
+        Object[][] dados = new Object[lista.size()][5];
         int i = 0;
         for (Funcionario c : lista) {
             dados[i] = c.toArray();
             i++;
         }
 
-        Object[] colunas = new Object[]{"Código", "Nome", "E-mail", "Telefone"};
+        Object[] colunas = new Object[]{"Código", "Nome", "E-mail", "Telefone", "Data Contratação"};
         tableModelFuncionario = new DefaultTableModel(dados, colunas);
         tabelaFuncionarios.setModel(tableModelFuncionario);
     }

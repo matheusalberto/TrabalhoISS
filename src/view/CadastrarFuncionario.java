@@ -24,8 +24,8 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
      */
     public CadastrarFuncionario() {
         initComponents();
-        controller.desabilitarErros(txtItensObrigatorios, txtNaoDigitouCpf, txtNaoDigitouData, txtNaoDigitouEmail,
-                txtNaoDigitouEnd, txtNaoDigitouLogin, txtNaoDigitouNome, txtNaoDigitouSenha, txtNaoDigitouTel, txtNaoInformouSexo,
+        controller.desabilitarErros( txtNaoDigitouCpf, txtNaoDigitouData, txtNaoDigitouEmail,
+               txtItensObrigatorios, txtNaoDigitouEnd, txtNaoDigitouLogin, txtNaoDigitouNome, txtNaoDigitouSenha, txtNaoDigitouTel, txtNaoInformouSexo,
                 txtNaoInformouTipo);
     }
 
@@ -379,7 +379,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
 
         funcionario.setTelefone(txtTel.getText());
 
-        controller.cadastrarCliente(this, funcionario, txtNaoDigitouCpf, txtNaoDigitouEmail, txtNaoDigitouNome, txtNaoInformouSexo,
+        controller.cadastrarFuncionario(this, funcionario, txtNaoDigitouCpf, txtNaoDigitouEmail, txtNaoDigitouNome, txtNaoInformouSexo,
                 txtNaoDigitouData, txtNaoDigitouEnd, txtNaoDigitouLogin, txtNaoDigitouSenha, txtNaoInformouTipo);
 
     }//GEN-LAST:event_btnCadastrarActionPerformed

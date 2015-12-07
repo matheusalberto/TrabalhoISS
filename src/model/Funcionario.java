@@ -129,7 +129,7 @@ public class Funcionario implements Serializable {
     }
 
     public Object[] toArray() {
-        return new Object[]{id, nome, email, telefone};
+        return new Object[]{id, nome, email, telefone, dataContratacao};
     }
 
 }
