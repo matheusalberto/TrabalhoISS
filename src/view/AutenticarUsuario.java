@@ -126,9 +126,9 @@ public class AutenticarUsuario extends javax.swing.JFrame {
             TelaPrincipal telaPrincipal = new TelaPrincipal(nome);
             telaPrincipal.setVisible(true);
             this.dispose();
-            //JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "D E U  C E R T O !", JOptionPane.DEFAULT_OPTION);
+            //JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "S U C E S S O !", JOptionPane.DEFAULT_OPTION);
         } else {
-            JOptionPane.showMessageDialog(this, "VISH, DEU BOM NAUM!", "T E N T E  D E  N O V O !", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ALGO DEU ERRADO!", "T E N T E  N O V A M E N T E !", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnOkActionPerformed
 
