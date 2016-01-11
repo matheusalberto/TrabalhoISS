@@ -157,7 +157,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(this, "Fornecedor atualizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
                 this.dispose();
-                new BuscaFornecedor().setVisible(true);
+                //new BuscaFornecedor().setVisible(true);
             }
             else{
                 JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);

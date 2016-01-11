@@ -47,14 +47,13 @@ public class EditarCliente extends javax.swing.JFrame {
         jLabel3.setText("Endereço:");
 
         jLabel4.setText("CPF:");
+        jLabel4.setEnabled(false);
 
         jLabel5.setText("E-mail:");
 
         jLabel6.setText("Telefone:");
 
         jLabel7.setText("Sexo:");
-
-        txtNome.setEnabled(false);
 
         try {
             txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -70,10 +69,18 @@ public class EditarCliente extends javax.swing.JFrame {
         }
 
         btnMasc.setText("Masculino");
-        btnMasc.setEnabled(false);
+        btnMasc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMascActionPerformed(evt);
+            }
+        });
 
         btnFemi.setText("Feminino");
-        btnFemi.setEnabled(false);
+        btnFemi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFemiActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("OK");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -173,14 +180,20 @@ public class EditarCliente extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         Cliente cliente = controller.preencheCliente(id, txtNome.getText(), txtEndereco.getText(), txtCpf.getText(), txtEmail.getText(), txtTelefone.getText(), btnMasc, btnFemi);
-         
-        if (new ClienteDao().atualizar(cliente).equals("SUCESSO")) {
-            JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
-            this.dispose();
+        if (!btnMasc.isSelected() && !btnFemi.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Sexo não selecionado.", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
         } else {
-            JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+            controller.atualizarCliente(this, cliente, txtNome);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnMascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMascActionPerformed
+        controller.verificarSexo(btnMasc, btnFemi);
+    }//GEN-LAST:event_btnMascActionPerformed
+
+    private void btnFemiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFemiActionPerformed
+        controller.verificarSexo(btnFemi, btnMasc);
+    }//GEN-LAST:event_btnFemiActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

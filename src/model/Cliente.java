@@ -9,9 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cliente")
+@Table(name = "cliente")
 public class Cliente implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -22,10 +22,11 @@ public class Cliente implements Serializable {
     private String cpf;
     private String email;
     private char sexo;
+    private Integer excluido;
 
     public Cliente() {
     }
-        
+
     public Integer getId() {
         return id;
     }
@@ -81,8 +82,16 @@ public class Cliente implements Serializable {
     public void setSexo(char sexo) {
         this.sexo = sexo;
     }
-    
-    public Object[] toArray(){
-        return  new Object[]{id, nome, email, telefone};
-    }    
+
+    public Integer getExcluido() {
+        return excluido;
+    }
+
+    public void setExcluido(Integer excluido) {
+        this.excluido = excluido;
+    }
+
+    public Object[] toArray() {
+        return new Object[]{id, nome, email, telefone};
+    }
 }

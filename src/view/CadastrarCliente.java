@@ -9,7 +9,8 @@ public class CadastrarCliente extends javax.swing.JFrame {
 
     public CadastrarCliente() {
         initComponents();
-        controller.desabilitarErros(txtNaoDigitouCpf, txtNaoDigitouNome, txtNaoDigitouEmail, txtItensObrigatorios, txtNaoInformouSexo);
+        //controller.desabilitarErros(txtNaoDigitouCpf, txtNaoDigitouNome, txtNaoInformouSexo, txtItensObrigatorios);
+        controller.habilitarErros(txtNaoDigitouCpf, txtNaoDigitouNome, txtNaoInformouSexo, txtItensObrigatorios);
     }
 
     @SuppressWarnings("unchecked")
@@ -35,7 +36,6 @@ public class CadastrarCliente extends javax.swing.JFrame {
         txtItensObrigatorios = new javax.swing.JLabel();
         txtNaoDigitouNome = new javax.swing.JLabel();
         txtNaoDigitouCpf = new javax.swing.JLabel();
-        txtNaoDigitouEmail = new javax.swing.JLabel();
         txtNaoInformouSexo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -104,9 +104,6 @@ public class CadastrarCliente extends javax.swing.JFrame {
         txtNaoDigitouCpf.setForeground(new java.awt.Color(255, 0, 0));
         txtNaoDigitouCpf.setText("*");
 
-        txtNaoDigitouEmail.setForeground(new java.awt.Color(255, 0, 0));
-        txtNaoDigitouEmail.setText("*");
-
         txtNaoInformouSexo.setForeground(new java.awt.Color(255, 0, 0));
         txtNaoInformouSexo.setText("*");
 
@@ -151,7 +148,6 @@ public class CadastrarCliente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNaoDigitouNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNaoDigitouCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtNaoDigitouEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNaoInformouSexo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(142, 142, 142)
@@ -180,8 +176,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNaoDigitouEmail))
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -219,16 +214,16 @@ public class CadastrarCliente extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         Cliente cliente = new Cliente();
-        
+
         controller.validarNome(this, cliente, txtNome, txtNaoDigitouNome, txtItensObrigatorios);
         controller.validarCpf(this, cliente, txtCpf, txtNaoDigitouCpf, txtItensObrigatorios);
-        controller.validarEmail(this, cliente, txtEmail, txtNaoDigitouEmail, txtItensObrigatorios);
-        controller.validarSexo(this, cliente, btnMasc, btnFemi, txtNaoInformouSexo, txtItensObrigatorios);       
+        controller.validarSexo(this, cliente, btnMasc, btnFemi, txtNaoInformouSexo, txtItensObrigatorios);
 
         cliente.setEndereco(txtEndereco.getText());
         cliente.setTelefone(txtTelefone.getText());
+        cliente.setExcluido(0); //NÃO FOI EXCLUIDO
 
-        controller.cadastrarCliente(this, cliente, txtNaoDigitouCpf, txtNaoDigitouEmail, txtNaoDigitouNome, txtNaoInformouSexo);
+        controller.cadastrarCliente(this, cliente, txtNaoDigitouCpf, txtNaoDigitouNome, txtNaoInformouSexo);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -248,7 +243,6 @@ public class CadastrarCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JLabel txtItensObrigatorios;
     private javax.swing.JLabel txtNaoDigitouCpf;
-    private javax.swing.JLabel txtNaoDigitouEmail;
     private javax.swing.JLabel txtNaoDigitouNome;
     private javax.swing.JLabel txtNaoInformouSexo;
     private javax.swing.JTextField txtNome;

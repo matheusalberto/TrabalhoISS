@@ -21,12 +21,18 @@ public class ClienteController {
         }
     }
 
-    public void desabilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelD, JLabel labelE) {
+    public void desabilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelD) {
         labelA.setVisible(false);
         labelB.setVisible(false);
         labelC.setVisible(false);
         labelD.setVisible(false);
-        labelE.setVisible(false);
+    }
+
+    public void habilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelPrincipal) {
+        labelA.setVisible(true);
+        labelB.setVisible(true);
+        labelC.setVisible(true);
+        labelPrincipal.setVisible(true);
     }
 
     public void habilitarErro(JLabel labelA, JLabel labelPrincipal) {
@@ -54,6 +60,7 @@ public class ClienteController {
     public Cliente preencheCliente(int id, String nome, String endereco, String cpf, String email, String telefone, JRadioButton btnMasc, JRadioButton btnFemi) {
         Cliente cliente = new Cliente();
         cliente.setId(id);
+        cliente.setExcluido(0); //NÃO FOI EXCLUIDO
         cliente.setNome(nome);
         cliente.setCpf(cpf);
         cliente.setEmail(email);
@@ -80,9 +87,20 @@ public class ClienteController {
         tabelaClientes.setModel(tableModelCliente);
     }
 
-    public void cadastrarCliente(JFrame tela, Cliente cliente, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouEmail, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo) {
+    public void atualizarCliente(JFrame tela, Cliente cliente, JTextField txtNome) {
+        if (!txtNome.getText().trim().isEmpty()) {
+            if (new ClienteDao().atualizar(cliente).equals("SUCESSO")) {
+                JOptionPane.showMessageDialog(tela, "Cliente atualizado com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
+                tela.dispose();
+            } else {
+                JOptionPane.showMessageDialog(tela, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+            }
+        }
+    }
+
+    public void cadastrarCliente(JFrame tela, Cliente cliente, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo) {
         ClienteDao clienteDao = new ClienteDao();
-        if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouEmail.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()) {
+        if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()) {
             String salvar = clienteDao.salvar(cliente);
             switch (salvar) {
                 case "SUCESSO":
@@ -119,16 +137,7 @@ public class ClienteController {
             JOptionPane.showMessageDialog(tela, "CPF inválido", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
         }
     }
-    
-    public void validarEmail(JFrame tela, Cliente cliente, JTextField txtEmail, JLabel txtNaoDigitouEmail, JLabel txtItensObrigatorios) {
-        if (txtEmail.getText().trim().isEmpty()) { //Verifica se o email está vazio
-            habilitarErro(txtNaoDigitouEmail, txtItensObrigatorios);
-        } else {
-            desabilitarErro(txtNaoDigitouEmail);
-            cliente.setEmail(txtEmail.getText());
-        }
-    }
-    
+
     public void validarSexo(JFrame tela, Cliente cliente, JRadioButton btnMasc, JRadioButton btnFemi, JLabel txtNaoInformouSexo, JLabel txtItensObrigatorios) {
         if (!btnMasc.isSelected() && !btnFemi.isSelected()) { //Verifica se o sexo esta selecionado
             habilitarErro(txtNaoInformouSexo, txtItensObrigatorios);

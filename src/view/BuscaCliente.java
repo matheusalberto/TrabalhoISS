@@ -10,16 +10,16 @@ import javax.swing.table.TableModel;
 import model.Cliente;
 
 public class BuscaCliente extends javax.swing.JFrame {
-    
+
     private final ClienteController controller = new ClienteController();
     private final TableModel tableModelCliente = new DefaultTableModel();
     private List<Cliente> listaCliente;
     private String clientes;
-    
+
     public BuscaCliente() {
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -121,7 +121,7 @@ public class BuscaCliente extends javax.swing.JFrame {
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         clientes = txtBusca.getText().trim();
         ClienteDao dao = new ClienteDao();
-        listaCliente = dao.listar(clientes);        
+        listaCliente = dao.listar(clientes);
         controller.preencherTabela(listaCliente, tableModelCliente, tabelaClientes);
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -133,7 +133,7 @@ public class BuscaCliente extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int linhaSelecionada = tabelaClientes.getSelectedRow();
-        
+
         if (linhaSelecionada >= 0) {
             int id = (int) tabelaClientes.getValueAt(linhaSelecionada, 0);
             Cliente cliente = new ClienteDao().localizar(id);
@@ -144,18 +144,19 @@ public class BuscaCliente extends javax.swing.JFrame {
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         int linhaSelecionada = tabelaClientes.getSelectedRow();
-        
+
         if (linhaSelecionada >= 0) {
             int id = (int) tabelaClientes.getValueAt(linhaSelecionada, 0);
-            
+
             ClienteDao dao = new ClienteDao();
             Cliente cliente = dao.localizar(id);
-            
+
             int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente remover este cliente?", "Confirmação", JOptionPane.YES_OPTION);
             if (JOptionPane.YES_OPTION == opcao) {
-                if (dao.remover(cliente).equals("SUCESSO")) {
+                cliente.setExcluido(1);
+                if (dao.atualizar(cliente).equals("SUCESSO")) {
                     controller.preencherTabela(dao.listar(clientes), tableModelCliente, tabelaClientes);
-                    JOptionPane.showMessageDialog(this, "Cliente removido com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);                    
+                    JOptionPane.showMessageDialog(this, "Cliente removido com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
                 } else {
                     JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
                 }

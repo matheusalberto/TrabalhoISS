@@ -24,9 +24,9 @@ public class ClienteDao {
             retorno = "SUCESSO";
         } catch (ConstraintViolationException e) {
             retorno = "FALHA_CPF";
-        } catch(Exception e){
+        } catch (Exception e) {
             retorno = "FALHA";
-        }finally {
+        } finally {
             session.close();
             return retorno;
         }
@@ -34,7 +34,7 @@ public class ClienteDao {
 
     public List<Cliente> listar(String nome) {
 
-        String hql = "from Cliente p where p.nome like :nome";
+        String hql = "from Cliente p where p.nome like :nome and p.excluido = 0";
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         transaction = session.beginTransaction();
