@@ -94,4 +94,8 @@ public class Cliente implements Serializable {
     public Object[] toArray() {
         return new Object[]{id, nome, email, telefone};
     }
+    
+    public Object[] toArrayIdNome() {
+        return new Object[]{id, nome};
+    }
 }

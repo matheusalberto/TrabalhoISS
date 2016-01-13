@@ -44,6 +44,17 @@ public class ProdutoDao {
         transaction.commit();
         return lista;
     }
+     
+     public List<Produto> listarParaPedido(String descricao){
+         String hql = "from Produto p where p.descricao like :descricao and p.quantidadeEstoque > 0";
+         session = HibernateUtil.getSessionFactory().getCurrentSession();
+        transaction = session.beginTransaction();
+        List lista = session.createQuery(hql)
+                .setParameter("descricao", "%" + descricao + "%")
+                .list();
+        transaction.commit();
+        return lista;
+     }
     
     public String atualizar(Produto produto) {
         String retorno = null;

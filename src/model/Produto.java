@@ -98,4 +98,8 @@ public class Produto implements Serializable {
         return  new Object[]{id, descricao, quantidadeEstoque, precoVenda};
     }
     
+    public Object[] toArrayCompra() {
+        return  new Object[]{id, descricao, precoVenda};
+    }
+    
 }
