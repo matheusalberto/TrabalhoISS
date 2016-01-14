@@ -73,6 +73,12 @@ public class BuscaProduto extends javax.swing.JFrame {
             }
         });
 
+        txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,16 +165,11 @@ public class BuscaProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRemoverActionPerformed
 
-    private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {
+    private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             btnOK.doClick();
         }
-    }
-
-    
-
-    
-
+    }//GEN-LAST:event_txtBuscaKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
