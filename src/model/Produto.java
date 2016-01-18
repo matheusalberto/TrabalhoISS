@@ -3,10 +3,12 @@ package model;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -28,6 +30,8 @@ public class Produto implements Serializable {
     private double precoCompra;
     private double precoVenda;
     private Integer quantidadeEstoque;
+    @ManyToMany(mappedBy = "produtos")
+    private List<Pedido> pedidos;
 
     public Integer getId() {
         return id;
@@ -101,5 +105,12 @@ public class Produto implements Serializable {
     public Object[] toArrayCompra() {
         return  new Object[]{id, descricao, precoVenda};
     }
-    
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }   
 }

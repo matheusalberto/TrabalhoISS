@@ -1,9 +1,16 @@
 package view;
 
 public class TelaPrincipal extends javax.swing.JFrame {
+    
+    private final String nome;
+    private final int id;
 
-    public TelaPrincipal(String nome) {
+    public TelaPrincipal(String nomeFuncionario, int idFuncionario) {
         initComponents();
+        txtId.setText("[" + idFuncionario + "] ");
+        txtFuncionarioAutenticado.setText(nomeFuncionario);
+        nome = nomeFuncionario;
+        id = idFuncionario;                
     }
 
     @SuppressWarnings("unchecked")
@@ -14,6 +21,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         labelUsuario = new javax.swing.JLabel();
         btnPedido = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtFuncionarioAutenticado = new javax.swing.JLabel();
+        txtId = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         menuCadastroFuncionario = new javax.swing.JMenuItem();
@@ -40,6 +50,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 btnPedidoActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Funcionário Autenticado:");
 
         menuCadastro.setText("Cadastros");
         menuCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -138,15 +150,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(158, 158, 158)
                 .addComponent(btnPedido)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtId)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFuncionarioAutenticado)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(btnPedido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addComponent(labelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtFuncionarioAutenticado)
+                    .addComponent(txtId)))
         );
 
         setSize(new java.awt.Dimension(416, 339));
@@ -198,13 +221,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemProdutoActionPerformed
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
-        RealizarPedido realizarPedido = new RealizarPedido();
+        RealizarPedido realizarPedido = new RealizarPedido(nome, id);
         realizarPedido.setVisible(true);
     }//GEN-LAST:event_btnPedidoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPedido;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -221,5 +245,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemProduto;
     private javax.swing.JMenu menuRelatorio;
     private javax.swing.JMenu menuVenda;
+    private javax.swing.JLabel txtFuncionarioAutenticado;
+    private javax.swing.JLabel txtId;
     // End of variables declaration//GEN-END:variables
 }

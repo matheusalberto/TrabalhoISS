@@ -43,11 +43,6 @@ public class AutenticarUsuario extends javax.swing.JFrame {
                 btnOkActionPerformed(evt);
             }
         });
-        btnOk.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnOkKeyPressed(evt);
-            }
-        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -122,8 +117,9 @@ public class AutenticarUsuario extends javax.swing.JFrame {
         func.setSenha(String.valueOf(txtSenha.getPassword()));
         FuncionarioDao funcionario = new FuncionarioDao();
         String nome = funcionario.localizar(txtLogin.getText()).getNome();
+        int id = funcionario.localizar(txtLogin.getText()).getId();
         if (new FuncionarioDao().consultar(func)) {
-            TelaPrincipal telaPrincipal = new TelaPrincipal(nome);
+            TelaPrincipal telaPrincipal = new TelaPrincipal(nome, id);
             telaPrincipal.setVisible(true);
             this.dispose();
             //JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "S U C E S S O !", JOptionPane.DEFAULT_OPTION);
@@ -132,10 +128,6 @@ public class AutenticarUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnOkActionPerformed
 
-    private void btnOkKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnOkKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnOkKeyPressed
-
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Funcionario func = new Funcionario();
@@ -143,9 +135,10 @@ public class AutenticarUsuario extends javax.swing.JFrame {
             func.setSenha(String.valueOf(txtSenha.getPassword()));
             FuncionarioDao funcionario = new FuncionarioDao();
             String nome = funcionario.localizar(txtLogin.getText()).getNome();
+            int id = funcionario.localizar(txtLogin.getText()).getId();
 
             if (new FuncionarioDao().consultar(func)) {
-                TelaPrincipal telaPrincipal = new TelaPrincipal(nome);
+                TelaPrincipal telaPrincipal = new TelaPrincipal(nome, id);
                 telaPrincipal.setVisible(true);
                 this.dispose();
                 //JOptionPane.showMessageDialog(this, "OPA, DEU BOM SIM!", "D E U  C E R T O !", JOptionPane.DEFAULT_OPTION);
