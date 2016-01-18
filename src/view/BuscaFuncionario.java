@@ -160,9 +160,9 @@ public class BuscaFuncionario extends javax.swing.JFrame {
 
             FuncionarioDao dao = new FuncionarioDao();
             Funcionario funcionario = dao.localizar(id);
-
             int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente remover este funcionário?", "Confirmação", JOptionPane.YES_OPTION);
             if (JOptionPane.YES_OPTION == opcao) {
+                funcionario.setExcluido(1);
                 if (dao.remover(funcionario).equals("SUCESSO")) {
                     controller.preencherTabela(dao.listar(funcionarios), tableModelFuncionario, tabelaFuncionarios);
                     JOptionPane.showMessageDialog(this, "Funcionário removido com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);

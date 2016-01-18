@@ -30,9 +30,18 @@ public class Funcionario implements Serializable {
     private String email;
     private String cpf;
     private String tipo; //1-FARMACEUTICO e 2-FUNCIONARIO
+    private Integer excluido; //exclusão lógica
 
     public Funcionario() {
 
+    }
+
+    public Integer getExcluido() {
+        return excluido;
+    }
+
+    public void setExcluido(Integer excluido) {
+        this.excluido = excluido;
     }
 
     public Funcionario(String login, String senha) {

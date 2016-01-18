@@ -15,7 +15,7 @@ public class FuncionarioDao {
     private Transaction transaction;
 
     public boolean consultar(Funcionario funcionario) {
-        String hql = "from Funcionario u where u.login like :login"
+        String hql = "from Funcionario u where u.login like :login and u.excluido = 0"
                 + " and u.senha like :senha";
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         transaction = session.beginTransaction();

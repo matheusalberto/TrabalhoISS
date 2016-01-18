@@ -88,9 +88,7 @@
                                           </Group>
                                       </Group>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtNaoDigitouTel" min="-2" max="-2" attributes="0"/>
                                           <Component id="txtNaoDigitouData" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtNaoDigitouEmail" min="-2" max="-2" attributes="0"/>
                                           <Component id="txtNaoDigitouCpf" min="-2" max="-2" attributes="0"/>
                                           <Component id="txtNaoDigitouLogin" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="txtNaoDigitouSenha" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -150,7 +148,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtTel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtNaoDigitouTel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -162,7 +159,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtNaoDigitouEmail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -359,14 +355,6 @@
         <Property name="text" type="java.lang.String" value="*"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtNaoDigitouTel">
-      <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="*"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="txtNaoInformouSexo">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -376,14 +364,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="txtNaoDigitouData">
-      <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="*"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="txtNaoDigitouEmail">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="ff" type="rgb"/>

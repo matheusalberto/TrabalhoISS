@@ -24,9 +24,9 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
      */
     public CadastrarFuncionario() {
         initComponents();
-        controller.desabilitarErros( txtNaoDigitouCpf, txtNaoDigitouData, txtNaoDigitouEmail,
-               txtItensObrigatorios, txtNaoDigitouEnd, txtNaoDigitouLogin, txtNaoDigitouNome, txtNaoDigitouSenha, txtNaoDigitouTel, txtNaoInformouSexo,
-                txtNaoInformouTipo);
+        //controller.desabilitarErros( txtNaoDigitouCpf, txtNaoDigitouData,
+          //     txtItensObrigatorios, txtNaoDigitouEnd, txtNaoDigitouLogin, txtNaoDigitouNome, txtNaoDigitouSenha, txtNaoDigitouTel, txtNaoInformouSexo,
+            //    txtNaoInformouTipo);
     }
 
     /**
@@ -65,10 +65,8 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         txtTel = new javax.swing.JFormattedTextField();
         txtNaoDigitouNome = new javax.swing.JLabel();
         txtNaoDigitouEnd = new javax.swing.JLabel();
-        txtNaoDigitouTel = new javax.swing.JLabel();
         txtNaoInformouSexo = new javax.swing.JLabel();
         txtNaoDigitouData = new javax.swing.JLabel();
-        txtNaoDigitouEmail = new javax.swing.JLabel();
         txtNaoDigitouCpf = new javax.swing.JLabel();
         txtNaoInformouTipo = new javax.swing.JLabel();
         txtNaoDigitouLogin = new javax.swing.JLabel();
@@ -180,17 +178,11 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         txtNaoDigitouEnd.setForeground(new java.awt.Color(255, 0, 0));
         txtNaoDigitouEnd.setText("*");
 
-        txtNaoDigitouTel.setForeground(new java.awt.Color(255, 0, 0));
-        txtNaoDigitouTel.setText("*");
-
         txtNaoInformouSexo.setForeground(new java.awt.Color(255, 0, 0));
         txtNaoInformouSexo.setText("*");
 
         txtNaoDigitouData.setForeground(new java.awt.Color(255, 0, 0));
         txtNaoDigitouData.setText("*");
-
-        txtNaoDigitouEmail.setForeground(new java.awt.Color(255, 0, 0));
-        txtNaoDigitouEmail.setText("*");
 
         txtNaoDigitouCpf.setForeground(new java.awt.Color(255, 0, 0));
         txtNaoDigitouCpf.setText("*");
@@ -263,9 +255,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                                                 .addComponent(txtSenha)
                                                 .addGap(4, 4, 4)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtNaoDigitouTel)
                                             .addComponent(txtNaoDigitouData)
-                                            .addComponent(txtNaoDigitouEmail)
                                             .addComponent(txtNaoDigitouCpf)
                                             .addComponent(txtNaoDigitouLogin)
                                             .addComponent(txtNaoDigitouSenha)))
@@ -309,8 +299,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNaoDigitouTel))
+                    .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -319,8 +308,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNaoDigitouEmail))
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -367,7 +355,6 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
 
         controller.validarNome(this, funcionario, txtNome, txtNaoDigitouNome, txtItensObrigatorios);
         controller.validarCpf(this, funcionario, txtCpf, txtNaoDigitouCpf, txtItensObrigatorios);
-        controller.validarEmail(this, funcionario, txtEmail, txtNaoDigitouEmail, txtItensObrigatorios);
         controller.validarSexo(this, funcionario, btnM, btnF, txtNaoInformouSexo, txtItensObrigatorios);
         controller.validarLogin(this, funcionario, txtLogin, txtNaoDigitouLogin, txtItensObrigatorios);
         controller.validarSenha(this, funcionario, txtSenha, txtNaoDigitouSenha, txtItensObrigatorios);
@@ -381,7 +368,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
 
         funcionario.setTelefone(txtTel.getText());
 
-        controller.cadastrarFuncionario(this, funcionario, txtNaoDigitouCpf, txtNaoDigitouEmail, txtNaoDigitouNome, txtNaoInformouSexo,
+        controller.cadastrarFuncionario(this, funcionario, txtNaoDigitouCpf, txtNaoDigitouNome, txtNaoInformouSexo,
                 txtNaoDigitouData, txtNaoDigitouEnd, txtNaoDigitouLogin, txtNaoDigitouSenha, txtNaoInformouTipo);
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
@@ -453,12 +440,10 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField txtLogin;
     private javax.swing.JLabel txtNaoDigitouCpf;
     private javax.swing.JLabel txtNaoDigitouData;
-    private javax.swing.JLabel txtNaoDigitouEmail;
     private javax.swing.JLabel txtNaoDigitouEnd;
     private javax.swing.JLabel txtNaoDigitouLogin;
     private javax.swing.JLabel txtNaoDigitouNome;
     private javax.swing.JLabel txtNaoDigitouSenha;
-    private javax.swing.JLabel txtNaoDigitouTel;
     private javax.swing.JLabel txtNaoInformouSexo;
     private javax.swing.JLabel txtNaoInformouTipo;
     private javax.swing.JTextField txtNome;

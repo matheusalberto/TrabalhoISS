@@ -23,10 +23,10 @@ import util.ValidarCpf;
 
 public class FuncionarioController {
     //verifica se as labels que representam a falta de um dos dados não está visivel, se não estiver então tenta salvar o funcionario
-    public void cadastrarFuncionario(JFrame tela, Funcionario funcionario, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouEmail, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo,
+    public void cadastrarFuncionario(JFrame tela, Funcionario funcionario, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo,
             JLabel txtNaoDigitouData, JLabel txtNaoDigitouEnd, JLabel txtNaoDigitouLogin, JLabel txtNaoDigitouSenha, JLabel txtNaoInformouTipo) {
         FuncionarioDao funcionarioDao = new FuncionarioDao();
-        if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouEmail.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()
+        if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()
                 && !txtNaoDigitouData.isVisible() && !txtNaoDigitouEnd.isVisible() && !txtNaoDigitouLogin.isVisible() && !txtNaoDigitouSenha.isVisible()
                 && !txtNaoInformouTipo.isVisible()) {
             String salvar = funcionarioDao.salvar(funcionario);
@@ -87,14 +87,6 @@ public class FuncionarioController {
         }
     }
 
-    public void validarEmail(JFrame tela, Funcionario funcionario, JTextField txtEmail, JLabel txtNaoDigitouEmail, JLabel txtItensObrigatorios) {
-        if (txtEmail.getText().trim().isEmpty()) { //Verifica se o email está vazio
-            habilitarErro(txtNaoDigitouEmail, txtItensObrigatorios);
-        } else {
-            desabilitarErro(txtNaoDigitouEmail);
-            funcionario.setEmail(txtEmail.getText());
-        }
-    }
 
     public void validarSenha(JFrame tela, Funcionario funcionario, JTextField txtSenha, JLabel txtNaoDigitouSenha, JLabel txtItensObrigatorios) {
         if (txtSenha.getText().trim().isEmpty()) { //Verifica se a senha está vazio
@@ -156,7 +148,7 @@ public class FuncionarioController {
 
     //desabilita as labels que mostram que um dado está faltando
     public void desabilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelD, JLabel labelE,
-            JLabel labelF, JLabel labelG, JLabel labelH, JLabel labelI, JLabel labelJ, JLabel labelK) {
+            JLabel labelF, JLabel labelG, JLabel labelH, JLabel labelI) {
         labelA.setVisible(false);
         labelB.setVisible(false);
         labelC.setVisible(false);
@@ -166,8 +158,7 @@ public class FuncionarioController {
         labelG.setVisible(false);
         labelH.setVisible(false);
         labelI.setVisible(false);
-        labelJ.setVisible(false);
-        labelK.setVisible(false);
+
     }
 
     //habilita a label que diz que o dado está faltando
