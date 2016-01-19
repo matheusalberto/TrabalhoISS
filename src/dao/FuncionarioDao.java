@@ -15,7 +15,7 @@ public class FuncionarioDao {
     private Transaction transaction;
 
     public boolean consultar(Funcionario funcionario) {
-        String hql = "from Funcionario u where u.login like :login"
+        String hql = "from Funcionario u where u.login like :login and u.excluido = 0"
                 + " and u.senha like :senha";
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         transaction = session.beginTransaction();
@@ -51,7 +51,7 @@ public class FuncionarioDao {
 
     public List<Funcionario> listar(String nome) {
 
-        String hql = "from Funcionario p where p.nome like :nome";
+        String hql = "from Funcionario p where p.nome like :nome and p.excluido = 0";
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         transaction = session.beginTransaction();
@@ -79,22 +79,6 @@ public class FuncionarioDao {
         }
     }
 
-    public String remover(Funcionario funcionario) {
-        String retorno;
-        session = HibernateUtil.getSessionFactory().openSession();
-        transaction = session.beginTransaction();
-        try {
-            session.delete(funcionario);
-            transaction.commit();
-            retorno = "SUCESSO";
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            retorno = "FALHA";
-        }
-        return retorno;
-    }
 
     public Funcionario localizar(int id) {
         session = HibernateUtil.getSessionFactory().openSession();
