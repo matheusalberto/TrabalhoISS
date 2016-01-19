@@ -219,6 +219,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
         controller.validarCpf(this, cliente, txtCpf, txtNaoDigitouCpf, txtItensObrigatorios);
         controller.validarSexo(this, cliente, btnMasc, btnFemi, txtNaoInformouSexo, txtItensObrigatorios);
 
+        cliente.setEmail(txtEmail.getText());
         cliente.setEndereco(txtEndereco.getText());
         cliente.setTelefone(txtTelefone.getText());
         cliente.setExcluido(0); //NÃO FOI EXCLUIDO
