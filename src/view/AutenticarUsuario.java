@@ -9,10 +9,12 @@ public class AutenticarUsuario extends javax.swing.JFrame {
 
     private final String loginPadrao = "admin";
     private final String senhaPadrao = "123456";
+    
 
     public AutenticarUsuario() {
         initComponents();
         Funcionario funcionario = new Funcionario(loginPadrao, senhaPadrao);
+        funcionario.setExcluido(0);
         new FuncionarioDao().salvar(funcionario);
     }
 
@@ -117,6 +119,7 @@ public class AutenticarUsuario extends javax.swing.JFrame {
         func.setSenha(String.valueOf(txtSenha.getPassword()));
         FuncionarioDao funcionario = new FuncionarioDao();
         String nome = funcionario.localizar(txtLogin.getText()).getNome();
+        System.out.println("o nome é: " + nome);
         int id = funcionario.localizar(txtLogin.getText()).getId();
         if (new FuncionarioDao().consultar(func)) {
             TelaPrincipal telaPrincipal = new TelaPrincipal(nome, id);
@@ -135,6 +138,7 @@ public class AutenticarUsuario extends javax.swing.JFrame {
             func.setSenha(String.valueOf(txtSenha.getPassword()));
             FuncionarioDao funcionario = new FuncionarioDao();
             String nome = funcionario.localizar(txtLogin.getText()).getNome();
+            System.out.println("o nome é : " + nome);
             int id = funcionario.localizar(txtLogin.getText()).getId();
 
             if (new FuncionarioDao().consultar(func)) {

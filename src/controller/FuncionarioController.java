@@ -45,17 +45,6 @@ public class FuncionarioController {
         }
     }
 
-    public void validarData(JFrame tela, Funcionario funcionario, JTextField txtData, JLabel txtNaoDigitouData, JLabel txtItensObrigatorios) throws ParseException {
-        if (txtData.getText().equals("  /  /    ")) {
-            habilitarErro(txtNaoDigitouData, txtItensObrigatorios);
-        } else {
-            DateFormat f = DateFormat.getDateInstance();
-            String data = txtData.getText();
-            Date dataCorreta = f.parse(data);
-            desabilitarErro(txtNaoDigitouData);
-            funcionario.setDataContratacao(dataCorreta);
-        }
-    }
 
     public void validarLogin(JFrame tela, Funcionario funcionario, JTextField txtLogin, JLabel txtNaoDigitouLogin, JLabel txtItensObrigatorios) {
         if (txtLogin.getText().trim().isEmpty()) { //Verifica se o campo nome não está vazio
