@@ -287,7 +287,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 controller.habilitarErro(txtSemQuantidade, txtErro);
             } else {
                 controller.desabilitarErro(txtSemQuantidade);
-                produto.setQuantidadeEstoque(Integer.parseInt(txtQuantidade.getText()));
+                produto.setQuantComprada(Integer.parseInt(txtQuantidade.getText()));
             }
 
             if (txtPrecoCompra.getText().trim().isEmpty()) {
@@ -306,6 +306,8 @@ public class CadastrarProduto extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        produto.setQuantidadeEstoque(Integer.parseInt(txtQuantidade.getText())); //adiciona  a quantidade de compra no estoque  
 
         ProdutoDao produtoDao = new ProdutoDao();
         if (!txtSemDescricao.isVisible()  && !txtSemFornecedor.isVisible() && !txtSemDataCompra.isVisible() && !txtSemDataValida.isVisible() && !txtSemQuantidade.isVisible() && !txtSemPrecoCompra.isVisible() && !txtSemPrecoVenda.isVisible()) {
