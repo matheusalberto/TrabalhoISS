@@ -24,10 +24,10 @@ import util.ValidarCpf;
 public class FuncionarioController {
     //verifica se as labels que representam a falta de um dos dados não está visivel, se não estiver então tenta salvar o funcionario
     public void cadastrarFuncionario(JFrame tela, Funcionario funcionario, JLabel txtNaoDigitouCpf, JLabel txtNaoDigitouNome, JLabel txtNaoInformouSexo,
-            JLabel txtNaoDigitouEnd, JLabel txtNaoDigitouLogin, JLabel txtNaoDigitouSenha, JLabel txtNaoInformouTipo) {
+            JLabel txtNaoDigitouData, JLabel txtNaoDigitouEnd, JLabel txtNaoDigitouLogin, JLabel txtNaoDigitouSenha, JLabel txtNaoInformouTipo) {
         FuncionarioDao funcionarioDao = new FuncionarioDao();
         if (!txtNaoDigitouCpf.isVisible() && !txtNaoDigitouNome.isVisible() && !txtNaoInformouSexo.isVisible()
-                 && !txtNaoDigitouEnd.isVisible() && !txtNaoDigitouLogin.isVisible() && !txtNaoDigitouSenha.isVisible()
+                && !txtNaoDigitouData.isVisible() && !txtNaoDigitouEnd.isVisible() && !txtNaoDigitouLogin.isVisible() && !txtNaoDigitouSenha.isVisible()
                 && !txtNaoInformouTipo.isVisible()) {
             String salvar = funcionarioDao.salvar(funcionario);
             switch (salvar) {
@@ -45,7 +45,17 @@ public class FuncionarioController {
         }
     }
 
-    
+    public void validarData(JFrame tela, Funcionario funcionario, JTextField txtData, JLabel txtNaoDigitouData, JLabel txtItensObrigatorios) throws ParseException {
+        if (txtData.getText().equals("  /  /    ")) {
+            habilitarErro(txtNaoDigitouData, txtItensObrigatorios);
+        } else {
+            DateFormat f = DateFormat.getDateInstance();
+            String data = txtData.getText();
+            Date dataCorreta = f.parse(data);
+            desabilitarErro(txtNaoDigitouData);
+            funcionario.setDataContratacao(dataCorreta);
+        }
+    }
 
     public void validarLogin(JFrame tela, Funcionario funcionario, JTextField txtLogin, JLabel txtNaoDigitouLogin, JLabel txtItensObrigatorios) {
         if (txtLogin.getText().trim().isEmpty()) { //Verifica se o campo nome não está vazio

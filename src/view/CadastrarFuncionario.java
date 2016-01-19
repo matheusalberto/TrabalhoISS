@@ -6,6 +6,9 @@
 package view;
 
 import controller.FuncionarioController;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Funcionario;
 
 /**
@@ -58,6 +61,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         btnComum = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
+        txtData = new javax.swing.JFormattedTextField();
         txtTel = new javax.swing.JFormattedTextField();
         txtNaoDigitouNome = new javax.swing.JLabel();
         txtNaoDigitouEnd = new javax.swing.JLabel();
@@ -69,7 +73,6 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         txtNaoDigitouSenha = new javax.swing.JLabel();
         txtItensObrigatorios = new javax.swing.JLabel();
         txtCpf = new javax.swing.JFormattedTextField();
-        txtDataPicker = new org.jdesktop.swingx.JXDatePicker();
 
         jLabel23.setForeground(new java.awt.Color(255, 0, 0));
         jLabel23.setText("*");
@@ -158,6 +161,12 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         });
 
         try {
+            txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
             txtTel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
@@ -228,37 +237,33 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                                 .addGap(4, 4, 4)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                        .addComponent(btnM)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(btnF)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(txtNaoInformouSexo))
+                                                    .addComponent(txtData, javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtTel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                                                    .addComponent(txtCpf))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtSenha)
+                                                .addGap(4, 4, 4)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtNaoDigitouData)
+                                            .addComponent(txtNaoDigitouCpf)
+                                            .addComponent(txtNaoDigitouLogin)
+                                            .addComponent(txtNaoDigitouSenha)))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtNaoDigitouEnd))
-                                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(4, 4, 4)
-                                        .addComponent(txtSenha)
-                                        .addGap(4, 4, 4))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(btnM)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(btnF)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtNaoInformouSexo))
-                                            .addComponent(txtTel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
-                                            .addComponent(txtCpf)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(txtDataPicker, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtNaoDigitouData)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNaoDigitouCpf)
-                                    .addComponent(txtNaoDigitouLogin)
-                                    .addComponent(txtNaoDigitouSenha)))))
+                                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(btnCancelar)
@@ -279,7 +284,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -298,8 +303,8 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtNaoDigitouData)
-                    .addComponent(txtDataPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNaoDigitouData))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -353,16 +358,18 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         controller.validarSexo(this, funcionario, btnM, btnF, txtNaoInformouSexo, txtItensObrigatorios);
         controller.validarLogin(this, funcionario, txtLogin, txtNaoDigitouLogin, txtItensObrigatorios);
         controller.validarSenha(this, funcionario, txtSenha, txtNaoDigitouSenha, txtItensObrigatorios);
-        
+        try {
+            controller.validarData(this, funcionario, txtData, txtNaoDigitouData, txtItensObrigatorios);
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
         controller.validarEndereco(this, funcionario, txtEndereco, txtNaoDigitouEnd, txtItensObrigatorios);
         controller.validarTipo(this, funcionario, btnComum, btnFarmaceutico, txtNaoInformouTipo, txtItensObrigatorios);
 
         funcionario.setTelefone(txtTel.getText());
-       
-        funcionario.setDataContratacao(txtDataPicker.getDate());
-        txtNaoDigitouData.setVisible(false);
+
         controller.cadastrarFuncionario(this, funcionario, txtNaoDigitouCpf, txtNaoDigitouNome, txtNaoInformouSexo,
-                txtNaoDigitouEnd, txtNaoDigitouLogin, txtNaoDigitouSenha, txtNaoInformouTipo);
+                txtNaoDigitouData, txtNaoDigitouEnd, txtNaoDigitouLogin, txtNaoDigitouSenha, txtNaoInformouTipo);
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -426,7 +433,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JFormattedTextField txtCpf;
-    private org.jdesktop.swingx.JXDatePicker txtDataPicker;
+    private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JLabel txtItensObrigatorios;

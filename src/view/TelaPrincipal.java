@@ -4,8 +4,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public TelaPrincipal(String nome) {
         initComponents();
-        labelUsuario.setText(nome);
-        labelUsuario.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -16,7 +14,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         labelUsuario = new javax.swing.JLabel();
         btnPedido = new javax.swing.JButton();
-        btnRelatorios = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         menuCadastroFuncionario = new javax.swing.JMenuItem();
@@ -28,6 +25,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuItemFornecedor = new javax.swing.JMenuItem();
         menuItemFuncionario = new javax.swing.JMenuItem();
         menuItemProduto = new javax.swing.JMenuItem();
+        menuRelatorio = new javax.swing.JMenu();
         menuVenda = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -40,13 +38,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPedidoActionPerformed(evt);
-            }
-        });
-
-        btnRelatorios.setText("Relatórios");
-        btnRelatorios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRelatoriosActionPerformed(evt);
             }
         });
 
@@ -127,6 +118,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuConsulta);
 
+        menuRelatorio.setText("Relatorios");
+        jMenuBar1.add(menuRelatorio);
+
         menuVenda.setText("Vendas");
         jMenuBar1.add(menuVenda);
 
@@ -142,9 +136,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(158, 158, 158)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnPedido)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -152,9 +144,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(btnPedido)
-                .addGap(18, 18, 18)
-                .addComponent(btnRelatorios)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
                 .addComponent(labelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -212,14 +202,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         realizarPedido.setVisible(true);
     }//GEN-LAST:event_btnPedidoActionPerformed
 
-    private void btnRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatoriosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRelatoriosActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPedido;
-    private javax.swing.JButton btnRelatorios;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -234,6 +219,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemFornecedor;
     private javax.swing.JMenuItem menuItemFuncionario;
     private javax.swing.JMenuItem menuItemProduto;
+    private javax.swing.JMenu menuRelatorio;
     private javax.swing.JMenu menuVenda;
     // End of variables declaration//GEN-END:variables
 }
