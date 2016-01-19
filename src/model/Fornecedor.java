@@ -24,6 +24,7 @@ public class Fornecedor implements Serializable{
     private String cnpj;
     private String telefone;
     private String email;
+    private Integer excluido;
     //List[Produto] historico
 
     public Integer getId() {
@@ -32,6 +33,14 @@ public class Fornecedor implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getExcluido() {
+        return excluido;
+    }
+
+    public void setExcluido(Integer excluido) {
+        this.excluido = excluido;
     }
 
     public String getNome() {
@@ -75,7 +84,7 @@ public class Fornecedor implements Serializable{
     }
 
     public Object[] toArray() {
-        return  new Object[]{id, nome, email, telefone};
+        return  new Object[]{id, nome, email, telefone, endereco};
     }
     
 }

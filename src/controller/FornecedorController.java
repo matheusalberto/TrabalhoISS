@@ -27,6 +27,7 @@ public class FornecedorController {
     public Fornecedor preencheFornecedor(int id, String nome, String endereco, String cnpj, String telefone, String email){
         Fornecedor fornecedor = new Fornecedor();
         fornecedor.setId(id);
+        fornecedor.setExcluido(0);
         fornecedor.setNome(nome);
         fornecedor.setCnpj(cnpj);
         fornecedor.setEmail(email);
@@ -45,21 +46,21 @@ public class FornecedorController {
     }
     
      public void preencherTabela(List<Fornecedor> lista, TableModel tableModelFornecedor, JTable tabelaFornecedores) {
-        Object[][] dados = new Object[lista.size()][4];
+        Object[][] dados = new Object[lista.size()][5];
         int i = 0;
         for (Fornecedor c : lista) {
             dados[i] = c.toArray();
             i++;
         }
 
-        Object[] colunas = new Object[]{"Código", "Nome", "E-mail", "Telefone"};
+        Object[] colunas = new Object[]{"Código", "Nome", "E-mail", "Telefone", "Endereço"};
         tableModelFornecedor = new DefaultTableModel(dados, colunas);
         tabelaFornecedores.setModel(tableModelFornecedor);
     }
      
      public void cadastrarFornecedor(JFrame tela,JTextField txtNome, JTextField txtCnpj, JTextField txtEndereco, JTextField txtEmail, JTextField txtTelefone,JLabel txtErro){
          if (txtNome.getText().trim().isEmpty() || txtCnpj.getText().equals("  .   .   /    -  ") || txtEndereco.getText().trim().isEmpty() || txtEmail.getText().trim().isEmpty() || txtTelefone.getText().trim().isEmpty()){
-            mostrarErro(txtErro);
+            JOptionPane.showMessageDialog(tela, "Favor preencher todos os itens obrigatórios","Algo deu errado",JOptionPane.DEFAULT_OPTION);
         }
         else{
             Fornecedor fornecedor = new Fornecedor();
@@ -74,6 +75,8 @@ public class FornecedorController {
             }
             fornecedor.setTelefone(txtTelefone.getText());
             fornecedor.setEmail(txtEmail.getText());
+            fornecedor.setExcluido(0);
+            
             
             FornecedorDao FornecedorDao = new FornecedorDao();
             if(FornecedorDao.salvar(fornecedor).equals("SUCESSO")){

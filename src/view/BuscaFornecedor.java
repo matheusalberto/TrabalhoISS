@@ -153,7 +153,8 @@ public class BuscaFornecedor extends javax.swing.JFrame {
 
             int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente remover este fornecedor?", "Confirmação", JOptionPane.YES_OPTION);
             if (JOptionPane.YES_OPTION == opcao) {
-                if (dao.remover(fornecedor).equals("SUCESSO")) {
+                fornecedor.setExcluido(1);
+                if (dao.atualizar(fornecedor).equals("SUCESSO")) {
                     controller.preencherTabela(dao.listar(fornecedores), tableModelFornecedor, tabelaFornecedores);
                     JOptionPane.showMessageDialog(this, "Fornecedor removido com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
                 } else {

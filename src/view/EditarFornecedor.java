@@ -50,7 +50,6 @@ public class EditarFornecedor extends javax.swing.JFrame {
         });
 
         labelnome.setText("Nome:");
-        labelnome.setEnabled(false);
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -59,7 +58,11 @@ public class EditarFornecedor extends javax.swing.JFrame {
             }
         });
 
-        txtNome.setEnabled(false);
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Endereço:");
 
@@ -70,6 +73,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
         }
 
         jLabel4.setText("CNPJ:");
+        jLabel4.setEnabled(false);
 
         txtCnpj.setEnabled(false);
 
@@ -168,6 +172,10 @@ public class EditarFornecedor extends javax.swing.JFrame {
         this.dispose();
         //new BuscaFornecedor() = 
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

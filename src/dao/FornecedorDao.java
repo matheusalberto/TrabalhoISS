@@ -33,7 +33,7 @@ public class FornecedorDao {
     
      public List<Fornecedor> listar(String nome) {
 
-        String hql = "from Fornecedor f where f.nome like :nome";
+        String hql = "from Fornecedor f where f.nome like :nome and f.excluido = 0";
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         transaction = session.beginTransaction();
