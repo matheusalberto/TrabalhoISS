@@ -3,19 +3,14 @@ package view;
 import controller.PedidoController;
 import dao.ClienteDao;
 import dao.FuncionarioDao;
-import dao.PedidoDao;
 import dao.ProdutoDao;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import model.Cliente;
 import model.Funcionario;
-import model.Pedido;
 import model.Produto;
 
 public class RealizarPedido extends javax.swing.JFrame {
@@ -26,8 +21,7 @@ public class RealizarPedido extends javax.swing.JFrame {
     private final TableModel tableModelProduto = new DefaultTableModel();
     private final TableModel tableModelCesta = new DefaultTableModel();
     private final List<Produto> listaCesta = new ArrayList<>();
-    private double total = 0.0;
-    private final NumberFormat nf = new DecimalFormat("###,##0.00");
+    private double total = 0;
     private final int idFuncionario;
 
     public RealizarPedido(String nome, int id) {
@@ -405,16 +399,13 @@ public class RealizarPedido extends javax.swing.JFrame {
 
     private void txtClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteKeyTyped
         String nomeCliente = txtCliente.getText().trim();
-        ClienteDao clienteDao = new ClienteDao();
-        List<Cliente> lista = clienteDao.listar(nomeCliente); //Preenche uma lista com todos os clientes com base no nome digitado
+        List<Cliente> lista = new ClienteDao().listar(nomeCliente); //Preenche uma lista com todos os clientes com base no nome digitado
         Object[] colunas = new Object[]{"Código", "Nome"};
         pedidoController.preencherTabelaCliente(tabelaClientes, tableModelCliente, colunas, lista);
     }//GEN-LAST:event_txtClienteKeyTyped
 
     private void btnSelecionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarClienteActionPerformed
-        labelCod.setVisible(true);
-        labelCliente.setVisible(true);
-        txtNaoCliente.setVisible(false);
+        pedidoController.desabilitarNaoCliente(labelCod, labelCliente, txtNaoCliente);
 
         int linhaSelecionada = tabelaClientes.getSelectedRow();
 
@@ -428,8 +419,7 @@ public class RealizarPedido extends javax.swing.JFrame {
 
     private void txtProdutosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProdutosKeyTyped
         nomeProduto = txtProdutos.getText().trim();
-        ProdutoDao produtoDao = new ProdutoDao();
-        List<Produto> lista = produtoDao.listarParaPedido(nomeProduto); //Preenche uma lista com todos os produtos com base no nome digitado      
+        List<Produto> lista = new ProdutoDao().listarParaPedido(nomeProduto); //Preenche uma lista com todos os produtos com base no nome digitado      
         Object[] colunas = new Object[]{"Código", "Nome", "Preço R$"};
         pedidoController.preencherTabelaProdutos(tabelaProdutos, tableModelProduto, colunas, lista);
     }//GEN-LAST:event_txtProdutosKeyTyped
@@ -438,22 +428,7 @@ public class RealizarPedido extends javax.swing.JFrame {
         int linhaSelecionada = tabelaProdutos.getSelectedRow();
 
         if (linhaSelecionada >= 0) {
-            int id = (int) tabelaProdutos.getValueAt(linhaSelecionada, 0);
-
-            ProdutoDao produtoDao = new ProdutoDao();
-            Produto produto = produtoDao.localizar(id);
-            total = total + produto.getPrecoVenda();
-            txtTotal.setText(nf.format(total));
-
-            produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - 1); //Diminui a quantidade no estoque
-            produtoDao.atualizar(produto); //Atualiza estoque
-
-            if (produto.getQuantidadeEstoque() <= 0) { //Se o estoque de determinado produto ficar com 0, retira ele da lista
-                ((DefaultTableModel) tabelaProdutos.getModel()).removeRow(linhaSelecionada);
-            }
-
-            listaCesta.add(produto);
-
+            total = pedidoController.adicionarProdutoCesta(linhaSelecionada, tabelaProdutos, total, txtTotal, listaCesta);
             Object[] colunas = new Object[]{"Código", "Nome", "Preço R$"};
             pedidoController.preencherTabelaProdutos(tabelaCesta, tableModelCesta, colunas, listaCesta);
         }
@@ -463,21 +438,8 @@ public class RealizarPedido extends javax.swing.JFrame {
         int linhaSelecionada = tabelaCesta.getSelectedRow();
 
         if (linhaSelecionada >= 0) {
-            int id = (int) tabelaCesta.getValueAt(linhaSelecionada, 0);
-
-            ProdutoDao produtoDao = new ProdutoDao();
-            Produto produto = produtoDao.localizar(id);
-            total = total - produto.getPrecoVenda();
-            txtTotal.setText(nf.format(total));
-
-            produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + 1); //Aumentando a quantidade no estoque
-            produtoDao.atualizar(produto); //Atualiza estoque
-
-            listaCesta.remove(linhaSelecionada);
-            ((DefaultTableModel) tabelaCesta.getModel()).removeRow(linhaSelecionada); //Remove linha
-
-            List<Produto> lista = produtoDao.listarParaPedido(nomeProduto);
-
+            total = pedidoController.removerProdutoCesta(linhaSelecionada, tabelaCesta, total, txtTotal, listaCesta);
+            List<Produto> lista = new ProdutoDao().listarParaPedido(nomeProduto);
             Object[] colunas = new Object[]{"Código", "Nome", "Preço R$"};
             pedidoController.preencherTabelaProdutos(tabelaProdutos, tableModelProduto, colunas, lista);
         }
@@ -489,45 +451,26 @@ public class RealizarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose();
-        pedidoController.cancelarPedido(listaCesta);
+        int opcao = JOptionPane.showConfirmDialog(this, "Deseja cancelar o pedido?", "Confirmação", JOptionPane.YES_OPTION);
+        if (JOptionPane.YES_OPTION == opcao) {
+            this.dispose();
+            pedidoController.cancelarPedido(listaCesta);
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnFinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoActionPerformed
         if (txtIdCliente.getText().equals("")) { //VAZIO, NÃO SELECIONOU CLIENTE
-            labelCod.setVisible(false);
-            labelCliente.setVisible(false);
-            txtNaoCliente.setVisible(true);
+            pedidoController.habilitarNaoCliente(labelCod, labelCliente, txtNaoCliente);
             JOptionPane.showMessageDialog(this, "Selecione um cliente para continuar!", "Algo deu errado.", JOptionPane.ERROR_MESSAGE);
         } else if (listaCesta.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Não é possível contnuar, sua cesta está vazia, insira algum item!", "Algo deu errado.", JOptionPane.ERROR_MESSAGE);
         } else {
-            labelCod.setVisible(true);
-            labelCliente.setVisible(true);
-            txtNaoCliente.setVisible(false);
-            Pedido pedido = new Pedido();
+            pedidoController.desabilitarNaoCliente(labelCod, labelCliente, txtNaoCliente);   
+            
             Cliente cliente = new ClienteDao().localizar(Integer.parseInt(txtIdCliente.getText()));
             Funcionario funcionario = new FuncionarioDao().localizar(idFuncionario);
-            pedido.setCliente(cliente);
-            pedido.setFuncionario(funcionario);
-            pedido.setProdutos(listaCesta);
-            pedido.setValorCompra(total);
-            pedido.setDataPedido(new Date());
-
-            int opcao = JOptionPane.showConfirmDialog(this, "Deseja realizar o seguinte pedido para " + cliente.getNome() + "?", "Confirmação", JOptionPane.YES_OPTION);
-            if (JOptionPane.YES_OPTION == opcao) {
-                String salvar = new PedidoDao().salvar(pedido);
-
-                switch (salvar) {
-                    case "SUCESSO":
-                        JOptionPane.showMessageDialog(this, "Pedido feito com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
-                        this.dispose();
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(this, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
-                        break;
-                }
-            }
+            
+            pedidoController.finalizarPedido(this, cliente, funcionario, listaCesta, total);
         }
     }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
 

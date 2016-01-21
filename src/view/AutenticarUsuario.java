@@ -15,6 +15,7 @@ public class AutenticarUsuario extends javax.swing.JFrame {
         initComponents();
         Funcionario funcionario = new Funcionario(loginPadrao, senhaPadrao);
         funcionario.setExcluido(0);
+        funcionario.setNome("Admin");
         new FuncionarioDao().salvar(funcionario);
     }
 
