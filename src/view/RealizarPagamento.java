@@ -8,7 +8,10 @@ package view;
 import controller.PagamentoController;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
+import model.Cliente;
 import model.Pedido;
 import model.Produto;
 
@@ -16,14 +19,12 @@ import model.Produto;
  *
  * @author Thiago
  */
-public class RealizarPagamento extends javax.swing.JPanel {
+public class RealizarPagamento extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RealizarPagamento
-     */
-    
     private final PagamentoController pagamentoController = new PagamentoController();
     private final NumberFormat nf = new DecimalFormat("###,##0.00");
+    private final Pedido pedidoFinal;
+ 
     
     
     public RealizarPagamento(Pedido pedido, List<Produto> produtos) {
@@ -34,6 +35,8 @@ public class RealizarPagamento extends javax.swing.JPanel {
         
         Object[] colunas = new Object[]{"Código", "Nome", "Preço R$"};
         pagamentoController.preencherTabelaProdutos(tabelaProdutos, colunas, produtos);
+        
+       pedidoFinal = pedido;
     }
 
     /**
@@ -48,32 +51,24 @@ public class RealizarPagamento extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        rdDinheiro = new javax.swing.JRadioButton();
-        rdDebito = new javax.swing.JRadioButton();
-        rdCredito = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaProdutos = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JLabel();
         txtCliente = new javax.swing.JLabel();
         txtIdPedido = new javax.swing.JLabel();
+        btnFinalizar = new javax.swing.JToggleButton();
+        radioDinheiro = new javax.swing.JRadioButton();
+        radioDébito = new javax.swing.JRadioButton();
+        radioCrédito = new javax.swing.JRadioButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Cliente:");
 
         jLabel2.setText("Nº Pedido:");
 
         jLabel3.setText("Tipo de Pagamento:");
-
-        rdDinheiro.setText("Dinheiro");
-        rdDinheiro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdDinheiroActionPerformed(evt);
-            }
-        });
-
-        rdDebito.setText("Débito");
-
-        rdCredito.setText("Crédito");
 
         tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,8 +88,26 @@ public class RealizarPagamento extends javax.swing.JPanel {
 
         txtTotal.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        btnFinalizar.setText("Finalizar");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarActionPerformed(evt);
+            }
+        });
+
+        radioDinheiro.setText("Dinheiro");
+
+        radioDébito.setText("Débito");
+
+        radioCrédito.setText("Crédito");
+        radioCrédito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioCréditoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -114,14 +127,17 @@ public class RealizarPagamento extends javax.swing.JPanel {
                         .addComponent(txtTotal))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(rdDinheiro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radioDinheiro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdDebito)
+                        .addComponent(radioDébito)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdCredito))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(411, Short.MAX_VALUE))
+                        .addComponent(radioCrédito))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81)
+                        .addComponent(btnFinalizar)))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,29 +158,60 @@ public class RealizarPagamento extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(rdDinheiro)
-                    .addComponent(rdDebito)
-                    .addComponent(rdCredito))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(radioDinheiro)
+                    .addComponent(radioDébito)
+                    .addComponent(radioCrédito))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(39, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFinalizar)
+                        .addGap(95, 95, 95))))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rdDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdDinheiroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdDinheiroActionPerformed
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        String tipo = null;
+        if(radioDinheiro.isSelected()){
+            tipo = "0";
+            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido() );
+        } else if(radioDébito.isSelected()){
+            tipo = "1";
+            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido() );
+        } else if(radioCrédito.isSelected()){
+            tipo = "2";
+            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido() );
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um tipo de pagamento.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
 
+        
+    }//GEN-LAST:event_btnFinalizarActionPerformed
+
+    private void radioCréditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCréditoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioCréditoActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnFinalizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton rdCredito;
-    private javax.swing.JRadioButton rdDebito;
-    private javax.swing.JRadioButton rdDinheiro;
+    private javax.swing.JRadioButton radioCrédito;
+    private javax.swing.JRadioButton radioDinheiro;
+    private javax.swing.JRadioButton radioDébito;
     private javax.swing.JTable tabelaProdutos;
     private javax.swing.JLabel txtCliente;
     private javax.swing.JLabel txtIdPedido;

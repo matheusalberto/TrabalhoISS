@@ -6,19 +6,16 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+import javax.persistence.Temporal;
 
 /**
  *
@@ -26,28 +23,33 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pagamento")
-public class Pagamento implements Serializable{
-    
-    
+public class Pagamento implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private double valorCompra;
-    private int tipoPagamento; //0 - vista , 1 - cartão de débito, 2 - cartão de crédito
+    private String tipoPagamento; //0 - vista , 1 - cartão de débito, 2 - cartão de crédito
     @OneToOne
-    @JoinTable (name = "pedido_id")
+    @JoinTable(name = "pedido_id")
     private Pedido pedido;
     @ManyToOne
-    @JoinTable (name = "pedido_cliente")
+    @JoinTable(name = "pedido_cliente")
     private Cliente cliente;
-    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataPagamento;
+
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public double getValorCompra() {
@@ -58,11 +60,11 @@ public class Pagamento implements Serializable{
         this.valorCompra = valorCompra;
     }
 
-    public int getTipoPagamento() {
+    public String getTipoPagamento() {
         return tipoPagamento;
     }
 
-    public void setTipoPagamento(int tipoPagamento) {
+    public void setTipoPagamento(String tipoPagamento) {
         this.tipoPagamento = tipoPagamento;
     }
 
@@ -73,6 +75,13 @@ public class Pagamento implements Serializable{
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
-    
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
 }
