@@ -16,6 +16,7 @@ import model.Cliente;
 import model.Funcionario;
 import model.Pedido;
 import model.Produto;
+import view.RealizarPagamento;
 
 public class PedidoController {
 
@@ -131,6 +132,9 @@ public class PedidoController {
                         break;
                 }
             }
+            
+            RealizarPagamento realizarPagamento = new RealizarPagamento(pedido, listaCesta);
+            realizarPagamento.setVisible(true);
     }
 
 }

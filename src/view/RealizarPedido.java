@@ -471,6 +471,7 @@ public class RealizarPedido extends javax.swing.JFrame {
             Funcionario funcionario = new FuncionarioDao().localizar(idFuncionario);
             
             pedidoController.finalizarPedido(this, cliente, funcionario, listaCesta, total);
+
         }
     }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
 
