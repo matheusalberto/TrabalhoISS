@@ -5,11 +5,11 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import model.Funcionario;
 
+
 public class AutenticarUsuario extends javax.swing.JFrame {
 
     private final String loginPadrao = "admin";
     private final String senhaPadrao = "123456";
-    
 
     public AutenticarUsuario() {
         initComponents();

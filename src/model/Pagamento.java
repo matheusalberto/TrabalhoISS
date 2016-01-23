@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -31,10 +32,10 @@ public class Pagamento implements Serializable {
     private double valorCompra;
     private String tipoPagamento; //0 - vista , 1 - cartão de débito, 2 - cartão de crédito
     @OneToOne
-    @JoinTable(name = "pedido_id")
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
     @ManyToOne
-    @JoinTable(name = "pedido_cliente")
+    @JoinColumn(name = "pedido_cliente")
     private Cliente cliente;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataPagamento;

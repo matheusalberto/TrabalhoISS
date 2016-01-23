@@ -24,6 +24,7 @@ public class RealizarPagamento extends javax.swing.JFrame {
     private final PagamentoController pagamentoController = new PagamentoController();
     private final NumberFormat nf = new DecimalFormat("###,##0.00");
     private final Pedido pedidoFinal;
+    private final List<Produto> produtosFinal;
  
     
     
@@ -37,6 +38,7 @@ public class RealizarPagamento extends javax.swing.JFrame {
         pagamentoController.preencherTabelaProdutos(tabelaProdutos, colunas, produtos);
         
        pedidoFinal = pedido;
+       produtosFinal = produtos;
     }
 
     /**
@@ -179,13 +181,13 @@ public class RealizarPagamento extends javax.swing.JFrame {
         String tipo = null;
         if(radioDinheiro.isSelected()){
             tipo = "0";
-            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido() );
+            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido(), produtosFinal);
         } else if(radioDébito.isSelected()){
             tipo = "1";
-            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido() );
+            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido(), produtosFinal);
         } else if(radioCrédito.isSelected()){
             tipo = "2";
-            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido() );
+            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido(), produtosFinal);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um tipo de pagamento.", "Erro", JOptionPane.ERROR_MESSAGE);
         }

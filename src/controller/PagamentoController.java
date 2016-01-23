@@ -17,6 +17,8 @@ import model.Cliente;
 import model.Pagamento;
 import model.Pedido;
 import model.Produto;
+import util.PagamentoPdf;
+
 
 /**
  *
@@ -39,7 +41,7 @@ public class PagamentoController {
         tabela.getColumnModel().getColumn(1).setPreferredWidth(312);
     }
 
-    public void pagamento(JFrame tela, String tipo, double valorCompra, Cliente cliente, Pedido pedido, Date dataPagamento) {
+    public void pagamento(JFrame tela, String tipo, double valorCompra, Cliente cliente, Pedido pedido, Date dataPagamento, List<Produto> produtos) {
         
         Pagamento pagamento = new Pagamento();
         pagamento.setPedido(pedido);
@@ -49,10 +51,13 @@ public class PagamentoController {
         pagamento.setDataPagamento(dataPagamento);
 
         String salvar = new PagamentoDao().salvar(pagamento);
+                     
+        PagamentoPdf pagamentoPdf = new PagamentoPdf();
+        pagamentoPdf.gerarPdf(produtos, pedido);
 
         switch (salvar) {
             case "SUCESSO":
-                JOptionPane.showMessageDialog(tela, "Pedido feito com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
+                JOptionPane.showMessageDialog(tela, "Pagamento efetuado com sucesso", "Sucesso", JOptionPane.DEFAULT_OPTION);
                 tela.dispose();
                 break;
             default:
