@@ -4,6 +4,8 @@ import controller.ProdutoController;
 import dao.ClienteDao;
 import dao.FornecedorDao;
 import dao.ProdutoDao;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -61,6 +63,9 @@ public class CadastrarProduto extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cbFornecedor = new javax.swing.JComboBox();
         txtSemFornecedor = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtSemPrecoVenda1 = new javax.swing.JLabel();
+        cbUnidade = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -129,9 +134,26 @@ public class CadastrarProduto extends javax.swing.JFrame {
         jLabel4.setText("Fornecedor:");
 
         cbFornecedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
+        cbFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbFornecedorActionPerformed(evt);
+            }
+        });
 
         txtSemFornecedor.setForeground(new java.awt.Color(255, 0, 0));
         txtSemFornecedor.setText("*");
+
+        jLabel11.setText("Unidade de venda:");
+
+        txtSemPrecoVenda1.setForeground(new java.awt.Color(255, 0, 0));
+        txtSemPrecoVenda1.setText("* ");
+
+        cbUnidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "un", "mg", "ml" }));
+        cbUnidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbUnidadeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,21 +173,23 @@ public class CadastrarProduto extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(txtErro)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel11))
                                 .addGap(53, 53, 53)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtPrecoCompra, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtQuantidade, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtDataValidade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                                        .addComponent(txtDataCompra, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(cbFornecedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtDescricao)
+                                        .addComponent(txtPrecoVenda, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(cbUnidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(129, 129, 129)
                                         .addComponent(btnCancelar)
-                                        .addGap(61, 61, 61)
-                                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtPrecoCompra, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtQuantidade, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtDataValidade, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtDataCompra, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cbFornecedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtDescricao)
-                                    .addComponent(txtPrecoVenda, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSemQuantidade)
@@ -174,11 +198,12 @@ public class CadastrarProduto extends javax.swing.JFrame {
                             .addComponent(txtSemDescricao)
                             .addComponent(txtSemDataCompra)
                             .addComponent(txtSemDataValida)
-                            .addComponent(txtSemFornecedor)))
+                            .addComponent(txtSemFornecedor)
+                            .addComponent(txtSemPrecoVenda1)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(144, 144, 144)
                         .addComponent(jLabel1)))
-                .addGap(0, 295, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +236,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDataValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSemDataValida))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,12 +251,17 @@ public class CadastrarProduto extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(txtPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSemPrecoVenda))
-                .addGap(32, 32, 32)
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(cbUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSemPrecoVenda1))
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnCadastrar)
-                    .addComponent(txtErro))
-                .addGap(29, 29, 29))
+                    .addComponent(txtErro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCadastrar))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -241,7 +271,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
 
         Produto produto = new Produto();
-
+        
         try {
             if (txtDescricao.getText().trim().isEmpty()) {
                 controller.habilitarErro(txtSemDescricao, txtErro);
@@ -287,7 +317,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 controller.habilitarErro(txtSemQuantidade, txtErro);
             } else {
                 controller.desabilitarErro(txtSemQuantidade);
-                produto.setQuantComprada(Integer.parseInt(txtQuantidade.getText()));
+                produto.setQuantidadeEstoque(Integer.parseInt(txtQuantidade.getText()));
             }
 
             if (txtPrecoCompra.getText().trim().isEmpty()) {
@@ -306,8 +336,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        produto.setQuantidadeEstoque(Integer.parseInt(txtQuantidade.getText())); //adiciona  a quantidade de compra no estoque  
 
         ProdutoDao produtoDao = new ProdutoDao();
         if (!txtSemDescricao.isVisible()  && !txtSemFornecedor.isVisible() && !txtSemDataCompra.isVisible() && !txtSemDataValida.isVisible() && !txtSemQuantidade.isVisible() && !txtSemPrecoCompra.isVisible() && !txtSemPrecoVenda.isVisible()) {
@@ -325,13 +353,23 @@ public class CadastrarProduto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void cbFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbFornecedorActionPerformed
+
+    private void cbUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUnidadeActionPerformed
+                
+    }//GEN-LAST:event_cbUnidadeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox cbFornecedor;
+    private javax.swing.JComboBox cbUnidade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -351,6 +389,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
     private javax.swing.JLabel txtSemFornecedor;
     private javax.swing.JLabel txtSemPrecoCompra;
     private javax.swing.JLabel txtSemPrecoVenda;
+    private javax.swing.JLabel txtSemPrecoVenda1;
     private javax.swing.JLabel txtSemQuantidade;
     // End of variables declaration//GEN-END:variables
 }

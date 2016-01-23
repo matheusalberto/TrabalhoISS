@@ -24,6 +24,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtFuncionarioAutenticado = new javax.swing.JLabel();
         txtId = new javax.swing.JLabel();
+        btnManipularComp = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         menuCadastroFuncionario = new javax.swing.JMenuItem();
@@ -52,6 +53,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Funcionário Autenticado:");
+
+        btnManipularComp.setText("Manipular Compostos");
+        btnManipularComp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManipularCompActionPerformed(evt);
+            }
+        });
 
         menuCadastro.setText("Cadastros");
         menuCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -143,31 +151,42 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(btnPedido)
-                .addContainerGap(177, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtId)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFuncionarioAutenticado)
-                .addGap(47, 47, 47)
-                .addComponent(labelUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(158, 158, 158)
+                                .addComponent(btnPedido))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(124, 124, 124)
+                                .addComponent(btnManipularComp)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(txtFuncionarioAutenticado)
-                        .addComponent(txtId))
-                    .addComponent(labelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                .addGap(38, 38, 38)
                 .addComponent(btnPedido)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnManipularComp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addComponent(labelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtFuncionarioAutenticado)
+                    .addComponent(txtId)))
         );
 
         setSize(new java.awt.Dimension(416, 339));
@@ -219,12 +238,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemProdutoActionPerformed
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
-        RealizarPedido realizarPedido = new RealizarPedido(nome, id);
+        RealizarPedido realizarPedido = new RealizarPedido(nome,id);
         realizarPedido.setVisible(true);
+        
     }//GEN-LAST:event_btnPedidoActionPerformed
+
+    private void btnManipularCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManipularCompActionPerformed
+        ManipularCompostos manipularCompostos = new ManipularCompostos();
+        manipularCompostos.setVisible(true);
+    }//GEN-LAST:event_btnManipularCompActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnManipularComp;
     private javax.swing.JButton btnPedido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;

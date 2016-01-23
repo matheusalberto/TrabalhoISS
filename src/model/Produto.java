@@ -29,12 +29,19 @@ public class Produto implements Serializable {
     private String fornecedor; //necessario ligar a variavel aos fornecedores cadastrados
     private double precoCompra;
     private double precoVenda;
-    private Integer quantComprada;
-    private Integer quantVendido;
-
     private Integer quantidadeEstoque;
     @ManyToMany(mappedBy = "produtos")
     private List<Pedido> pedidos;
+    private String unidade;
+    
+
+    public String getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(String unidade) {
+        this.unidade = unidade;
+    }
 
     public Integer getId() {
         return id;
@@ -51,7 +58,7 @@ public class Produto implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
+    
     public String getFornecedor() {
         return fornecedor;
     }
@@ -88,7 +95,7 @@ public class Produto implements Serializable {
         return quantidadeEstoque;
     }
 
-    public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+    public void setQuantidadeEstoque( Integer quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
@@ -99,13 +106,14 @@ public class Produto implements Serializable {
     public void setDataCompra(Date dataCompra) {
         this.dataCompra = dataCompra;
     }
+    
 
     public Object[] toArray() {
-        return new Object[]{id, descricao, quantidadeEstoque, precoVenda};
+        return  new Object[]{id, descricao, quantidadeEstoque, precoVenda};
     }
-
+    
     public Object[] toArrayCompra() {
-        return new Object[]{id, descricao, precoVenda};
+        return  new Object[]{id, descricao, precoVenda};
     }
 
     public List<Pedido> getPedidos() {
@@ -114,22 +122,5 @@ public class Produto implements Serializable {
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
-    }
-
-    public Integer getQuantVendido() {
-        return quantVendido;
-    }
-
-    public void setQuantVendido(Integer quantVendido) {
-        this.quantVendido = quantVendido;
-    }
-
-    public Integer getQuantComprada() {
-        return quantComprada;
-    }
-
-    public void setQuantComprada(Integer quantComprada) {
-        this.quantComprada = quantComprada;
-    }
-    
+    }   
 }
