@@ -31,12 +31,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuCadastroCliente = new javax.swing.JMenuItem();
         menuCadastroFornecedor = new javax.swing.JMenuItem();
         menuCadastroProduto = new javax.swing.JMenuItem();
+        menuCadastroCompra = new javax.swing.JMenuItem();
         menuConsulta = new javax.swing.JMenu();
         menuItemCliente = new javax.swing.JMenuItem();
         menuItemFornecedor = new javax.swing.JMenuItem();
         menuItemFuncionario = new javax.swing.JMenuItem();
         menuItemProduto = new javax.swing.JMenuItem();
+        menuItemCompra = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
+        menuRelatorioProduto = new javax.swing.JMenuItem();
         menuVenda = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -100,6 +103,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuCadastro.add(menuCadastroProduto);
 
+        menuCadastroCompra.setText("Compra");
+        menuCadastroCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCadastroCompraActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(menuCadastroCompra);
+
         jMenuBar1.add(menuCadastro);
 
         menuConsulta.setText("Consultas");
@@ -136,9 +147,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuConsulta.add(menuItemProduto);
 
+        menuItemCompra.setText("Compra");
+        menuItemCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCompraActionPerformed(evt);
+            }
+        });
+        menuConsulta.add(menuItemCompra);
+
         jMenuBar1.add(menuConsulta);
 
         menuRelatorio.setText("Relatorios");
+
+        menuRelatorioProduto.setText("Produto");
+        menuRelatorioProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelatorioProdutoActionPerformed(evt);
+            }
+        });
+        menuRelatorio.add(menuRelatorioProduto);
+
         jMenuBar1.add(menuRelatorio);
 
         menuVenda.setText("Vendas");
@@ -248,6 +276,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         manipularCompostos.setVisible(true);
     }//GEN-LAST:event_btnManipularCompActionPerformed
 
+    private void menuCadastroCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroCompraActionPerformed
+        CadastrarCompra cadastrarCompra = new CadastrarCompra();
+        cadastrarCompra.setVisible(true);
+    }//GEN-LAST:event_menuCadastroCompraActionPerformed
+
+    private void menuItemCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCompraActionPerformed
+        BuscaCompra buscaCompra = new BuscaCompra();
+        buscaCompra.setVisible(true);
+    }//GEN-LAST:event_menuItemCompraActionPerformed
+
+    private void menuRelatorioProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelatorioProdutoActionPerformed
+        RelatorioProduto relatorioProduto = new RelatorioProduto();
+        relatorioProduto.setVisible(true);
+    }//GEN-LAST:event_menuRelatorioProdutoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManipularComp;
@@ -259,15 +302,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public javax.swing.JLabel labelUsuario;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuCadastroCliente;
+    private javax.swing.JMenuItem menuCadastroCompra;
     private javax.swing.JMenuItem menuCadastroFornecedor;
     private javax.swing.JMenuItem menuCadastroFuncionario;
     private javax.swing.JMenuItem menuCadastroProduto;
     private javax.swing.JMenu menuConsulta;
     private javax.swing.JMenuItem menuItemCliente;
+    private javax.swing.JMenuItem menuItemCompra;
     private javax.swing.JMenuItem menuItemFornecedor;
     private javax.swing.JMenuItem menuItemFuncionario;
     private javax.swing.JMenuItem menuItemProduto;
     private javax.swing.JMenu menuRelatorio;
+    private javax.swing.JMenuItem menuRelatorioProduto;
     private javax.swing.JMenu menuVenda;
     private javax.swing.JLabel txtFuncionarioAutenticado;
     private javax.swing.JLabel txtId;

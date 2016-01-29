@@ -16,6 +16,6 @@
     <mapping class="model.Fornecedor"/>
     <mapping class="model.Produto"/>
     <mapping class="model.Pedido"/>
-    <mapping class="model.Pagamento"/>
+    <mapping class="model.Compra"/>
   </session-factory>
 </hibernate-configuration>
