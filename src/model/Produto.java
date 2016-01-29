@@ -30,11 +30,13 @@ public class Produto implements Serializable {
     private String fornecedor; //necessario ligar a variavel aos fornecedores cadastrados
     private double precoCompra;
     private double precoVenda;
-    private Integer quantidadeEstoque;
+    private double quantidadeEstoque;
     @ManyToMany(mappedBy = "produtos")
     private List<Pedido> pedidos;
     private String unidade;
     private String unidadeVenda;
+    private double quantidadeSelecionada;
+    
     
     
     public Integer getId() {
@@ -85,11 +87,11 @@ public class Produto implements Serializable {
         this.precoVenda = precoVenda;
     }
 
-    public Integer getQuantidadeEstoque() {
+    public double getQuantidadeEstoque() {
         return quantidadeEstoque;
     }
 
-    public void setQuantidadeEstoque( Integer quantidadeEstoque) {
+    public void setQuantidadeEstoque( double quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
@@ -117,6 +119,15 @@ public class Produto implements Serializable {
         this.unidadeVenda = unidadeVenda;
     }
 
+    public double getQuantidadeSelecionada() {
+        return quantidadeSelecionada;
+    }
+
+    public void setQuantidadeSelecionada(double quantidadeSelecionada) {
+        this.quantidadeSelecionada = quantidadeSelecionada;
+    }
+
+    
 
     public Object[] toArray() {
         return  new Object[]{id, descricao, quantidadeEstoque, precoVenda};
@@ -129,6 +140,11 @@ public class Produto implements Serializable {
     public Object[] toArraySelecComp() {
         return  new Object[]{id,descricao, precoVenda,unidadeVenda,quantidadeEstoque,unidade};
     }
+    
+     public Object[] toArrayCompManipulado() {
+        return  new Object[]{id,descricao, quantidadeSelecionada ,quantidadeEstoque,unidade};
+    }
+    
     
     public List<Pedido> getPedidos() {
         return pedidos;

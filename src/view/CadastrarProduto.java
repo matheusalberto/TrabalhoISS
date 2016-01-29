@@ -146,7 +146,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
 
         jLabel11.setText("Unidade de preço para a venda:");
 
-        cbUnidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "un", "g", "mg", "l", "ml" }));
+        cbUnidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "un", "Kg", "g", "mg", "l", "ml" }));
         cbUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbUnidadeActionPerformed(evt);
