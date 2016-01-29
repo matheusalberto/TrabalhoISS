@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 
 public class Produto implements Serializable {
 
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -33,16 +34,9 @@ public class Produto implements Serializable {
     @ManyToMany(mappedBy = "produtos")
     private List<Pedido> pedidos;
     private String unidade;
+    private String unidadeVenda;
     
-
-    public String getUnidade() {
-        return unidade;
-    }
-
-    public void setUnidade(String unidade) {
-        this.unidade = unidade;
-    }
-
+    
     public Integer getId() {
         return id;
     }
@@ -107,6 +101,22 @@ public class Produto implements Serializable {
         this.dataCompra = dataCompra;
     }
     
+    public String getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(String unidade) {
+        this.unidade = unidade;
+    }
+    
+    public String getUnidadeVenda() {
+        return unidadeVenda;
+    }
+
+    public void setUnidadeVenda(String unidadeVenda) {
+        this.unidadeVenda = unidadeVenda;
+    }
+
 
     public Object[] toArray() {
         return  new Object[]{id, descricao, quantidadeEstoque, precoVenda};
@@ -115,12 +125,17 @@ public class Produto implements Serializable {
     public Object[] toArrayCompra() {
         return  new Object[]{id, descricao, precoVenda};
     }
-
+    
+    public Object[] toArraySelecComp() {
+        return  new Object[]{id,descricao, precoVenda,unidadeVenda,quantidadeEstoque,unidade};
+    }
+    
     public List<Pedido> getPedidos() {
         return pedidos;
     }
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
-    }   
+    }
+    
 }

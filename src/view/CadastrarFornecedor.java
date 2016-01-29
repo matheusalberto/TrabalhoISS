@@ -47,7 +47,7 @@ public class CadastrarFornecedor extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("CADASTRO DE FORNECEDOR");
 
-        labelnome.setText("Nome:");
+        labelnome.setText("Descricao:");
 
         jLabel3.setText("Endereço:");
 

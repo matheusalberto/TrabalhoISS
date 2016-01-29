@@ -1,4 +1,3 @@
-
 package dao;
 
 import java.util.List;
@@ -9,12 +8,11 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
 
-
 public class ProdutoDao {
-    
+
     private Session session;
     private Transaction transaction;
-    
+
     public String salvar(Produto produto) {
         String retorno = null;
         try {
@@ -31,8 +29,8 @@ public class ProdutoDao {
             return retorno;
         }
     }
-    
-     public List<Produto> listar(String descricao) {
+
+    public List<Produto> listar(String descricao) {
 
         String hql = "from Produto p where p.descricao like :descricao";
 
@@ -44,18 +42,29 @@ public class ProdutoDao {
         transaction.commit();
         return lista;
     }
-     
-     public List<Produto> listarParaPedido(String descricao){
-         String hql = "from Produto p where p.descricao like :descricao and p.quantidadeEstoque > 0";
-         session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+    public List<Produto> listarParaPedido(String descricao) {
+        String hql = "from Produto p where p.descricao like :descricao and p.quantidadeEstoque > 0";
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
         transaction = session.beginTransaction();
         List lista = session.createQuery(hql)
                 .setParameter("descricao", "%" + descricao + "%")
                 .list();
         transaction.commit();
         return lista;
-     }
-    
+    }
+
+    public List<Produto> listarParaManipulacao(String descricao) {
+        String hql = "from Produto p where p.descricao like :descricao and p.quantidadeEstoque > 0 and p.unidade <> 'un'";
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        transaction = session.beginTransaction();
+        List lista = session.createQuery(hql)
+                .setParameter("descricao", "%" + descricao + "%")
+                .list();
+        transaction.commit();
+        return lista;
+    }
+
     public String atualizar(Produto produto) {
         String retorno = null;
         session = HibernateUtil.getSessionFactory().openSession();
@@ -72,13 +81,13 @@ public class ProdutoDao {
             return retorno;
         }
     }
-    
-    public String atualizarQuantidadeEstoque(int id){
+
+    public String atualizarQuantidadeEstoque(int id) {
         String retorno = null;
         Produto produto = localizar(id);
-        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque()+1);
+        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + 1);
         session = HibernateUtil.getSessionFactory().openSession();
-        transaction = session.beginTransaction();        
+        transaction = session.beginTransaction();
         try {
             session.update(produto);
             transaction.commit();
@@ -91,7 +100,7 @@ public class ProdutoDao {
             return retorno;
         }
     }
-    
+
     public String remover(Produto produto) {
         String retorno;
         session = HibernateUtil.getSessionFactory().openSession();
@@ -108,8 +117,7 @@ public class ProdutoDao {
         }
         return retorno;
     }
-    
-    
+
     public Produto localizar(int id) {
         session = HibernateUtil.getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Produto.class);
