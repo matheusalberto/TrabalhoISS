@@ -18,7 +18,6 @@ import model.Pedido;
 import model.Produto;
 import view.RealizarPagamento;
 
-
 public class PedidoController {
 
     private final NumberFormat nf = new DecimalFormat("###,##0.00");
@@ -66,6 +65,12 @@ public class PedidoController {
 
         ProdutoDao produtoDao = new ProdutoDao();
         Produto produto = produtoDao.localizar(id);
+        if(produto == null){
+            return -1;
+        }
+        if(produto.getPrecoVenda() < 0){
+            return -2;  
+        }
         total = Double.sum(total, produto.getPrecoVenda());
         total = total * 100;
         total = Math.round(total);
@@ -89,6 +94,9 @@ public class PedidoController {
         ProdutoDao produtoDao = new ProdutoDao();
         Produto produto = produtoDao.localizar(id);
         total = total - produto.getPrecoVenda();
+        total = total * 100;
+        total = Math.round(total);
+        total = total / 100;
         txtTotal.setText(nf.format(total));
 
         produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + 1); //Aumentando a quantidade no estoque
@@ -98,44 +106,43 @@ public class PedidoController {
         ((DefaultTableModel) tabelaCesta.getModel()).removeRow(linhaSelecionada); //Remove linha 
         return total;
     }
-    
-    public void desabilitarNaoCliente(JLabel labelCod, JLabel labelCliente, JLabel txtNaoCliente){
+
+    public void desabilitarNaoCliente(JLabel labelCod, JLabel labelCliente, JLabel txtNaoCliente) {
         labelCod.setVisible(true);
         labelCliente.setVisible(true);
         txtNaoCliente.setVisible(false);
     }
-    
-    public void habilitarNaoCliente(JLabel labelCod, JLabel labelCliente, JLabel txtNaoCliente){
+
+    public void habilitarNaoCliente(JLabel labelCod, JLabel labelCliente, JLabel txtNaoCliente) {
         labelCod.setVisible(false);
         labelCliente.setVisible(false);
         txtNaoCliente.setVisible(true);
     }
-    
-    public void finalizarPedido(JFrame tela, Cliente cliente, Funcionario funcionario, List<Produto> listaCesta, double total){
+
+    public void finalizarPedido(JFrame tela, Cliente cliente, Funcionario funcionario, List<Produto> listaCesta, double total) {
         Pedido pedido = new Pedido();
-            pedido.setCliente(cliente);
-            pedido.setFuncionario(funcionario);
-            pedido.setProdutos(listaCesta);
-            pedido.setValorCompra(total);
-            pedido.setDataPedido(new Date());
+        pedido.setCliente(cliente);
+        pedido.setFuncionario(funcionario);
+        pedido.setProdutos(listaCesta);
+        pedido.setValorCompra(total);
+        pedido.setDataPedido(new Date());
 
-            int opcao = JOptionPane.showConfirmDialog(tela, "Deseja realizar o seguinte pedido para " + cliente.getNome() + "?", "Confirmação", JOptionPane.YES_OPTION);
-            if (JOptionPane.YES_OPTION == opcao) {
-                String salvar = new PedidoDao().salvar(pedido);
-
-                switch (salvar) {
-                    case "SUCESSO":
-                        JOptionPane.showMessageDialog(tela, "Pedido feito com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
-                        tela.dispose();
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(tela, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
-                        break;
-                }
+        int opcao = JOptionPane.showConfirmDialog(tela, "Deseja realizar o seguinte pedido para " + cliente.getNome() + "?", "Confirmação", JOptionPane.YES_OPTION);
+        if (JOptionPane.YES_OPTION == opcao) {
+            String salvar = new PedidoDao().salvar(pedido);
+            switch (salvar) {
+                case "SUCESSO":
+                    JOptionPane.showMessageDialog(tela, "Pedido feito com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
+                    tela.dispose();
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(tela, "Tente novamente", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
+                    break;
             }
-            
-            RealizarPagamento realizarPagamento = new RealizarPagamento(pedido, listaCesta);
-            realizarPagamento.setVisible(true);
+        }
+
+        RealizarPagamento realizarPagamento = new RealizarPagamento(pedido, listaCesta);
+        realizarPagamento.setVisible(true);
     }
 
 }

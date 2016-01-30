@@ -98,7 +98,7 @@ public class ProdutoController {
         produto.setFornecedor(fornecedor);
         produto.setDataCompra(dataCorreta1);
         produto.setDataValidade(dataCorreta2);
-        produto.setQuantidadeEstoque(Integer.parseInt(quantidade));
+        produto.setQuantidadeEstoque(Double.parseDouble(quantidade));
         produto.setPrecoCompra(Double.parseDouble(precoCompra));
         produto.setPrecoVenda(Double.parseDouble(precoVenda));
 

@@ -428,7 +428,15 @@ public class RealizarPedido extends javax.swing.JFrame {
         int linhaSelecionada = tabelaProdutos.getSelectedRow();
 
         if (linhaSelecionada >= 0) {
-            total = pedidoController.adicionarProdutoCesta(linhaSelecionada, tabelaProdutos, total, txtTotal, listaCesta);
+            double auxiliar;
+            auxiliar = pedidoController.adicionarProdutoCesta(linhaSelecionada, tabelaProdutos, total, txtTotal, listaCesta);
+            if (auxiliar == -1) {
+                JOptionPane.showMessageDialog(this, "Produto não encontrado", "Algo deu errado.", JOptionPane.ERROR_MESSAGE);
+            } else if (auxiliar == -2) {
+                JOptionPane.showMessageDialog(this, "Valor inválido.", "Algo deu errado.", JOptionPane.ERROR_MESSAGE);
+            } else {
+                total = auxiliar;
+            }
             Object[] colunas = new Object[]{"Código", "Nome", "Preço R$"};
             pedidoController.preencherTabelaProdutos(tabelaCesta, tableModelCesta, colunas, listaCesta);
         }
@@ -463,17 +471,12 @@ public class RealizarPedido extends javax.swing.JFrame {
             pedidoController.habilitarNaoCliente(labelCod, labelCliente, txtNaoCliente);
             JOptionPane.showMessageDialog(this, "Selecione um cliente para continuar!", "Algo deu errado.", JOptionPane.ERROR_MESSAGE);
         } else if (listaCesta.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Não é possível contnuar, sua cesta está vazia, insira algum item!", "Algo deu errado.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Não é possível continuar, sua cesta está vazia, insira algum item!", "Algo deu errado.", JOptionPane.ERROR_MESSAGE);
         } else {
-            pedidoController.desabilitarNaoCliente(labelCod, labelCliente, txtNaoCliente);   
-            
+            pedidoController.desabilitarNaoCliente(labelCod, labelCliente, txtNaoCliente);
             Cliente cliente = new ClienteDao().localizar(Integer.parseInt(txtIdCliente.getText()));
             Funcionario funcionario = new FuncionarioDao().localizar(idFuncionario);
-            
             pedidoController.finalizarPedido(this, cliente, funcionario, listaCesta, total);
-            
-           
-
         }
     }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
 
