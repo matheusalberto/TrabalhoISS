@@ -52,6 +52,11 @@ public class ManipularCompostos extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Manipulação De Compostos");
@@ -197,11 +202,6 @@ public class ManipularCompostos extends javax.swing.JFrame {
                         .addComponent(txtSemPrecoCompra1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel23)
-                                .addGap(29, 29, 29)
-                                .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel18)
@@ -211,21 +211,25 @@ public class ManipularCompostos extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(17, 17, 17)))
+                                .addGap(17, 17, 17))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel23)
+                                .addGap(18, 18, 18)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel20)
-                                    .addComponent(jLabel24)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel24)))
+                                .addGap(50, 50, 50)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                    .addComponent(btnFinalizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,9 +259,9 @@ public class ManipularCompostos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnFinalizar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar)
-                        .addGap(49, 49, 49))
+                        .addGap(71, 71, 71))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAdd)
                         .addGap(37, 37, 37)
@@ -298,14 +302,15 @@ public class ManipularCompostos extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         
-        int linhaSelecionada = tabelaSelecao.getSelectedRow();
+        int linhaSelecionada = tabelaManipulacao.getSelectedRow();
 
         if (linhaSelecionada >= 0) {
-            total = produtoController.removerCompostos(this, tabelaManipulacao, linhaSelecionada, total, Integer.parseInt(txtQuantidade.getText()));
+            total = produtoController.removerCompostos(this, tabelaManipulacao, linhaSelecionada, total, txtPreco, listaCompostos);
             List<Produto> lista = new ProdutoDao().listarParaManipulacao(nomeComposto);
             Object[] colunas = new Object[]{"id", "Nome", "Quantidade","Estoque","Unidade"};
             produtoController.preencherTabelaManipulacao(tabelaManipulacao, tableModelManipulacao, colunas, listaCompostos);
@@ -324,7 +329,7 @@ public class ManipularCompostos extends javax.swing.JFrame {
 
             if (linhaSelecionada >= 0) {
                 total = produtoController.adicionarCompostoManipulado(this, linhaSelecionada, tabelaSelecao, total, txtPreco, listaCompostos, txtQuantidade.getText(),cbUnidadeDesejada);
-                Object[] colunas = new Object[]{"id", "Nome", "Quantidade(g)", "Estoque", "Unidade"};
+                Object[] colunas = new Object[]{"id", "Nome", "Quantidade(g ou ml)", "Estoque", "Unidade"};
                 produtoController.preencherTabelaManipulacao(tabelaManipulacao, tableModelManipulacao, colunas, listaCompostos);
             }
         }
@@ -333,13 +338,25 @@ public class ManipularCompostos extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         int opcao = JOptionPane.showConfirmDialog(this, "Deseja cancelar a manipulação?", "Confirmação", JOptionPane.YES_OPTION);
         if (JOptionPane.YES_OPTION == opcao) {
+            
             this.dispose();
-            //atualizar estoque novamente adicionando as quantidades retiradas
+            produtoController.cancelarManipulacao(listaCompostos);
+            
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-
+        
+        /*if (txtNome.getText().equals("")) { //VAZIO, NÃO INFORMOU O NOME
+            JOptionPane.showMessageDialog(this, "Favor inserir um nome para o produto final.", "Algo deu errado.", JOptionPane.ERROR_MESSAGE);
+        } else if (listaCompostos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Não é possível contnuar, não há compostos para serem manipulados. Favor inserir um composto!", "Algo deu errado.", JOptionPane.ERROR_MESSAGE);
+        } else {
+           
+            produtoController.finalizarManipulacao(this,listaCompostos,total,txtNome.getText());
+            
+        }*/
+            
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void txtCompostosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCompostosKeyTyped
@@ -364,6 +381,10 @@ public class ManipularCompostos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQuantidadeActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.setDefaultCloseOperation(ManipularCompostos.DISPOSE_ON_CLOSE);
+        produtoController.cancelarManipulacao(listaCompostos);
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

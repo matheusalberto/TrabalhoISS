@@ -100,6 +100,27 @@ public class ProdutoDao {
             return retorno;
         }
     }
+    
+    public String atualizarQuantidadeEstoqueManip(int id, double quantidade) {
+        
+        String retorno = null;
+        Produto produto = localizar(id);
+        produto.setQuantidadeEstoque(quantidade);
+        
+        session = HibernateUtil.getSessionFactory().openSession();
+        transaction = session.beginTransaction();
+        try {
+            session.update(produto);
+            transaction.commit();
+            retorno = "SUCESSO";
+        } catch (Exception e) {
+            e.printStackTrace();
+            retorno = "FALHA";
+        } finally {
+            session.close();
+            return retorno;
+        }
+    }
 
     public String remover(Produto produto) {
         String retorno;

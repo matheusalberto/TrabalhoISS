@@ -36,6 +36,7 @@ public class Produto implements Serializable {
     private String unidade;
     private String unidadeVenda;
     private double quantidadeSelecionada;
+    //public List<Produto> compostos;
     
     
     
@@ -125,9 +126,7 @@ public class Produto implements Serializable {
 
     public void setQuantidadeSelecionada(double quantidadeSelecionada) {
         this.quantidadeSelecionada = quantidadeSelecionada;
-    }
-
-    
+    } 
 
     public Object[] toArray() {
         return  new Object[]{id, descricao, quantidadeEstoque, precoVenda};
@@ -153,5 +152,7 @@ public class Produto implements Serializable {
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
+    
+    
     
 }
