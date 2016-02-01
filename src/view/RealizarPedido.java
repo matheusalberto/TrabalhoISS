@@ -399,9 +399,9 @@ public class RealizarPedido extends javax.swing.JFrame {
 
     private void txtClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteKeyTyped
         String nomeCliente = txtCliente.getText().trim();
-        List<Cliente> lista = new ClienteDao().listar(nomeCliente); //Preenche uma lista com todos os clientes com base no nome digitado
+        //List<Cliente> lista = new ClienteDao().listar(nomeCliente); //Preenche uma lista com todos os clientes com base no nome digitado
         Object[] colunas = new Object[]{"Código", "Nome"};
-        pedidoController.preencherTabelaCliente(tabelaClientes, tableModelCliente, colunas, lista);
+        pedidoController.preencherTabelaCliente(tabelaClientes, tableModelCliente, colunas, nomeCliente);
     }//GEN-LAST:event_txtClienteKeyTyped
 
     private void btnSelecionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarClienteActionPerformed
@@ -410,18 +410,19 @@ public class RealizarPedido extends javax.swing.JFrame {
         int linhaSelecionada = tabelaClientes.getSelectedRow();
 
         if (linhaSelecionada >= 0) {
-            int id = (int) tabelaClientes.getValueAt(linhaSelecionada, 0);
-            Cliente cliente = new ClienteDao().localizar(id);
-            txtNomeCliente.setText(cliente.getNome());
-            txtIdCliente.setText(String.valueOf(cliente.getId()));
+            pedidoController.selecionarCliente(linhaSelecionada, txtNomeCliente, txtIdCliente, tabelaClientes);
+            //int id = (int) tabelaClientes.getValueAt(linhaSelecionada, 0);
+            //Cliente cliente = new ClienteDao().localizar(id);
+            //txtNomeCliente.setText(cliente.getNome());
+            //txtIdCliente.setText(String.valueOf(cliente.getId()));
         }
     }//GEN-LAST:event_btnSelecionarClienteActionPerformed
 
     private void txtProdutosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProdutosKeyTyped
         nomeProduto = txtProdutos.getText().trim();
-        List<Produto> lista = new ProdutoDao().listarParaPedido(nomeProduto); //Preenche uma lista com todos os produtos com base no nome digitado      
+        //List<Produto> lista = new ProdutoDao().listarParaPedido(nomeProduto); //Preenche uma lista com todos os produtos com base no nome digitado      
         Object[] colunas = new Object[]{"Código", "Nome", "Preço R$"};
-        pedidoController.preencherTabelaProdutos(tabelaProdutos, tableModelProduto, colunas, lista);
+        pedidoController.preencherTabelaProdutos(tabelaProdutos, tableModelProduto, colunas, nomeProduto);
     }//GEN-LAST:event_txtProdutosKeyTyped
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -438,7 +439,7 @@ public class RealizarPedido extends javax.swing.JFrame {
                 total = auxiliar;
             }
             Object[] colunas = new Object[]{"Código", "Nome", "Preço R$"};
-            pedidoController.preencherTabelaProdutos(tabelaCesta, tableModelCesta, colunas, listaCesta);
+            pedidoController.preencherTabelaProdutosCesta(tabelaCesta, tableModelCesta, colunas, listaCesta);
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -447,9 +448,9 @@ public class RealizarPedido extends javax.swing.JFrame {
 
         if (linhaSelecionada >= 0) {
             total = pedidoController.removerProdutoCesta(linhaSelecionada, tabelaCesta, total, txtTotal, listaCesta);
-            List<Produto> lista = new ProdutoDao().listarParaPedido(nomeProduto);
+            //List<Produto> lista = new ProdutoDao().listarParaPedido(nomeProduto);
             Object[] colunas = new Object[]{"Código", "Nome", "Preço R$"};
-            pedidoController.preencherTabelaProdutos(tabelaProdutos, tableModelProduto, colunas, lista);
+            pedidoController.preencherTabelaProdutos(tabelaProdutos, tableModelProduto, colunas, nomeProduto);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 

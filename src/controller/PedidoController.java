@@ -1,5 +1,6 @@
 package controller;
 
+import dao.ClienteDao;
 import dao.PedidoDao;
 import dao.ProdutoDao;
 import java.text.DecimalFormat;
@@ -22,6 +23,13 @@ public class PedidoController {
 
     private final NumberFormat nf = new DecimalFormat("###,##0.00");
 
+    public void selecionarCliente(int linhaSelecionada, JLabel txtNomeCliente, JLabel txtIdCliente, JTable tabelaClientes){
+        int id = (int) tabelaClientes.getValueAt(linhaSelecionada, 0);
+            Cliente cliente = new ClienteDao().localizar(id);
+            txtNomeCliente.setText(cliente.getNome());
+            txtIdCliente.setText(String.valueOf(cliente.getId()));
+    }
+    
     public void cancelarPedido(List<Produto> listaCesta) {
         for (Produto produto : listaCesta) {
             produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + 1);
@@ -29,7 +37,9 @@ public class PedidoController {
         }
     }
 
-    public void preencherTabelaCliente(JTable tabela, TableModel tableModel, Object[] colunas, List<Cliente> lista) {
+    public void preencherTabelaCliente(JTable tabela, TableModel tableModel, Object[] colunas, String nomeCliente) {
+        List<Cliente> lista = new ClienteDao().listar(nomeCliente);
+        
         Object[][] dados = new Object[lista.size()][2]; //Preenche os objetos para popular a tabela
         int i = 0;
         for (Cliente cliente : lista) {
@@ -43,8 +53,26 @@ public class PedidoController {
         tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
         tabela.getColumnModel().getColumn(1).setPreferredWidth(312);
     }
+    
+    public void preencherTabelaProdutosCesta(JTable tabela, TableModel tableModel, Object[] colunas, List<Produto> lista) {       
+        Object[][] dados = new Object[lista.size()][3]; //Preenche os objetos para popular a tabela 
+        int i = 0;
+        for (Produto p : lista) {
+            dados[i] = p.toArrayCompra();
+            i++;
+        }
 
-    public void preencherTabelaProdutos(JTable tabela, TableModel tableModel, Object[] colunas, List<Produto> lista) {
+        tableModel = new DefaultTableModel(dados, colunas);
+        tabela.setModel(tableModel);
+        tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(270);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(120);
+    }
+
+    public void preencherTabelaProdutos(JTable tabela, TableModel tableModel, Object[] colunas, String nomeProduto) {
+        List<Produto> lista = new ProdutoDao().listarParaPedido(nomeProduto);
+        
         Object[][] dados = new Object[lista.size()][3]; //Preenche os objetos para popular a tabela 
         int i = 0;
         for (Produto p : lista) {
