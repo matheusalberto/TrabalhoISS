@@ -17,5 +17,6 @@
     <mapping class="model.Produto"/>
     <mapping class="model.Pedido"/>
     <mapping class="model.Compra"/>
+    <mapping class="model.Composto"/>
   </session-factory>
 </hibernate-configuration>

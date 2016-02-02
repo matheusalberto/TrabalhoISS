@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import model.Composto;
 import org.hibernate.Session;
 import model.Produto;
 import org.hibernate.Criteria;
@@ -8,18 +9,18 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
 
-public class ProdutoDao {
+public class CompostoDao {
 
     private Session session;
     private Transaction transaction;
 
-    public String salvar(Produto produto) {
+    public String salvar(Composto composto) {
         String retorno = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
 
-            session.save(produto);
+            session.save(composto);
             transaction.commit();
             retorno = "SUCESSO";
         } catch (Exception e) {
@@ -30,10 +31,8 @@ public class ProdutoDao {
         }
     }
 
-    public List<Produto> listar(String descricao) {
-
-        String hql = "from Produto p where p.descricao like :descricao";
-
+    public List<Composto> listarParaManipulacao(String descricao) {
+        String hql = "from Composto c where c.descricao like :descricao and c.quantidadeEstoque > 0";
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         transaction = session.beginTransaction();
         List lista = session.createQuery(hql)
@@ -43,43 +42,12 @@ public class ProdutoDao {
         return lista;
     }
 
-    public List<Produto> listarParaPedido(String descricao) {
-        String hql = "from Produto p where p.descricao like :descricao and p.quantidadeEstoque > 0";
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        transaction = session.beginTransaction();
-        List lista = session.createQuery(hql)
-                .setParameter("descricao", "%" + descricao + "%")
-                .list();
-        transaction.commit();
-        return lista;
-    }
-
-   
-    public String atualizar(Produto produto) {
+    public String atualizar(Composto composto) {
         String retorno = null;
         session = HibernateUtil.getSessionFactory().openSession();
         transaction = session.beginTransaction();
         try {
-            session.update(produto);
-            transaction.commit();
-            retorno = "SUCESSO";
-        } catch (Exception e) {
-            e.printStackTrace();
-            retorno = "FALHA";
-        } finally {
-            session.close();
-            return retorno;
-        }
-    }
-
-    public String atualizarQuantidadeEstoque(int id) {
-        String retorno = null;
-        Produto produto = localizar(id);
-        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + 1);
-        session = HibernateUtil.getSessionFactory().openSession();
-        transaction = session.beginTransaction();
-        try {
-            session.update(produto);
+            session.update(composto);
             transaction.commit();
             retorno = "SUCESSO";
         } catch (Exception e) {
@@ -91,14 +59,33 @@ public class ProdutoDao {
         }
     }
     
-   
+    public String atualizarQuantidadeEstoqueManip(int id, double quantidade) {
+        
+        String retorno = null;
+        Composto composto = localizar(id);
+        composto.setQuantidadeEstoque(quantidade);
+        
+        session = HibernateUtil.getSessionFactory().openSession();
+        transaction = session.beginTransaction();
+        try {
+            session.update(composto);
+            transaction.commit();
+            retorno = "SUCESSO";
+        } catch (Exception e) {
+            e.printStackTrace();
+            retorno = "FALHA";
+        } finally {
+            session.close();
+            return retorno;
+        }
+    }
 
-    public String remover(Produto produto) {
+    public String remover(Composto composto) {
         String retorno;
         session = HibernateUtil.getSessionFactory().openSession();
         transaction = session.beginTransaction();
         try {
-            session.delete(produto);
+            session.delete(composto);
             transaction.commit();
             retorno = "SUCESSO";
         } catch (Exception e) {
@@ -110,13 +97,15 @@ public class ProdutoDao {
         return retorno;
     }
 
-    public Produto localizar(int id) {
+    public Composto localizar(int id) {
         session = HibernateUtil.getSessionFactory().openSession();
-        Criteria criteria = session.createCriteria(Produto.class);
+        Criteria criteria = session.createCriteria(Composto.class);
         criteria.add(Restrictions.eq("id", id));
         criteria.setMaxResults(1);
-        Produto produto = (Produto) criteria.uniqueResult();
+        Composto composto = (Composto) criteria.uniqueResult();
         session.close();
-        return produto;
+        return composto;
     }
+    
+    
 }

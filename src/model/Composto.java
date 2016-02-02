@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -15,14 +14,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 @Entity
-@Table(name = "produto")
-
-public class Produto implements Serializable {
-
+@Table(name = "composto")
+public class Composto implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
+    
     private Integer id;
     private String descricao;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -33,18 +30,12 @@ public class Produto implements Serializable {
     private double precoCompra;
     private double precoVenda;
     private double quantidadeEstoque;
-    @ManyToMany(mappedBy = "produtos")
-    private List<Pedido> pedidos;
     private String unidade;
     private String unidadeVenda;
     private double quantidadeSelecionada;
-    @ManyToMany
-    @JoinTable (name = "compostos_produto",
-            joinColumns = @JoinColumn(name = "produto_id"),
-            inverseJoinColumns = @JoinColumn(name = "composto_id"))
-    private List<Composto> compostos;
-    
-    
+    @ManyToMany(mappedBy = "compostos")
+    private List<Produto> produtos;
+
     public Integer getId() {
         return id;
     }
@@ -60,13 +51,13 @@ public class Produto implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
-    public String getFornecedor() {
-        return fornecedor;
+
+    public Date getDataCompra() {
+        return dataCompra;
     }
 
-    public void setFornecedor(String fornecedor) {
-        this.fornecedor = fornecedor;
+    public void setDataCompra(Date dataCompra) {
+        this.dataCompra = dataCompra;
     }
 
     public Date getDataValidade() {
@@ -75,6 +66,14 @@ public class Produto implements Serializable {
 
     public void setDataValidade(Date dataValidade) {
         this.dataValidade = dataValidade;
+    }
+
+    public String getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(String fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     public double getPrecoCompra() {
@@ -97,18 +96,10 @@ public class Produto implements Serializable {
         return quantidadeEstoque;
     }
 
-    public void setQuantidadeEstoque( double quantidadeEstoque) {
+    public void setQuantidadeEstoque(double quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public Date getDataCompra() {
-        return dataCompra;
-    }
-
-    public void setDataCompra(Date dataCompra) {
-        this.dataCompra = dataCompra;
-    }
-    
     public String getUnidade() {
         return unidade;
     }
@@ -116,7 +107,7 @@ public class Produto implements Serializable {
     public void setUnidade(String unidade) {
         this.unidade = unidade;
     }
-    
+
     public String getUnidadeVenda() {
         return unidadeVenda;
     }
@@ -131,25 +122,15 @@ public class Produto implements Serializable {
 
     public void setQuantidadeSelecionada(double quantidadeSelecionada) {
         this.quantidadeSelecionada = quantidadeSelecionada;
-    } 
-
-    public List<Composto> getCompostos() {
-        return compostos;
     }
 
-    public void setCompostos(List<Composto> compostos) {
-        this.compostos = compostos;
+    public List<Produto> getProdutos() {
+        return produtos;
     }
-    
-    
 
-    public Object[] toArray() {
-        return  new Object[]{id, descricao, quantidadeEstoque, precoVenda};
-    }
-    
-    public Object[] toArrayCompra() {
-        return  new Object[]{id, descricao, precoVenda};
-    }
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }   
     
     public Object[] toArraySelecComp() {
         return  new Object[]{id,descricao, precoVenda,unidadeVenda,quantidadeEstoque,unidade};
@@ -157,15 +138,6 @@ public class Produto implements Serializable {
     
      public Object[] toArrayCompManipulado() {
         return  new Object[]{id,descricao, quantidadeSelecionada ,quantidadeEstoque,unidade};
-    }
-    
-    
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
     }
     
     

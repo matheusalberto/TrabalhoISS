@@ -1,22 +1,25 @@
 package view;
 
+import controller.CompostoController;
 import controller.PedidoController;
 import controller.ProdutoController;
+import dao.CompostoDao;
 import dao.ProdutoDao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import model.Composto;
 import model.Produto;
 
 public class ManipularCompostos extends javax.swing.JFrame {
     private String nomeComposto;
     private final TableModel tableModelSelecao = new DefaultTableModel();
     private final TableModel tableModelManipulacao = new DefaultTableModel();
-    private final ProdutoController produtoController = new ProdutoController();
+    private final CompostoController compostoController = new CompostoController();
     private double total = 0;
-    private final List<Produto> listaCompostos = new ArrayList<>();
+    private final List<Composto> listaCompostos = new ArrayList<>();
 
     public ManipularCompostos() {
         initComponents();
@@ -310,27 +313,31 @@ public class ManipularCompostos extends javax.swing.JFrame {
         int linhaSelecionada = tabelaManipulacao.getSelectedRow();
 
         if (linhaSelecionada >= 0) {
-            total = produtoController.removerCompostos(this, tabelaManipulacao, linhaSelecionada, total, txtPreco, listaCompostos);
-            List<Produto> lista = new ProdutoDao().listarParaManipulacao(nomeComposto);
+            total = compostoController.removerCompostos(this, tabelaManipulacao, linhaSelecionada, total, txtPreco, listaCompostos);
+            List<Composto> lista = new CompostoDao().listarParaManipulacao(nomeComposto);
             Object[] colunas = new Object[]{"id", "Nome", "Quantidade","Estoque","Unidade"};
-            produtoController.preencherTabelaManipulacao(tabelaManipulacao, tableModelManipulacao, colunas, listaCompostos);
+            compostoController.preencherTabelaManipulacao(tabelaManipulacao, tableModelManipulacao, colunas, listaCompostos);
             
         }
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-
-        if (txtQuantidade.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Favor informar a quantidade", "Erro: quantidade não informada", JOptionPane.DEFAULT_OPTION);
+        
+        double aux = 0;
+        if(!txtQuantidade.getText().isEmpty()){   // se for diferente de vazio, transformo para double e comparo
+            aux = Double.parseDouble(txtQuantidade.getText());
+        }
+        if (txtQuantidade.getText().isEmpty() || aux <= 0) {
+            JOptionPane.showMessageDialog(this, "Favor informar uma quantidade válida", "Erro: quantidade inválida", JOptionPane.DEFAULT_OPTION);
         } else {
             
             int linhaSelecionada = tabelaSelecao.getSelectedRow();
 
             if (linhaSelecionada >= 0) {
-                total = produtoController.adicionarCompostoManipulado(this, linhaSelecionada, tabelaSelecao, total, txtPreco, listaCompostos, txtQuantidade.getText(),cbUnidadeDesejada);
+                total = compostoController.adicionarCompostoManipulado(this, linhaSelecionada, tabelaSelecao, total, txtPreco, listaCompostos, txtQuantidade.getText(),cbUnidadeDesejada);
                 Object[] colunas = new Object[]{"id", "Nome", "Quantidade(g ou ml)", "Estoque", "Unidade"};
-                produtoController.preencherTabelaManipulacao(tabelaManipulacao, tableModelManipulacao, colunas, listaCompostos);
+                compostoController.preencherTabelaManipulacao(tabelaManipulacao, tableModelManipulacao, colunas, listaCompostos);
             }
         }
     }//GEN-LAST:event_btnAddActionPerformed
@@ -340,22 +347,22 @@ public class ManipularCompostos extends javax.swing.JFrame {
         if (JOptionPane.YES_OPTION == opcao) {
             
             this.dispose();
-            produtoController.cancelarManipulacao(listaCompostos);
+            compostoController.cancelarManipulacao(listaCompostos);
             
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         
-        /*if (txtNome.getText().equals("")) { //VAZIO, NÃO INFORMOU O NOME
+       if (txtNome.getText().equals("")) { //VAZIO, NÃO INFORMOU O NOME
             JOptionPane.showMessageDialog(this, "Favor inserir um nome para o produto final.", "Algo deu errado.", JOptionPane.ERROR_MESSAGE);
         } else if (listaCompostos.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Não é possível contnuar, não há compostos para serem manipulados. Favor inserir um composto!", "Algo deu errado.", JOptionPane.ERROR_MESSAGE);
         } else {
            
-            produtoController.finalizarManipulacao(this,listaCompostos,total,txtNome.getText());
+            compostoController.finalizarManipulacao(this,listaCompostos,total,txtNome.getText());
             
-        }*/
+        }
             
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
@@ -363,9 +370,9 @@ public class ManipularCompostos extends javax.swing.JFrame {
 
         String nomeComposto;
         nomeComposto = txtCompostos.getText().trim();
-        List<Produto> lista = new ProdutoDao().listarParaManipulacao(nomeComposto); //Preenche uma lista com todos os compostos com base no nome digitado      
+        List<Composto> lista = new CompostoDao().listarParaManipulacao(nomeComposto); //Preenche uma lista com todos os compostos com base no nome digitado      
         Object[] colunas = new Object[]{"id", "Nome", "Preço R$", "Unid. venda", "Estoque", "Unidade"};
-        produtoController.preencherTabelaCompostos(tabelaSelecao, tableModelSelecao, colunas, lista);
+        compostoController.preencherTabelaCompostos(tabelaSelecao, tableModelSelecao, colunas, lista);
 
     }//GEN-LAST:event_txtCompostosKeyTyped
 
@@ -383,7 +390,7 @@ public class ManipularCompostos extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.setDefaultCloseOperation(ManipularCompostos.DISPOSE_ON_CLOSE);
-        produtoController.cancelarManipulacao(listaCompostos);
+        compostoController.cancelarManipulacao(listaCompostos);
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
