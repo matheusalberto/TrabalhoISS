@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -38,11 +36,8 @@ public class Produto implements Serializable {
     private String unidade;
     private String unidadeVenda;
     private double quantidadeSelecionada;
-    @ManyToMany
-    @JoinTable (name = "compostos_produto",
-            joinColumns = @JoinColumn(name = "produto_id"),
-            inverseJoinColumns = @JoinColumn(name = "composto_id"))
-    private List<Composto> compostos;
+    //public List<Produto> compostos;
+    
     
     
     public Integer getId() {
@@ -132,16 +127,10 @@ public class Produto implements Serializable {
     public void setQuantidadeSelecionada(double quantidadeSelecionada) {
         this.quantidadeSelecionada = quantidadeSelecionada;
     } 
-
-    public List<Composto> getCompostos() {
-        return compostos;
-    }
-
-    public void setCompostos(List<Composto> compostos) {
-        this.compostos = compostos;
-    }
     
-    
+    public Object[] toArrayPagamento(){
+        return new Object[]{id, descricao, precoVenda};
+    }
 
     public Object[] toArray() {
         return  new Object[]{id, descricao, quantidadeEstoque, precoVenda};

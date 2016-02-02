@@ -30,6 +30,7 @@ public class PagamentoDao {
             transaction.commit();
             retorno =  "SUCESSO";
         } catch (Exception e){
+            System.out.println(e);
             retorno = "FALHA";
         } finally {
             session.close();

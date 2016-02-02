@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -39,6 +38,15 @@ public class Pagamento implements Serializable {
     private Cliente cliente;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataPagamento;
+    Double desconto;
+
+    public Double getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(Double desconto) {
+        this.desconto = desconto;
+    }
 
     public Date getDataPagamento() {
         return dataPagamento;

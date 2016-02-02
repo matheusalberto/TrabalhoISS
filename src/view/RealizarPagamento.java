@@ -25,20 +25,18 @@ public class RealizarPagamento extends javax.swing.JFrame {
     private final NumberFormat nf = new DecimalFormat("###,##0.00");
     private final Pedido pedidoFinal;
     private final List<Produto> produtosFinal;
- 
-    
-    
+
     public RealizarPagamento(Pedido pedido, List<Produto> produtos) {
         initComponents();
         txtCliente.setText(pedido.getCliente().getNome());
         txtIdPedido.setText(pedido.getId().toString());
         txtTotal.setText(nf.format(pedido.getValorCompra()));
-        
+
         Object[] colunas = new Object[]{"Código", "Nome", "Preço R$"};
         pagamentoController.preencherTabelaProdutos(tabelaProdutos, colunas, produtos);
-        
-       pedidoFinal = pedido;
-       produtosFinal = produtos;
+
+        pedidoFinal = pedido;
+        produtosFinal = produtos;
     }
 
     /**
@@ -63,6 +61,11 @@ public class RealizarPagamento extends javax.swing.JFrame {
         radioDinheiro = new javax.swing.JRadioButton();
         radioDébito = new javax.swing.JRadioButton();
         radioCrédito = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtDesconto = new javax.swing.JFormattedTextField();
+        btnDesconto = new javax.swing.JButton();
+        labelPagamento = new javax.swing.JLabel();
+        labelPagamentoObrigatorio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,8 +101,18 @@ public class RealizarPagamento extends javax.swing.JFrame {
         });
 
         radioDinheiro.setText("Dinheiro");
+        radioDinheiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioDinheiroActionPerformed(evt);
+            }
+        });
 
         radioDébito.setText("Débito");
+        radioDébito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioDébitoActionPerformed(evt);
+            }
+        });
 
         radioCrédito.setText("Crédito");
         radioCrédito.addActionListener(new java.awt.event.ActionListener() {
@@ -108,12 +121,31 @@ public class RealizarPagamento extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Desconto:");
+
+        txtDesconto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0.00"))));
+
+        btnDesconto.setText("Computar");
+        btnDesconto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescontoActionPerformed(evt);
+            }
+        });
+
+        labelPagamento.setForeground(new java.awt.Color(255, 0, 0));
+        labelPagamento.setText("*");
+
+        labelPagamentoObrigatorio.setForeground(new java.awt.Color(255, 0, 0));
+        labelPagamentoObrigatorio.setText("* Atributo Obrigatório");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(labelPagamento)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -136,10 +168,21 @@ public class RealizarPagamento extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(radioCrédito))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)
-                        .addComponent(btnFinalizar)))
-                .addContainerGap(175, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(137, 137, 137)
+                                .addComponent(btnFinalizar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelPagamentoObrigatorio))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDesconto)))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,16 +205,23 @@ public class RealizarPagamento extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(radioDinheiro)
                     .addComponent(radioDébito)
-                    .addComponent(radioCrédito))
+                    .addComponent(radioCrédito)
+                    .addComponent(labelPagamento))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDesconto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(39, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnFinalizar)
-                        .addGap(95, 95, 95))))
+                        .addGap(95, 95, 95))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelPagamentoObrigatorio)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
 
         pack();
@@ -179,43 +229,77 @@ public class RealizarPagamento extends javax.swing.JFrame {
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         String tipo = null;
-        if(radioDinheiro.isSelected()){
+        if (Double.parseDouble(txtDesconto.getText().replace(',', '.')) < 0.00 || 
+                Double.parseDouble(txtDesconto.getText().replace(',', '.')) > Double.parseDouble(txtTotal.getText().replace(',', '.'))) {
+            JOptionPane.showMessageDialog(this, "Valor de desconto inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (radioDinheiro.isSelected()) {
             tipo = "0";
-            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido(), produtosFinal);
-        } else if(radioDébito.isSelected()){
+            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(), pedidoFinal, pedidoFinal.getDataPedido(), produtosFinal);
+        } else if (radioDébito.isSelected()) {
             tipo = "1";
-            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido(), produtosFinal);
-        } else if(radioCrédito.isSelected()){
+            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(), pedidoFinal, pedidoFinal.getDataPedido(), produtosFinal);
+        } else if (radioCrédito.isSelected()) {
             tipo = "2";
-            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(),pedidoFinal, pedidoFinal.getDataPedido(), produtosFinal);
+            pagamentoController.pagamento(this, tipo, pedidoFinal.getValorCompra(), pedidoFinal.getCliente(), pedidoFinal, pedidoFinal.getDataPedido(), produtosFinal);
         } else {
+            labelPagamento.setVisible(true);
+            labelPagamentoObrigatorio.setVisible(true);
             JOptionPane.showMessageDialog(this, "Selecione um tipo de pagamento.", "Erro", JOptionPane.ERROR_MESSAGE);
+
         }
 
-        
+
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void radioCréditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCréditoActionPerformed
-        // TODO add your handling code here:
+        labelPagamento.setVisible(false);
+        labelPagamentoObrigatorio.setVisible(false);
+        radioDinheiro.setSelected(false);
+        radioDébito.setSelected(false);
+
     }//GEN-LAST:event_radioCréditoActionPerformed
+
+    private void btnDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescontoActionPerformed
+        txtTotal.setText(pagamentoController.computarDesconto(txtTotal, txtDesconto));
+    }//GEN-LAST:event_btnDescontoActionPerformed
+
+    private void radioDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioDinheiroActionPerformed
+        labelPagamento.setVisible(false);
+        labelPagamentoObrigatorio.setVisible(false);
+        radioCrédito.setSelected(false);
+        radioDébito.setSelected(false);
+
+    }//GEN-LAST:event_radioDinheiroActionPerformed
+
+    private void radioDébitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioDébitoActionPerformed
+        labelPagamento.setVisible(false);
+        labelPagamentoObrigatorio.setVisible(false);
+        radioCrédito.setSelected(false);
+        radioDinheiro.setSelected(false);
+
+    }//GEN-LAST:event_radioDébitoActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDesconto;
     private javax.swing.JToggleButton btnFinalizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelPagamento;
+    private javax.swing.JLabel labelPagamentoObrigatorio;
     private javax.swing.JRadioButton radioCrédito;
     private javax.swing.JRadioButton radioDinheiro;
     private javax.swing.JRadioButton radioDébito;
     private javax.swing.JTable tabelaProdutos;
     private javax.swing.JLabel txtCliente;
+    private javax.swing.JFormattedTextField txtDesconto;
     private javax.swing.JLabel txtIdPedido;
     private javax.swing.JLabel txtTotal;
     // End of variables declaration//GEN-END:variables
