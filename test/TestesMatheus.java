@@ -56,7 +56,7 @@ public class TestesMatheus {
         p1.setDataValidade(new Date());
         p1.setFornecedor("FORNECEDOR TESTE");
         p1.setPrecoCompra(10.0);
-        p1.setPrecoVenda(50.0);
+        p1.setPrecoVenda(20.0);
         p1.setQuantidadeEstoque(10);
         
         lista.add(p1);
