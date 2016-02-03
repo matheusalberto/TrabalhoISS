@@ -25,7 +25,7 @@ import model.Produto;
 public class CompostoController {
 
     private final NumberFormat nf = new DecimalFormat("###,##0.00");
-    
+
     public void preencherTabelaManipulacao(JTable tabela, TableModel tableModel, Object[] colunas, List<Composto> lista) {
         Object[][] dados = new Object[lista.size()][5]; //Preenche os objetos para popular a tabela 
         int i = 0;
@@ -44,8 +44,8 @@ public class CompostoController {
         tabela.getColumnModel().getColumn(4).setPreferredWidth(50);
 
     }
-    
-     public void preencherTabelaCompostos(JTable tabela, TableModel tableModel, Object[] colunas, List<Composto> lista) {
+
+    public void preencherTabelaCompostos(JTable tabela, TableModel tableModel, Object[] colunas, List<Composto> lista) {
         Object[][] dados = new Object[lista.size()][6]; //Preenche os objetos para popular a tabela 
         int i = 0;
         for (Composto c : lista) {
@@ -64,7 +64,6 @@ public class CompostoController {
         tabela.getColumnModel().getColumn(5).setPreferredWidth(40);
     }
 
-    
     public void cadastrarComposto(JFrame tela, JTextField txtDescricao, JComboBox cbFornecedor, JTextField txtDataCompra, JTextField txtDataValidade, JTextField txtQuantidade, JTextField txtPrecoCompra, JTextField txtPrecoVenda, JComboBox cbUnidade, JComboBox cbUnidadeVenda) {
         if (txtDescricao.getText().trim().isEmpty() || cbFornecedor.getSelectedItem().toString().trim().isEmpty() || txtDataCompra.getText().equals("  /  /    ") || txtDataValidade.getText().equals("  /  /    ") || txtQuantidade.getText().trim().isEmpty() || txtPrecoCompra.getText().trim().isEmpty() || txtPrecoVenda.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(tela, "Favor preencher todos os itens obrigatórios", "Algo deu errado", JOptionPane.DEFAULT_OPTION);
@@ -115,7 +114,7 @@ public class CompostoController {
             }
         }
     }
-    
+
     public double adicionarCompostoManipulado(JFrame tela, int linhaSelecionada, JTable tabelaCompostos, double total, JLabel txtTotal, List<Composto> listaCompostos, String strquantidade, JComboBox cbUnidadeDesejada) {
 
         int id = (int) tabelaCompostos.getValueAt(linhaSelecionada, 0);
@@ -344,7 +343,7 @@ public class CompostoController {
 
         return total;
     }
-    
+
     public double atualizarEstoque(double aux, Composto composto, JFrame tela, double total, CompostoDao compostoDao, JTable tabelaProdutos, int linhaSelecionada, List<Composto> listaCompostos) {
 
         if (aux >= 0) {
@@ -365,8 +364,8 @@ public class CompostoController {
             return 0;
         }
     }
-    
-     public double removerCompostos(JFrame tela, JTable tabelaManipulacao, int linhaSelecionada, double total, JLabel txtPreco, List<Composto> listaCompostos) {
+
+    public double removerCompostos(JFrame tela, JTable tabelaManipulacao, int linhaSelecionada, double total, JLabel txtPreco, List<Composto> listaCompostos) {
 
         int id = (int) tabelaManipulacao.getValueAt(linhaSelecionada, 0);
 
@@ -447,8 +446,8 @@ public class CompostoController {
 
         return total;
     }
-     
-     public void cancelarManipulacao(List<Composto> listaCompostos) {
+
+    public void cancelarManipulacao(List<Composto> listaCompostos) {
 
         double aux = 0;
 
@@ -484,25 +483,20 @@ public class CompostoController {
 
         }
     }
-     
-       public Produto finalizarManipulacao(JFrame tela, List<Composto> listaCompostos, double total, String nome) {
+
+    public Produto finalizarManipulacao(JFrame tela, List<Composto> listaCompostos, double total, String nome) {
 
         Produto produto = new Produto();
         produto.setDescricao(nome);
 
         produto.setCompostos(listaCompostos);
-        
+
         //CALCULADNO A MÃO DE OBRA
         int tamListComp = 0;
         tamListComp = listaCompostos.size();
 
-        if (tamListComp <= 5) {
-            total = total + (total * 0.10); //até 5 compostos: 10% de mão de obra
-        } else if (tamListComp <= 10) {
-            total = total + (total * 0.15); //de 6 a 10 compostos: 15% de mão de obra
-        } else if (tamListComp > 10) {
-            total = total + (total * 0.20); // mais de 10 compostos: 20% de mão de obra
-        }
+        total = calcularMaoDeObra(total,tamListComp);
+               
         produto.setPrecoVenda(total);
         produto.setQuantidadeEstoque(1);
 
@@ -523,4 +517,17 @@ public class CompostoController {
 
     }
     
+    public double calcularMaoDeObra(double total, int tamListComp){
+        
+        if (tamListComp <= 5) {
+            total = total + (total * 0.10); //até 5 compostos: 10% de mão de obra
+        } else if (tamListComp <= 10) {
+            total = total + (total * 0.15); //de 6 a 10 compostos: 15% de mão de obra
+        } else if (tamListComp > 10) {
+            total = total + (total * 0.20); // mais de 10 compostos: 20% de mão de obra
+        }
+         
+        return total;
+    }
+
 }
