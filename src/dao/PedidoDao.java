@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.Date;
+import java.util.List;
 import model.Pedido;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -24,6 +26,20 @@ public class PedidoDao {
             session.close();
             return retorno;
         }
+    }
+    
+    public List<Pedido> listarRelatorioPedido(Date dataIni, Date dataFim) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String hql = "from Pedido p where p.dataPedido >= :dataIni and p.dataPedido <= :dataFim";
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        transaction = session.beginTransaction();
+        List<Pedido> lista = session.createQuery(hql)
+                .setParameter("dataIni", dataIni)
+                .setParameter("dataFim", dataFim )
+                .list();
+        transaction.commit();
+        return lista;
     }
 
 }

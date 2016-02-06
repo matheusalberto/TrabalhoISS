@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 import model.Produto;
@@ -52,6 +53,66 @@ public class ProdutoDao {
                 .list();
         transaction.commit();
         return lista;
+    }
+    
+    public List<Produto> listarRelatorioCompra(Date dataIni, Date dataFim) {
+
+        String hql = "from Produto p where p.dataCompra >= :dataIni and p.dataCompra <= :dataFim";
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        transaction = session.beginTransaction();
+        List<Produto> lista = session.createQuery(hql)
+                .setParameter("dataIni", dataIni)
+                .setParameter("dataFim", dataFim )
+                .list();
+        transaction.commit();
+        return lista;
+    }
+    
+    public List<Produto> listarRelatorioVencimento(Date dataIni, Date dataFim) {
+
+        String hql = "from Produto p where p.dataValidade >= :dataIni and p.dataValidade <= :dataFim";
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        transaction = session.beginTransaction();
+        List<Produto> lista = session.createQuery(hql)
+                .setParameter("dataIni", dataIni)
+                .setParameter("dataFim", dataFim )
+                .list();
+        transaction.commit();
+        return lista;
+    }
+    
+    public List<Produto> listarParaManipulacao(String descricao) {
+        String hql = "from Produto p where p.descricao like :descricao and p.quantidadeEstoque > 0 and p.unidade <> 'un'";
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        transaction = session.beginTransaction();
+        List lista = session.createQuery(hql)
+                .setParameter("descricao", "%" + descricao + "%")
+                .list();
+        transaction.commit();
+        return lista;
+    }
+    
+    public String atualizarQuantidadeEstoqueManip(int id, double quantidade) {
+        
+        String retorno = null;
+        Produto produto = localizar(id);
+        produto.setQuantidadeEstoque(quantidade);
+        
+        session = HibernateUtil.getSessionFactory().openSession();
+        transaction = session.beginTransaction();
+        try {
+            session.update(produto);
+            transaction.commit();
+            retorno = "SUCESSO";
+        } catch (Exception e) {
+            e.printStackTrace();
+            retorno = "FALHA";
+        } finally {
+            session.close();
+            return retorno;
+        }
     }
 
    

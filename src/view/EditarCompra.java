@@ -47,7 +47,7 @@ public class EditarCompra extends javax.swing.JFrame {
         txtDataCompra = new org.jdesktop.swingx.JXDatePicker();
         jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("EDIÇÃO DE COMPRA");
@@ -94,6 +94,11 @@ public class EditarCompra extends javax.swing.JFrame {
         });
 
         tnCancelar.setText("Cancelar");
+        tnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tnCancelarActionPerformed(evt);
+            }
+        });
 
         txtDataCompra.setEditable(false);
         txtDataCompra.setEnabled(false);
@@ -113,7 +118,6 @@ public class EditarCompra extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(3, 3, 3)))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbFornecedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtDescricao)
@@ -217,6 +221,10 @@ public class EditarCompra extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void tnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_tnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

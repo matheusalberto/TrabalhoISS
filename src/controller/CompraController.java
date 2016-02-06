@@ -36,8 +36,8 @@ import view.CadastrarProduto;
 
 public class CompraController {
     
-        public void desabilitarErros(JLabel labelA, JLabel labelB, JLabel labelC, JLabel labelD, JLabel labelE) {
-        labelA.setVisible(false);
+        public void desabilitarErros(JLabel labelA,JLabel labelB, JLabel labelC, JLabel labelD, JLabel labelE) {
+        labelA.setVisible(true);
         labelB.setVisible(false);
         labelC.setVisible(false);
         labelD.setVisible(false);
@@ -75,7 +75,7 @@ public class CompraController {
     
         public void validarPreco(JFrame tela, Compra compra, JTextField txtPrecoCompra, JLabel txtSemPreco, JLabel txtErro) {
 
-            if (txtPrecoCompra.getText().trim().isEmpty()) {
+            if ((txtPrecoCompra.getText().trim().isEmpty()) || ((Double.parseDouble(txtPrecoCompra.getText()) < 1))) {
                         habilitarErro(txtSemPreco, txtErro);
                     } else {
                         desabilitarErro(txtSemPreco);

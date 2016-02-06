@@ -40,6 +40,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuItemCompra = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
         menuRelatorioProduto = new javax.swing.JMenuItem();
+        menuRelatorioCompra = new javax.swing.JMenuItem();
+        menuRelatorioVenda1 = new javax.swing.JMenuItem();
         menuVenda = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -167,6 +169,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuRelatorio.add(menuRelatorioProduto);
 
+        menuRelatorioCompra.setText("Compra");
+        menuRelatorioCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelatorioCompraActionPerformed(evt);
+            }
+        });
+        menuRelatorio.add(menuRelatorioCompra);
+
+        menuRelatorioVenda1.setText("Venda");
+        menuRelatorioVenda1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelatorioVenda1ActionPerformed(evt);
+            }
+        });
+        menuRelatorio.add(menuRelatorioVenda1);
+
         jMenuBar1.add(menuRelatorio);
 
         menuVenda.setText("Vendas");
@@ -291,6 +309,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         relatorioProduto.setVisible(true);
     }//GEN-LAST:event_menuRelatorioProdutoActionPerformed
 
+    private void menuRelatorioCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelatorioCompraActionPerformed
+        RelatorioCompra relatorioCompra = new RelatorioCompra();
+        relatorioCompra.setVisible(true);
+    }//GEN-LAST:event_menuRelatorioCompraActionPerformed
+
+    private void menuRelatorioVenda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelatorioVenda1ActionPerformed
+        RelatorioVenda relatorioVenda = new RelatorioVenda();
+        relatorioVenda.setVisible(true);
+    }//GEN-LAST:event_menuRelatorioVenda1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManipularComp;
@@ -313,7 +341,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemFuncionario;
     private javax.swing.JMenuItem menuItemProduto;
     private javax.swing.JMenu menuRelatorio;
+    private javax.swing.JMenuItem menuRelatorioCompra;
     private javax.swing.JMenuItem menuRelatorioProduto;
+    private javax.swing.JMenuItem menuRelatorioVenda1;
     private javax.swing.JMenu menuVenda;
     private javax.swing.JLabel txtFuncionarioAutenticado;
     private javax.swing.JLabel txtId;
