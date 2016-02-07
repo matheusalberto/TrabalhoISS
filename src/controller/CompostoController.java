@@ -6,12 +6,14 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -139,140 +141,7 @@ public class CompostoController {
         composto.setQuantidadeSelecionada(quantAux);
 
         double aux = 0;
-        //   CALCULANDO O PREÇO  
-        if (composto.getUnidadeVenda().equals("g")) {
-
-            if (unidadeDesejada.equals("g")) {
-
-                aux = preco * quantidade;
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-
-            } else if (unidadeDesejada.equals("mg")) {
-
-                aux = preco * (quantidade / 1000);
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-
-            } else if (unidadeDesejada.equals("Kg")) {
-
-                aux = preco * (quantidade * 1000);
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-
-            } else {
-                JOptionPane.showMessageDialog(tela, "Favor informar uma unidade válida", "Unidade Inválida", JOptionPane.DEFAULT_OPTION);
-            }
-
-        } else if (composto.getUnidadeVenda().equals("mg")) {
-
-            if (unidadeDesejada.equals("mg")) {
-                aux = preco * quantidade;
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-
-            } else if (unidadeDesejada.equals("g")) {
-                aux = preco * (quantidade * 1000);
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-
-            } else if (unidadeDesejada.equals("Kg")) {
-                aux = preco * (quantidade * 1000000);
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-            } else {
-                JOptionPane.showMessageDialog(tela, "Favor informar uma unidade válida", "Unidade Inválida", JOptionPane.DEFAULT_OPTION);
-            }
-
-        } else if (composto.getUnidadeVenda().equals("Kg")) {
-
-            if (unidadeDesejada.equals("Kg")) {
-                aux = preco * quantidade;
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-            } else if (unidadeDesejada.equals("g")) {
-                aux = preco * (quantidade / 1000);
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-            } else if (unidadeDesejada.equals("mg")) {
-                aux = preco * (quantidade / 1000000);
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-            } else {
-                JOptionPane.showMessageDialog(tela, "Favor informar uma unidade válida", "Unidade Inválida", JOptionPane.DEFAULT_OPTION);
-            }
-        } else if (composto.getUnidadeVenda().equals("l")) {
-
-            if (unidadeDesejada.equals("l")) {
-                aux = preco * quantidade;
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-            } else if (unidadeDesejada.equals("ml")) {
-
-                aux = preco * (quantidade / 1000);
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-
-            } else {
-                JOptionPane.showMessageDialog(tela, "Favor informar uma unidade válida", "Unidade Inválida", JOptionPane.DEFAULT_OPTION);
-            }
-
-        } else if (composto.getUnidadeVenda().equals("ml")) {
-
-            if (unidadeDesejada.equals("ml")) {
-                aux = preco * quantidade;
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-
-            } else if (unidadeDesejada.equals("l")) {
-
-                aux = preco * (quantidade * 1000);
-                total = Double.sum(total, aux);
-                total = total * 100;
-                total = Math.round(total);
-                total = total / 100;
-                txtTotal.setText(nf.format(total));
-
-            } else {
-                JOptionPane.showMessageDialog(tela, "Favor informar uma unidade válida", "Unidade Inválida", JOptionPane.DEFAULT_OPTION);
-            }
-        }
+        double flag = 0;
 
         //   ATUALIZANDO O ESTOQUE
         if (composto.getUnidade().equals("Kg")) {
@@ -281,14 +150,14 @@ public class CompostoController {
 
                 aux = composto.getQuantidadeEstoque() - quantidade;
 
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
 
             } else if (unidadeDesejada.equals("g")) {
                 aux = composto.getQuantidadeEstoque() - (quantidade / 1000);
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
             } else if (unidadeDesejada.equals("mg")) {
                 aux = composto.getQuantidadeEstoque() - (quantidade / 1000000);
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
             }
 
         } else if (composto.getUnidade().equals("g")) {
@@ -296,14 +165,14 @@ public class CompostoController {
             if (unidadeDesejada.equals("Kg")) {
 
                 aux = composto.getQuantidadeEstoque() - (quantidade * 1000);
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
 
             } else if (unidadeDesejada.equals("g")) {
                 aux = composto.getQuantidadeEstoque() - quantidade;
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
             } else if (unidadeDesejada.equals("mg")) {
                 aux = composto.getQuantidadeEstoque() - (quantidade / 1000);
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
             }
 
         } else if (composto.getUnidade().equals("mg")) {
@@ -311,33 +180,170 @@ public class CompostoController {
             if (unidadeDesejada.equals("Kg")) {
 
                 aux = composto.getQuantidadeEstoque() - (quantidade * 1000000);
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
             } else if (unidadeDesejada.equals("g")) {
                 aux = composto.getQuantidadeEstoque() - (quantidade * 1000);
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
             } else if (unidadeDesejada.equals("mg")) {
                 aux = composto.getQuantidadeEstoque() - quantidade;
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
             }
 
         } else if (composto.getUnidade().equals("l")) {
 
             if (unidadeDesejada.equals("l")) {
                 aux = composto.getQuantidadeEstoque() - quantidade;
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
             } else if (unidadeDesejada.equals("ml")) {
                 aux = composto.getQuantidadeEstoque() - (quantidade / 1000);
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
             }
 
         } else if (composto.getUnidade().equals("ml")) {
 
             if (unidadeDesejada.equals("l")) {
                 aux = composto.getQuantidadeEstoque() - (quantidade * 1000);
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
             } else if (unidadeDesejada.equals("ml")) {
                 aux = composto.getQuantidadeEstoque() - quantidade;
-                atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+                flag = atualizarEstoque(aux, composto, tela, total, compostoDao, tabelaCompostos, linhaSelecionada, listaCompostos);
+            }
+        }
+
+        if (flag != -1) {
+            //   CALCULANDO O PREÇO  
+            if (composto.getUnidadeVenda().equals("g")) {
+
+                if (unidadeDesejada.equals("g")) {
+
+                    aux = preco * quantidade;
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+
+                } else if (unidadeDesejada.equals("mg")) {
+
+                    aux = preco * (quantidade / 1000);
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+
+                } else if (unidadeDesejada.equals("Kg")) {
+
+                    aux = preco * (quantidade * 1000);
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+
+                } else {
+                    JOptionPane.showMessageDialog(tela, "Favor informar uma unidade válida", "Unidade Inválida", JOptionPane.DEFAULT_OPTION);
+                }
+
+            } else if (composto.getUnidadeVenda().equals("mg")) {
+
+                if (unidadeDesejada.equals("mg")) {
+                    aux = preco * quantidade;
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+
+                } else if (unidadeDesejada.equals("g")) {
+                    aux = preco * (quantidade * 1000);
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+
+                } else if (unidadeDesejada.equals("Kg")) {
+                    aux = preco * (quantidade * 1000000);
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+                } else {
+                    JOptionPane.showMessageDialog(tela, "Favor informar uma unidade válida", "Unidade Inválida", JOptionPane.DEFAULT_OPTION);
+                }
+
+            } else if (composto.getUnidadeVenda().equals("Kg")) {
+
+                if (unidadeDesejada.equals("Kg")) {
+                    aux = preco * quantidade;
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+                } else if (unidadeDesejada.equals("g")) {
+                    aux = preco * (quantidade / 1000);
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+                } else if (unidadeDesejada.equals("mg")) {
+                    aux = preco * (quantidade / 1000000);
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+                } else {
+                    JOptionPane.showMessageDialog(tela, "Favor informar uma unidade válida", "Unidade Inválida", JOptionPane.DEFAULT_OPTION);
+                }
+            } else if (composto.getUnidadeVenda().equals("l")) {
+
+                if (unidadeDesejada.equals("l")) {
+                    aux = preco * quantidade;
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+                } else if (unidadeDesejada.equals("ml")) {
+
+                    aux = preco * (quantidade / 1000);
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+
+                } else {
+                    JOptionPane.showMessageDialog(tela, "Favor informar uma unidade válida", "Unidade Inválida", JOptionPane.DEFAULT_OPTION);
+                }
+
+            } else if (composto.getUnidadeVenda().equals("ml")) {
+
+                if (unidadeDesejada.equals("ml")) {
+                    aux = preco * quantidade;
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+
+                } else if (unidadeDesejada.equals("l")) {
+
+                    aux = preco * (quantidade * 1000);
+                    total = Double.sum(total, aux);
+                    total = total * 100;
+                    total = Math.round(total);
+                    total = total / 100;
+                    txtTotal.setText(nf.format(total));
+
+                } else {
+                    JOptionPane.showMessageDialog(tela, "Favor informar uma unidade válida", "Unidade Inválida", JOptionPane.DEFAULT_OPTION);
+                }
             }
         }
 
@@ -361,7 +367,7 @@ public class CompostoController {
 
         } else {
             JOptionPane.showMessageDialog(tela, "Quantidade insuficiente em estoque.", "ERRO", JOptionPane.DEFAULT_OPTION);
-            return 0;
+            return -1;
         }
     }
 
@@ -484,19 +490,34 @@ public class CompostoController {
         }
     }
 
-    public Produto finalizarManipulacao(JFrame tela, List<Composto> listaCompostos, double total, String nome) {
+    public Produto finalizarManipulacao(JFrame tela, List<Composto> listaCompostos, double total, String nome, String dataValidade) {
 
         Produto produto = new Produto();
         produto.setDescricao(nome);
 
-        produto.setCompostos(listaCompostos);
+        //formatando a data de validade
+        Calendar d1 = Calendar.getInstance();
+        DateFormat f1 = DateFormat.getDateInstance();
+        Date dataCorretaValidade = null;
+        try {
+            dataCorretaValidade = f1.parse(dataValidade);
+        } catch (ParseException ex) {
+            Logger.getLogger(ProdutoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        produto.setDataValidade(dataCorretaValidade);
 
+        produto.setCompostos(listaCompostos);
+        
+        DateFormat dataFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
+        Date dataManipuacao = new Date(); //data de compra é a data que esta sendo manipulado
+        produto.setDataCompra(dataManipuacao);
+        
         //CALCULADNO A MÃO DE OBRA
         int tamListComp = 0;
         tamListComp = listaCompostos.size();
 
-        total = calcularMaoDeObra(total,tamListComp);
-               
+        total = calcularMaoDeObra(total, tamListComp);
+
         produto.setPrecoVenda(total);
         produto.setQuantidadeEstoque(1);
 
@@ -516,9 +537,9 @@ public class CompostoController {
         return produto;
 
     }
-    
-    public double calcularMaoDeObra(double total, int tamListComp){
-        
+
+    public double calcularMaoDeObra(double total, int tamListComp) {
+
         if (tamListComp <= 5) {
             total = total + (total * 0.10); //até 5 compostos: 10% de mão de obra
         } else if (tamListComp <= 10) {
@@ -526,7 +547,7 @@ public class CompostoController {
         } else if (tamListComp > 10) {
             total = total + (total * 0.20); // mais de 10 compostos: 20% de mão de obra
         }
-         
+
         return total;
     }
 
