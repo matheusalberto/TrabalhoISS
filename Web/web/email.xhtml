@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Envio de E-mail</title>
+    </h:head>
+    <h:body>
+        <div id="page">
+            <div id="header" style="border-top: none; height: 180px; width: 100%; background-color: sandybrown">
+                <h1 align="center">
+                    Texto Para Envio de Email   </h1>
+            </div>
+            <div id="content">
+                <center>
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            Assunto: <h:inputText id="assuntoEmail" value="#{textoBean.texto.assunto}"/>
+                            Texto: <h:inputText style="width: 400px; height: 150px" id="textoEmail" value="#{textoBean.texto.texto}"/>
+                            <h:inputHidden/>
+                            <h:commandButton value="Cadastrar" action="#{textoBean.enviar}"/>
+                        </h:panelGrid>
+                    </h:form>
+                </center>
+            </div>
+            <div id="footer">
+            </div>
+        </div>
+    </h:body>
+</html>
+
