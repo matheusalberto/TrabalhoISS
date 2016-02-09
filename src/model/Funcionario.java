@@ -140,5 +140,9 @@ public class Funcionario implements Serializable {
     public Object[] toArray() {
         return new Object[]{id, nome, email, telefone, dataContratacao};
     }
+    
+    public Object[] toArrayTeste() {
+        return new Object[]{id, nome, email, telefone};
+    }
 
 }

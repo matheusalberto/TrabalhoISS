@@ -6,7 +6,6 @@
 package controller;
 
 import dao.PagamentoDao;
-import dao.PedidoDao;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
@@ -21,7 +20,6 @@ import model.Cliente;
 import model.Pagamento;
 import model.Pedido;
 import model.Produto;
-import sun.misc.FloatingDecimal;
 import util.PagamentoPdf;
 
 
