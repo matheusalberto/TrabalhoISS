@@ -39,7 +39,7 @@ public class BuscaComposto extends javax.swing.JFrame {
         btnRemover = new javax.swing.JButton();
         txtBusca = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Digite a descrição do composto:");
 
