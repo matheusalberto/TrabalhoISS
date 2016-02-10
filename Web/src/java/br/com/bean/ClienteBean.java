@@ -21,6 +21,10 @@ public class ClienteBean {
     public String email(){
         return "email";
     }
+    
+    public String help(){
+        return "help";
+    }
 
     public String cadastrar() {
         FacesContext ctx = FacesContext.getCurrentInstance();
