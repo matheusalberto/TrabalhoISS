@@ -37,6 +37,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuItemFornecedor = new javax.swing.JMenuItem();
         menuItemFuncionario = new javax.swing.JMenuItem();
         menuItemProduto = new javax.swing.JMenuItem();
+        Composto = new javax.swing.JMenuItem();
         menuItemCompra = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
         menuRelatorioProduto = new javax.swing.JMenuItem();
@@ -148,6 +149,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         menuConsulta.add(menuItemProduto);
+
+        Composto.setText("Composto");
+        Composto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CompostoActionPerformed(evt);
+            }
+        });
+        menuConsulta.add(Composto);
 
         menuItemCompra.setText("Compra");
         menuItemCompra.addActionListener(new java.awt.event.ActionListener() {
@@ -319,8 +328,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         relatorioVenda.setVisible(true);
     }//GEN-LAST:event_menuRelatorioVenda1ActionPerformed
 
+    private void CompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompostoActionPerformed
+        BuscaComposto buscaComposto = new BuscaComposto();
+        buscaComposto.setVisible(true);
+    }//GEN-LAST:event_CompostoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Composto;
     private javax.swing.JButton btnManipularComp;
     private javax.swing.JButton btnPedido;
     private javax.swing.JLabel jLabel1;

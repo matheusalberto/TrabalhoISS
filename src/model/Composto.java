@@ -35,6 +35,7 @@ public class Composto implements Serializable {
     private double quantidadeSelecionada;
     @ManyToMany(mappedBy = "compostos")
     private List<Produto> produtos;
+    private int excluido;
 
     public Integer getId() {
         return id;
@@ -131,6 +132,14 @@ public class Composto implements Serializable {
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
     }   
+
+    public int getExcluido() {
+        return excluido;
+    }
+
+    public void setExcluido(int excluido) {
+        this.excluido = excluido;
+    }
     
     public Object[] toArraySelecComp() {
         return  new Object[]{id,descricao, precoVenda,unidadeVenda,quantidadeEstoque,unidade};

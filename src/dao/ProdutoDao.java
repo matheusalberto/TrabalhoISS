@@ -33,7 +33,7 @@ public class ProdutoDao {
 
     public List<Produto> listar(String descricao) {
 
-        String hql = "from Produto p where p.descricao like :descricao";
+        String hql = "from Produto p where p.descricao like :descricao and excluido = 0";
 
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         transaction = session.beginTransaction();

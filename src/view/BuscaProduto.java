@@ -160,7 +160,8 @@ public class BuscaProduto extends javax.swing.JFrame {
 
             int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente remover este produto?", "Confirmação", JOptionPane.YES_OPTION);
             if (JOptionPane.YES_OPTION == opcao) {
-                if (dao.remover(produto).equals("SUCESSO")) {
+                produto.setExcluido(1);
+                if (dao.atualizar(produto).equals("SUCESSO")) {
                     controller.preencherTabela(dao.listar(produtos), tableModelProduto, tabelaProdutos);
                     JOptionPane.showMessageDialog(this, "Produto removido com sucesso.", "Sucesso", JOptionPane.DEFAULT_OPTION);
                 } else {

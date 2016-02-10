@@ -1,14 +1,17 @@
 package controller;
 
 import dao.CompostoDao;
+import dao.FornecedorDao;
 import dao.ProdutoDao;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +25,86 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import model.Composto;
+import model.Fornecedor;
 import model.Produto;
+import view.CadastrarProduto;
 
 public class CompostoController {
 
     private final NumberFormat nf = new DecimalFormat("###,##0.00");
+    
+    
+    public Composto preencheComposto(int id, String descricao, String fornecedor, String dataCompra, String dataValidade, String quantidade, String precoCompra, String precoVenda, String unidade, String unidadeVenda) {
+
+        Date dataCorreta1 = null;
+        Date dataCorreta2 = null;
+
+        try {
+            Calendar d = Calendar.getInstance();
+            DateFormat f = DateFormat.getDateInstance();
+            String data1, data2;
+            data1 = dataCompra;
+            data2 = dataValidade;
+
+            dataCorreta1 = f.parse(data1);
+            dataCorreta2 = f.parse(data2);
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Composto composto = new Composto();
+        composto.setId(id);
+        composto.setDescricao(descricao);
+        composto.setFornecedor(fornecedor);
+        composto.setDataCompra(dataCorreta1);
+        composto.setDataValidade(dataCorreta2);
+        composto.setQuantidadeEstoque(Double.parseDouble(quantidade));
+        composto.setPrecoCompra(Double.parseDouble(precoCompra));
+        composto.setPrecoVenda(Double.parseDouble(precoVenda));
+        composto.setUnidade(unidade);
+        composto.setUnidadeVenda(unidadeVenda);
+        return composto;
+    }
+
+    
+     public void preencheCampos(JTextField txtDescricao, JTextField txtDataCompra, JTextField txtDataValidade, JTextField txtQuantidade, JTextField txtPrecoCompra, JTextField txtPrecoVenda, Composto composto) throws ParseException {
+        
+        txtDescricao.setText(composto.getDescricao());
+
+        String dia, mes, ano;
+        GregorianCalendar calendarCompra = new GregorianCalendar();
+        calendarCompra.setTime(composto.getDataCompra());
+        dia = String.valueOf(calendarCompra.get(GregorianCalendar.DAY_OF_MONTH));
+        mes = String.valueOf(calendarCompra.get(GregorianCalendar.MONTH));
+        ano = String.valueOf(calendarCompra.get(GregorianCalendar.YEAR));
+        txtDataCompra.setText(dia + "/" + mes + "/" + ano);
+
+        calendarCompra.setTime(composto.getDataValidade());
+        dia = String.valueOf(calendarCompra.get(GregorianCalendar.DAY_OF_MONTH));
+        mes = String.valueOf(calendarCompra.get(GregorianCalendar.MONTH));
+        ano = String.valueOf(calendarCompra.get(GregorianCalendar.YEAR));
+        txtDataValidade.setText(dia + "/" + mes + "/" + ano);
+
+        txtQuantidade.setText(String.valueOf(composto.getQuantidadeEstoque()));
+        txtPrecoCompra.setText(String.valueOf(composto.getPrecoCompra()));
+        txtPrecoVenda.setText(String.valueOf(composto.getPrecoVenda()));
+
+    }
+     
+     public void preencherComboBoFornecedorEditar(JComboBox cbFornecedor, Composto composto) {
+        //LISTANDO NO COMBO BOX
+
+        List<Fornecedor> list = new FornecedorDao().listar(""); //PEGO TODOS OS FORNECEDORES CADASTRADOS
+        List<String> nomes = new ArrayList<>();
+        for (Fornecedor list1 : list) {
+            nomes.add(list1.getNome()); //PEGO APENAS OS NOMES DOS FORNECEDORES
+        }
+        for (String nome : nomes) {
+            cbFornecedor.addItem(nome.toString()); //ADICIONO ELES NO COMBO BOX
+
+        }
+        cbFornecedor.setSelectedItem(composto.getFornecedor());
+    }
 
     public void preencherTabelaManipulacao(JTable tabela, TableModel tableModel, Object[] colunas, List<Composto> lista) {
         Object[][] dados = new Object[lista.size()][5]; //Preenche os objetos para popular a tabela 
@@ -105,7 +183,8 @@ public class CompostoController {
             composto.setPrecoVenda(Double.parseDouble(txtPrecoVenda.getText()));
             composto.setUnidade(cbUnidade.getSelectedItem().toString());
             composto.setUnidadeVenda(cbUnidadeVenda.getSelectedItem().toString());
-
+            composto.setExcluido(0);
+            
             CompostoDao compostoDao = new CompostoDao();
             if (compostoDao.salvar(composto).equals("SUCESSO")) {
 
@@ -493,7 +572,8 @@ public class CompostoController {
 
         produto.setPrecoVenda(total);
         produto.setQuantidadeEstoque(1);
-
+        produto.setExcluido(0);
+        
         ProdutoDao produtoDao = new ProdutoDao();
         String salvar = produtoDao.salvar(produto);
 

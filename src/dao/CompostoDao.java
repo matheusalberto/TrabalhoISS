@@ -1,6 +1,8 @@
 package dao;
 
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Composto;
 import org.hibernate.Session;
 import model.Produto;
@@ -32,7 +34,7 @@ public class CompostoDao {
     }
 
     public List<Composto> listarParaManipulacao(String descricao) {
-        String hql = "from Composto c where c.descricao like :descricao and c.quantidadeEstoque > 0";
+        String hql = "from Composto c where c.descricao like :descricao and c.quantidadeEstoque > 0 and c.excluido = 0";
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         transaction = session.beginTransaction();
         List lista = session.createQuery(hql)
@@ -80,7 +82,8 @@ public class CompostoDao {
         }
     }
 
-    public String remover(Composto composto) {
+    public String remover(Composto composto,JFrame tela) {
+        
         String retorno;
         session = HibernateUtil.getSessionFactory().openSession();
         transaction = session.beginTransaction();
@@ -88,6 +91,8 @@ public class CompostoDao {
             session.delete(composto);
             transaction.commit();
             retorno = "SUCESSO";
+            JOptionPane.showMessageDialog(tela, ("DELETEI" + retorno), "AQUI", JOptionPane.DEFAULT_OPTION);
+           
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

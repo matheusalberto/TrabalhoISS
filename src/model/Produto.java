@@ -43,7 +43,7 @@ public class Produto implements Serializable {
             joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "composto_id"))
     private List<Composto> compostos;
-    
+    private int excluido;
     
     
     public Integer getId() {
@@ -141,6 +141,14 @@ public class Produto implements Serializable {
     public void setQuantidadeSelecionada(double quantidadeSelecionada) {
         this.quantidadeSelecionada = quantidadeSelecionada;
     } 
+
+    public int getExcluido() {
+        return excluido;
+    }
+
+    public void setExcluido(int excluido) {
+        this.excluido = excluido;
+    }
     
     public Object[] toArrayPagamento(){
         return new Object[]{id, descricao, precoVenda};

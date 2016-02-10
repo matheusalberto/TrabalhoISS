@@ -166,7 +166,8 @@ public class ProdutoController {
             produto.setPrecoVenda(Double.parseDouble(txtPrecoVenda.getText()));
             produto.setUnidade(cbUnidade.getSelectedItem().toString());
             produto.setUnidadeVenda(cbUnidadeVenda.getSelectedItem().toString());
-
+            produto.setExcluido(0);
+            
             ProdutoDao ProdutoDao = new ProdutoDao();
             if (ProdutoDao.salvar(produto).equals("SUCESSO")) {
 
