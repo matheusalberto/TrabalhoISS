@@ -203,8 +203,8 @@ public class CompostoController {
         CompostoDao compostoDao = new CompostoDao();
         Composto composto = compostoDao.localizar(id);
 
-        double quantidade = Integer.parseInt(strquantidade);
-        double quantAux = Integer.parseInt(strquantidade);
+        double quantidade = Double.parseDouble(strquantidade);
+        double quantAux = Double.parseDouble(strquantidade);
         double preco = composto.getPrecoVenda();
         String unidadeDesejada = cbUnidadeDesejada.getSelectedItem().toString();
 
